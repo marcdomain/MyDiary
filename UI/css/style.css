@@ -64,7 +64,6 @@ nav a:hover{
     position: fixed;
     top: 0;
     overflow-x: hidden;
-    padding-top: 20px;
 }
 .intro {
     left: 0;
@@ -79,4 +78,5 @@ nav a:hover{
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    color: #ffffff;
 }
