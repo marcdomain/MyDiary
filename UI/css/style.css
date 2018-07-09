@@ -28,6 +28,10 @@ header .logo{
     text-decoration: none;
     color: #fafafa;
 }
+.logo a:hover{
+    text-decoration: none;
+    font-weight: bold;
+}
 header nav{
     overflow: hidden;
     float: right;
@@ -38,4 +42,15 @@ ul{
 }
 nav li{
     float: left;
+}
+nav a{
+    color: white;
+    text-decoration: none;
+    padding: 8px 3px;
+    margin-left: 15px;
+    display: inline-block;
+}
+nav a:hover{
+    border: #cccccc 1px solid;
+    border-radius: 3px;
 }
