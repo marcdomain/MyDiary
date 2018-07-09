@@ -15,14 +15,14 @@ body{
 header{
     height: 60px;
     background: #000000;
-    color:white;
+    color:#fff;
 }
 header .logo{
     float: left;
     line-height: 60px;
     font-size: 2em;
     letter-spacing: 5px;
-    padding: 10px;
+    padding: 5px;
 }
 .logo a{
     text-decoration: none;
@@ -44,7 +44,7 @@ nav li{
     float: left;
 }
 nav a{
-    color: white;
+    color: #fff;
     text-decoration: none;
     padding: 8px 3px;
     margin-left: 15px;
@@ -55,7 +55,6 @@ nav a:hover{
     border-radius: 3px;
 }
 .container{
-    max-width: 1000px;
     margin: 0 auto;
 }
 .split {
@@ -79,4 +78,10 @@ nav a:hover{
     transform: translate(-50%, -50%);
     text-align: center;
     color: #ffffff;
+}
+.quote-div {
+    background: rgba(1, 2, 4, 0.51);
+    height: 200px;
+    padding: 5%;
+    border-radius: 10px;
 }
