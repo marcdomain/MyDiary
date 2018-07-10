@@ -18,4 +18,4 @@ const userAuthForms = () => {
     signup.addEventListener("click", switchForm);
     signin.addEventListener("click", switchForm);
 };
-window.onload = userAuthForms();
+window.load = userAuthForms();
