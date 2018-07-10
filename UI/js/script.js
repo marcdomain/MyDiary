@@ -1,4 +1,5 @@
-let quotes = [
+
+const quotes = [
     {
         quote: `The palest ink is better than the best memory. <br><br> ~~ "<em>Chinese Proverb</em>"`
     },
@@ -12,12 +13,12 @@ let quotes = [
     }
 ];
 
-let winload = () =>{
+const winload = () =>{
     quotes.map((v, i, arr) => {
         document.querySelector('#quotes').innerHTML = arr[Math.floor(Math.random()*arr.length)].quote;
     });
 }
-let introQuote = () =>{
+const introQuote = () =>{
     quotes.map((v, i, arr) => {
         setInterval(function(){
             document.querySelector('#quotes').innerHTML = arr[Math.floor(Math.random()*arr.length)].quote;

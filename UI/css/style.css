@@ -97,6 +97,7 @@ nav a:hover{
     width: 500px;
     margin: 0;
     box-sizing: border-box;
+    display: none;
 }
 form label{
   padding:10px;
