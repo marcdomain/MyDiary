@@ -1,5 +1,5 @@
 
-const userForms = () => {
+const userAuthForms = () => {
     const authForm = document.querySelectorAll(".auth-form");
     authForm[0].style.display = 'block';
 
@@ -18,4 +18,4 @@ const userForms = () => {
     signup.addEventListener("click", switchForm);
     signin.addEventListener("click", switchForm);
 };
-window.onload = userForms();
+window.onload = userAuthForms();
