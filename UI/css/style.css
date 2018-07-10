@@ -1,3 +1,6 @@
+html{
+    height: 100%;
+}
 body{
     margin: 0;
     padding: 0;
@@ -24,12 +27,14 @@ header .logo{
     letter-spacing: 5px;
     padding: 5px;
 }
-.logo a{
+a{
+    cursor: pointer;
     text-decoration: none;
-    color: #fafafa;
+}
+.logo a{
+    color: #fff;
 }
 .logo a:hover{
-    text-decoration: none;
     font-weight: bold;
 }
 header nav{
@@ -45,14 +50,13 @@ nav li{
 }
 nav a{
     color: #fff;
-    text-decoration: none;
-    padding: 8px 3px;
+    padding: 8px 5px;
     margin-left: 15px;
     display: inline-block;
 }
 nav a:hover{
-    border: #cccccc 1px solid;
     border-radius: 3px;
+    background:  #2b2a2a;
 }
 .container{
     margin: 0 auto;
@@ -61,9 +65,9 @@ nav a:hover{
     height: 100%;
     width: 50%;
     position: fixed;
-    top: 0;
     overflow-x: hidden;
 }
+
 .intro {
     left: 0;
 }
@@ -71,6 +75,7 @@ nav a:hover{
 .auth {
     right: 0;
 }
+
 .centered {
     position: absolute;
     top: 50%;
