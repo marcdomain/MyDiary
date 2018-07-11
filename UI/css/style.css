@@ -4,9 +4,8 @@ html{
 body{
     margin: 0;
     padding: 0;
-    background-image: url('../img/md-bg.jpg');
-    background-repeat: repeat-x;
-    background-size: cover;
+    background-image: url('../img/body-bg.jpg');
+    background-repeat: repeat;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
@@ -18,7 +17,7 @@ body{
 
 header{
     height: 60px;
-    background: #000000;
+    background: #000;
     color:#fff;
 }
 header .logo{
@@ -60,7 +59,11 @@ nav a:hover{
     background:  #2b2a2a;
 }
 .container{
-    margin: 0 auto;
+    margin: 5% auto;
+    text-align: center
+}
+.welcome{
+    color: #fff
 }
 .split {
     height: 100%;
@@ -79,17 +82,15 @@ nav a:hover{
 
 .centered {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: #ffffff;
 }
 .quote-div {
-    background: rgba(1, 2, 4, 0.51);
     height: 200px;
     padding: 5%;
-    border-radius: 10px;
 }
 .auth-form{
     border-radius: 10px;
@@ -135,7 +136,7 @@ form input[type="submit"]:hover{
     font-weight: bold;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 	header .logo{
         font-size: 1.5em;
     }
@@ -143,7 +144,7 @@ form input[type="submit"]:hover{
         width: 100%;
         position: absolute;
         overflow: hidden;
-        height: 1000px;
+        height: 900px;
     }
     .centered{
         top: auto;
@@ -157,7 +158,7 @@ form input[type="submit"]:hover{
         width: 90%;
     }
     div#auth{
-        top: 50%;
+        top: 30%;
         width: 90%;
     }
     .auth-form{
