@@ -155,4 +155,8 @@ form input[type="submit"]:hover{
         top: 5%;
         width: 90%;
     }
+    div#auth{
+        top: 50%;
+        width: 90%;
+    }
 }
