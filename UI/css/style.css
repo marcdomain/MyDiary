@@ -151,4 +151,8 @@ form input[type="submit"]:hover{
         text-align: center;
         margin-left: 5%;
     }
+    div#intro{
+        top: 5%;
+        width: 90%;
+    }
 }
