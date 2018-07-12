@@ -225,9 +225,6 @@ form input[type="submit"]:hover, .entry-time input:hover {
     .card {
         flex: 0 1 calc(25% - 1em);
     }
-    .add-entry-form{
-        padding: 0
-    }
 }
 @media (max-width: 1024px) {
 	header .logo{
