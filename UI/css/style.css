@@ -201,7 +201,7 @@ form input[type="submit"]:hover, .entry-time input:hover {
         flex: 0 1 calc(50% - 1em);
     }
 }
-@media screen and (min-width: 60em) {
+@media screen and (min-width: 70em) {
     .card {
         flex: 0 1 calc(25% - 1em);
     }
