@@ -6,11 +6,10 @@ body{
     padding: 0;
     background-image: url('../img/body-bg.jpg');
     background-repeat: repeat;
-    font-family: Comfortaa;
     font-size: 18px;
+    font-family: 'Patua One', serif;
 }
 h1, h2, h3 {
-    font-family: 'Patua One', serif;
     letter-spacing: 2px;
     color: #fff;
 }
@@ -123,13 +122,13 @@ form input, textarea{
     margin-bottom: 15px;
     box-sizing: border-box;
 }
-form textarea{
+textarea{
     min-height: 200px;
 }
 input::placeholder{
     text-align: center;
 }
-form input:focus{
+form input:focus, textarea:focus {
     border-radius: 5px;
     border: 1px solid lime;
     outline:none ;
@@ -153,7 +152,7 @@ form input[type="submit"]:hover, .entry-time input:hover {
     border-radius: 10px;
     background: rgba(1, 2, 4, 0.51);
     padding: 30px;
-    width: 600px;
+    width: 80%;
     margin: 0;
     box-sizing: border-box;
     display: inline-block;
