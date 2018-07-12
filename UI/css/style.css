@@ -211,6 +211,18 @@ form input[type="submit"]:hover, .entry-time input:hover {
     padding: 3px;
     cursor: pointer;
 }
+.profile-pics {
+    border: 1px solid #fff;
+    border-radius: 45%;
+    padding: 20%
+}
+div#userData {
+    width: 60%
+}
+div.userData > ul > li {
+    text-align: left;
+    margin-left: 28%;
+}
 @media screen and (min-width: 40em) {
     .all-entries {
         display: flex;
