@@ -228,18 +228,26 @@ div#count {
 }
 .entry-count {
     display: flex;
-    flex-wrap: wrap;
     background: rgba(1, 2, 4, 0.51);
     width: 100%;
 }
-.entry-count > div {
-    background-color: #2b2a2a;
-    width: 40%;
-    margin: 10px;
-    text-align: center;
-    line-height: 75px;
-    font-size: 18px;
+.entries {
+    width: 80%;
 }
+.count {
+    background: rgba(1, 2, 4, 0.51);
+    height: 70px;
+    width: 95px;
+}
+.reminder {
+    height: 200px;
+    background: rgba(1, 2, 4, 0.51);
+}
+.settings > h2 {
+    background: rgba(1, 2, 4, 0.51);
+    padding: 20px
+}
+
 @media screen and (min-width: 40em) {
     .all-entries {
         display: flex;
@@ -289,6 +297,14 @@ div#count {
     }
     .dropdown-content {
         left: 88%;
+    }
+    div#count{
+        top: 5%;
+        width: 90%;
+    }
+    div#userData{
+        top: 30%;
+        width: 90%;
     }
 }
 @media (max-width: 768px) {
