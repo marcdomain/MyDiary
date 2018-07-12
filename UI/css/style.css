@@ -230,6 +230,11 @@ form input[type="submit"]:hover{
         left: 85%;
     }
 }
+@media (max-width: 640px) {
+    h2.entry-title {
+        padding-top: 20px;
+    }
+}
 @media (max-width: 414px) {
     .dropdown-content {
         left: 71%;
