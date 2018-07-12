@@ -247,7 +247,20 @@ div#count {
     background: rgba(1, 2, 4, 0.51);
     padding: 20px
 }
-
+span.create {
+    background: green;
+    border-radius: 5px;
+    padding: 3px;
+    font-weight: bolder;
+    margin-left: 28px
+}
+span.cancel {
+    background: red;
+    border-radius: 5px;
+    padding: 3px;
+    font-weight: bolder;
+    margin-left: 50px
+}
 @media screen and (min-width: 40em) {
     .all-entries {
         display: flex;
@@ -299,11 +312,11 @@ div#count {
         left: 88%;
     }
     div#count{
-        top: 5%;
+        top: 0%;
         width: 90%;
     }
     div#userData{
-        top: 30%;
+        top: 35%;
         width: 90%;
     }
 }
