@@ -184,7 +184,7 @@ form input[type="submit"]:hover, .entry-time input:hover {
     padding: .5em;
 }
 .entry-time span#time {
-    margin-right: 4em;
+    margin-right: 3em;
 }
 .entry-time input {
     border-radius: 3px;
