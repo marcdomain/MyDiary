@@ -62,12 +62,15 @@ nav a:hover{
     border-radius: 3px;
     background:  #2b2a2a;
 }
-.container, .container-entries{
+.container, .container-entries, .container-entry{
     margin: 5% auto;
     text-align: center
 }
 .container-entries{
     max-width: 1300px;
+}
+.container-entry{
+    max-width: 960px;
 }
 .welcome{
     color: #fff
@@ -162,7 +165,7 @@ form input[type="submit"]:hover, .entry-time input:hover {
     background: #2b2a2a;
     border-radius: 5px;
 }
-.card {
+.card, .detailed-card {
 	background: rgba(1, 2, 4, 0.51);
 	margin-bottom: 2em;	
 }
@@ -186,6 +189,7 @@ form input[type="submit"]:hover, .entry-time input:hover {
 .entry-time input {
     border-radius: 3px;
     border: none;
+    outline: none;
     background: green;
     color: #fff;
     padding: 3px;
