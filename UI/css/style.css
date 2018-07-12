@@ -62,9 +62,12 @@ nav a:hover{
     border-radius: 3px;
     background:  #2b2a2a;
 }
-.container{
+.container, .container-entries{
     margin: 5% auto;
     text-align: center
+}
+.container-entries{
+    max-width: 1300px;
 }
 .welcome{
     color: #fff
@@ -159,6 +162,19 @@ form input[type="submit"]:hover{
     background: #2b2a2a;
     border-radius: 5px;
 }
+.card {
+	background: rgba(1, 2, 4, 0.51);
+	margin-bottom: 2em;	
+}
+.brief-content {
+	padding: 1.4em;
+}
+.brief-content p {
+    font-size: 80%;
+    color: #fff;
+    text-align: left;
+}
+
 @media (max-width: 1024px) {
 	header .logo{
         font-size: 1.5em;
