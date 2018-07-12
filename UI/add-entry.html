@@ -26,11 +26,18 @@
             
             <div class="add-entry-form">
                 <form autocomplete="off" action="#">
+                    
                     <label for="title">Title</label>
                     <input required  type="text" name="title" id="title" placeholder="Title your thoughts/feelings">
-
+                
                     <label for="description">Description</label>
                     <textarea required name="description" id="description" placeholder="Describe your thoughts/feelings"></textarea>
+
+                    <label for="title">Image</label>
+                    <div class="imageUpload">
+                        <input  type="file" name="image" id="image" accept="image/*" placeholder="Upload Image">
+                        <span id="fileName">No upload yet</span>
+                    </div>
                     
                     <input id="add-entry" type="submit" value="Submit">
                 </form>

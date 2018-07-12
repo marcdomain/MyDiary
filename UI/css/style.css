@@ -34,7 +34,7 @@ a{
     cursor: pointer;
     text-decoration: none;
 }
-.logo a{
+.logo a, #fileName{
     color: #fff;
 }
 .logo a:hover{
@@ -115,12 +115,14 @@ form label{
   color: #fff;
 }
 form input, textarea{
-    display: block;
     padding: 10px;
     width: 100%;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
+}
+.imageUpload {
+    display: block;
 }
 textarea{
     min-height: 200px;
@@ -143,6 +145,10 @@ form input[type="submit"]{
     outline: none;
     border-radius: 5px;
     cursor: pointer;
+}
+form input[type=file]{
+    width: 100px;
+    color: transparent;
 }
 form input[type="submit"]:hover, .entry-time input:hover {
     color: #fff;
