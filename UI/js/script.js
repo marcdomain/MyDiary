@@ -31,3 +31,10 @@ window.onload = () => {
     introQuote();
 }
 
+// upload image script
+
+window.imageUpload = () => {
+    let a = document.querySelector("#image").value;
+    let splitString = a.split('\\');
+    fileName.innerHTML = splitString[splitString.length-1];
+}

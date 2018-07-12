@@ -159,7 +159,6 @@ form input[type="submit"]:hover, .entry-time input:hover {
     background: rgba(1, 2, 4, 0.51);
     padding: 30px;
     width: 80%;
-    margin: 0;
     box-sizing: border-box;
     display: inline-block;
 }
@@ -225,6 +224,9 @@ form input[type="submit"]:hover, .entry-time input:hover {
 @media screen and (min-width: 70em) {
     .card {
         flex: 0 1 calc(25% - 1em);
+    }
+    .add-entry-form{
+        padding: 0
     }
 }
 @media (max-width: 1024px) {

@@ -16,7 +16,7 @@
                 <nav>
                     <ul>
                         <li><a href="#" id="profile">Profile</a></li>
-                        <li class="dropdown"><a href="#" id="signout">Signout</a></li>
+                        <li><a href="#" id="signout">Signout</a></li>
                     </ul>
                 </nav>
             </div>
@@ -26,23 +26,23 @@
             
             <div class="add-entry-form">
                 <form autocomplete="off" action="#">
-                    
                     <label for="title">Title</label>
                     <input required  type="text" name="title" id="title" placeholder="Title your thoughts/feelings">
-                
-                    <label for="description">Description</label>
-                    <textarea required name="description" id="description" placeholder="Describe your thoughts/feelings"></textarea>
 
-                    <label for="title">Image</label>
-                    <div class="imageUpload">
-                        <input  type="file" name="image" id="image" accept="image/*" placeholder="Upload Image">
+                    <label for="description">Description</label>
+                    <textarea type="textarea" required name="description" id="description" placeholder="Describe your thoughts/feelings"></textarea>
+                    
+                    <label for="image">Image</label>
+                    <div id="imageUpload">
+                        <input type="file" accept="image/*" id="image" name="image" onchange="imageUpload()">
                         <span id="fileName">No upload yet</span>
                     </div>
-                    
-                    <input id="add-entry" type="submit" value="Submit">
+
+                    <input type="submit" value="Submit">
                 </form>
             </div>
-
+            
         </div>
+        <script src="js/script.js"></script>
     </body>
 </html>
