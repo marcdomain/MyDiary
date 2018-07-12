@@ -252,14 +252,16 @@ span.create {
     border-radius: 5px;
     padding: 3px;
     font-weight: bolder;
-    margin-left: 28px
+    margin-left: 28px;
+    cursor: pointer;
 }
 span.cancel {
     background: red;
     border-radius: 5px;
     padding: 3px;
     font-weight: bolder;
-    margin-left: 50px
+    margin-left: 50px;
+    cursor: pointer;
 }
 @media screen and (min-width: 40em) {
     .all-entries {
@@ -319,6 +321,10 @@ span.cancel {
         top: 35%;
         width: 90%;
     }
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 38%;
+    }
 }
 @media (max-width: 768px) {
     .dropdown-content {
@@ -340,10 +346,18 @@ span.cancel {
     .logo a:hover{
         font-weight: normal;
     }
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 24%;
+    }
 }
 @media (max-width: 375px) {
     .dropdown-content {
         left: 66%;
+    }
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 20%;
     }
 }
 @media (max-width: 320px) {
