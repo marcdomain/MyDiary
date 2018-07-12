@@ -113,14 +113,18 @@ nav a:hover{
 }
 form label{
   padding:10px;
+  color: #fff;
 }
-form input{
+form input, textarea{
     display: block;
     padding: 10px;
     width: 100%;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
+}
+form textarea{
+    min-height: 200px;
 }
 input::placeholder{
     text-align: center;
@@ -145,7 +149,15 @@ form input[type="submit"]:hover, .entry-time input:hover {
     color: #fff;
     font-weight: bold;
 }
-
+.add-entry-form {
+    border-radius: 10px;
+    background: rgba(1, 2, 4, 0.51);
+    padding: 30px;
+    width: 600px;
+    margin: 0;
+    box-sizing: border-box;
+    display: inline-block;
+}
 .dropdown-content {
     display: none;
     position: absolute;
