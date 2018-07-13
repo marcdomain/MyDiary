@@ -47,3 +47,14 @@ ul#calendar li input:focus {
     width: 22px;
     margin-bottom: 10px
 }
+
+@media (max-width: 1024px) {
+    .modal-content {
+        width: 50%;
+    }
+}
+@media (max-width: 414px) {
+    .modal-content {
+        width: 70%;
+    }
+}
