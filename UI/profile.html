@@ -26,6 +26,22 @@
                     <h1>PROFILE</h1>
                     <h2><em>This is a Collection of Your Activities on MyDiary</em>.</h2>
                 </span>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form autocomplete="off" action="add-entry.html">
+                            <label for="tirle">Entry Title</label>
+                            <input required  type="text" name="title" id="title" placeholder="Title your entry">
+
+                            <label for="username">Calender</label>
+                         
+                            <input type="date" required name="date" id="date">
+                            <input type="time" required name="time" id="time">
+                            
+                            <input id="signup-btn" type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
             <div class="split intro">
                 <div class="centered" id="count">
 
@@ -88,7 +104,7 @@
                 </div>
             </div>
         </div>
-        
+
     </body>
 </html>
 
