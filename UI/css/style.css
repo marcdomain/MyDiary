@@ -251,7 +251,7 @@ div#count {
 span.create {
     background: green;
     border-radius: 5px;
-    padding: 3px;
+    padding: 2px;
     font-weight: bolder;
     margin-left: 28px;
     cursor: pointer;
@@ -259,7 +259,7 @@ span.create {
 span.cancel {
     background: red;
     border-radius: 5px;
-    padding: 3px;
+    padding: 2px;
     font-weight: bolder;
     margin-left: 50px;
     cursor: pointer;
