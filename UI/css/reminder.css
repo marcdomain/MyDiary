@@ -15,6 +15,7 @@ ul#calendar li input:focus {
     border: lime 1px solid
 }
 .modal {
+    display: none;
     position: fixed;
     z-index: 1;
     padding-top: 250px;
