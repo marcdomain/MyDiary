@@ -194,6 +194,10 @@ form input[type="submit"]:hover, .entry-time input:hover {
     color: #fff;
     text-align: left;
 }
+.all-entries {
+    width: 90%;
+    padding-left: 5%;
+}
 .entry-time {
     background: #000;
     color: #fff; 
@@ -287,8 +291,8 @@ span.cancel {
         font-size: 1.5em;
     }
     .nav-bar{
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 	.split{
         width: 100%;
