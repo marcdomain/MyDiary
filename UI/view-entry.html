@@ -6,6 +6,7 @@
         <title>My Diary | View Diary Entry</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/reminder.css" />
     </head>
     <body>
         <header>
@@ -29,6 +30,17 @@
         </header>
         <div class="container-entry">
             <h1 class="page-label">Content of Diary Entry</h1>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form autocomplete="off" action="view-all-entries.html">
+                        <p style="color: #fff">You sure you want to delete?</p>
+                        <input type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+
             <div class="all-entries">
                 <article class="detailed-card">
                     <h2 class="entry-title">Title: My coding journey </h2>
@@ -51,8 +63,8 @@
                     </div>
                     <div class="entry-time">
                         <span id="time">Created: Thur 12/07/2018</span>
-                        <a href="add-entry.html"><input id="view" type="submit" value="Modify" style="width: 50px; text-align: center;"></a>
-                        <a href="view-all-entries.html"><input id="view" type="submit" value="Delete" style="width: 50px; text-align: center; background: red;"></a>
+                        <a href="add-entry.html"><input id="modify" type="submit" value="Modify" style="width: 50px; text-align: center;"></a>
+                        <input type="button" class="create later" id="delete" value="Delete" style="width: 50px; text-align: center; background: red;">
                     </div>
                 </article>
             </div>

@@ -273,7 +273,9 @@ span.cancel {
     margin-left: 50px;
     cursor: pointer;
 }
-
+#delete {
+    background: red;
+}
 
 @media screen and (min-width: 40em) {
     .all-entries {
@@ -369,6 +371,9 @@ span.cancel {
         text-align: left;
         margin-left: 24%;
     }
+    .entry-time span#time {
+        margin-right: 1em;
+    }
 }
 @media screen and (max-width: 375px) {
     .dropdown-content {
@@ -386,8 +391,5 @@ span.cancel {
     .nav-bar{
         padding-left: 0;
         padding-right: 5px;
-    }
-    .entry-time span#time {
-        margin-right: 1em;
     }
 }
