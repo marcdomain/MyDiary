@@ -387,4 +387,7 @@ span.cancel {
         padding-left: 0;
         padding-right: 5px;
     }
+    .entry-time span#time {
+        margin-right: 1em;
+    }
 }
