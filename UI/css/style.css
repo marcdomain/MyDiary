@@ -30,7 +30,8 @@ header .logo{
     letter-spacing: 5px;
     padding: 5px;
 }
-a{
+a, nav a{
+    color: #fff;
     cursor: pointer;
     text-decoration: none;
 }
@@ -51,15 +52,23 @@ ul{
 nav li{
     float: left;
 }
-nav a{
+nav .left-nav, nav #user, #signup{
     color: #fff;
-    padding: 8px 5px;
     margin-left: 15px;
     display: inline-block;
 }
-nav a:hover{
+nav .left-nav, #signup {
+    padding: 8px 10px
+}
+nav .left-nav:hover, #signup:hover {
     border-radius: 3px;
     background:  #2b2a2a;
+}
+#avatar {
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    margin-top: -7px;
 }
 .container, .container-entries, .container-entry{
     margin: 5% auto;
@@ -194,10 +203,6 @@ form input[type="submit"]:hover, .entry-time input:hover {
     color: #fff;
     text-align: left;
 }
-.all-entries {
-    width: 90%;
-    padding-left: 5%;
-}
 .entry-time {
     background: #000;
     color: #fff; 
@@ -285,6 +290,12 @@ span.cancel {
         flex: 0 1 calc(25% - 1em);
     }
 
+}
+@media (max-width: 1032px) {
+    .all-entries {
+        width: 90%;
+        padding-left: 5%;
+    }
 }
 @media (max-width: 1024px) {
 	header .logo{
