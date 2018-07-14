@@ -145,7 +145,7 @@ form input:focus, textarea:focus {
     border: 1px solid lime;
     outline:none ;
 }
-form input[type="submit"]{
+form input[type="submit"], form input.later{
     display: inline-block;
     width: auto;
     padding: 10px 20px;
@@ -160,7 +160,7 @@ form input[type=file]{
     width: 100px;
     color: transparent;
 }
-form input[type="submit"]:hover, .entry-time input:hover {
+form input[type="submit"]:hover, .entry-time input:hover{
     color: #fff;
     font-weight: bold;
 }
