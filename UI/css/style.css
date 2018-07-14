@@ -250,7 +250,7 @@ div#count {
     width: 95px;
 }
 .reminder {
-    height: 200px;
+    height: 220px;
     background: rgba(1, 2, 4, 0.51);
 }
 .settings > h2 {
@@ -337,7 +337,7 @@ span.cancel {
         width: 90%;
     }
     div#userData{
-        top: 35%;
+        top: 40%;
         width: 90%;
     }
     div.userData > ul > li {
