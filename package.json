@@ -1,0 +1,27 @@
+{
+  "name": "mydiary",
+  "version": "1.0.0",
+  "description": "An online journal where users can pen down their thoughts and feelings.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcodynamics/MyDiary.git"
+  },
+  "keywords": [
+    "API-Endpoints"
+  ],
+  "author": "Marcus Chukwuoma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcodynamics/MyDiary/issues"
+  },
+  "homepage": "https://github.com/marcodynamics/MyDiary#readme",
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0"
+  }
+}
