@@ -26,6 +26,27 @@ class DiaryEntriesHandler {
       });
   }
 
+  static postEntry(req, res) {
+    const {
+      username, email, title, description
+    } = req.body;
+    const id = entries[entries.length - 1].id + 1;
+    const newEntry = {
+      id,
+      username,
+      email,
+      title,
+      description,
+    };
+    entries.push(newEntry);
+    res.status(201)
+      .json({
+        newEntry,
+        status: 'created',
+        message: 'Success'
+      });
+  }
+
 }
 
 export default DiaryEntriesHandler;
