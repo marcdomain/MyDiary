@@ -1,7 +1,6 @@
 export default [
     {
       id: 1,
-      name: 'King Marcus',
       username: 'marcodynamics',
       email: 'marcus2cu@gmail.com',
       title: 'My coding journey',
@@ -9,7 +8,6 @@ export default [
     },
     {
         id: 2,
-        name: 'Marc',
         username: 'Marc1',
         email: 'marc1@yahoo.com',
         title: 'My reflection on Andela EPIC value',
