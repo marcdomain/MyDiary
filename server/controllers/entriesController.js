@@ -21,7 +21,7 @@ class DiaryEntriesHandler {
     }
     return res.status(200)
       .json({
-        entries: foundEntry,
+        Entry: foundEntry,
         message: 'Entry fetched successfully',
       });
   }

@@ -6,6 +6,6 @@ const { getAllEntries, getADiaryEntry } = entriesController;
 const router = express.Router();
 
 router.get("/entries", getAllEntries);
-router.get("/entries/:Id", getADiaryEntry);
+router.get("/entries/:entryId", getADiaryEntry);
 
 export default router;
