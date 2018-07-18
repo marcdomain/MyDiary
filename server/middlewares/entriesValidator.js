@@ -24,6 +24,39 @@ class DiaryEntriesValidator {
         message: 'Invalid Entry Id',
       });
     }
+
+    let {
+      username, email, title, description
+    } = req.body;
+    if (username === undefined) {
+      return res.status(404)
+      .json({
+        message: 'You made no input for username',
+      });
+    }
+    if (username === "") {
+      return res.status(404)
+      .json({
+        message: 'Username field cannot be empty',
+      });
+    }
+
+    username = username.toLower().trim();
+    if (username.length < 3 || username.length >25) {
+      return res.status(406)
+        .json({
+          message: 'Your username should be 3 to 25 characters long',
+        });
+    }
+
+    const alphaNumeric = /^([A-Za-z0-9])$/;
+    if(!alphaNumeric.test(username)) {
+      return res.status(406)
+        .json({
+          message: 'Only Alphanumeric charaters are allowed for username',
+        });
+    }
+
     req.body.foundEntry = foundEntry;
     return next();
   }
