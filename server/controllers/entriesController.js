@@ -40,22 +40,15 @@ class DiaryEntriesHandler {
   }
 
   static modifyEntry(req, res) {
-    const foundEntry = entries.find(entry =>
-      entry.id === parseInt(req.params.entryId, 10));
-    if (foundEntry) {
-      foundEntry.username = req.body.username;
-      foundEntry.email = req.body.email;
-      foundEntry.title = req.body.title;
-      foundEntry.description = req.body.description;
-      return res.status(200)
-        .json({
-          foundEntry,
-          message: 'Entry modified successfully',
-        });
-    }
-    return res.status(404)
+    const { foundEntry } = req.body;
+    foundEntry.username = req.body.username;
+    foundEntry.email = req.body.email;
+    foundEntry.title = req.body.title;
+    foundEntry.description = req.body.description;
+    return res.status(205)
       .json({
-        message: 'Invalid Entry Id',
+        foundEntry,
+        message: 'Entry modified successfully',
       });
   }
 

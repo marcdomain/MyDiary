@@ -15,6 +15,20 @@ class DiaryEntriesValidator {
     req.body.foundEntry = foundEntry;
     next();
   }
+
+  static modifyEntryValidator(req, res, next) {
+    const foundEntry = entries.find(entry => entry.id === parseInt(req.params.entryId, 10));
+    if(!foundEntry) {
+    return res.status(404)
+      .json({
+        message: 'Invalid Entry Id',
+      });
+    }
+    req.body.foundEntry = foundEntry;
+    return next();
+  }
+
+
 }
 
 export default DiaryEntriesValidator;
