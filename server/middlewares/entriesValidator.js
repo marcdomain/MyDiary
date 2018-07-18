@@ -41,7 +41,7 @@ class DiaryEntriesValidator {
       });
     }
 
-    username = username.toLower().trim();
+    username = username.trim();
     if (username.length < 3 || username.length >25) {
       return res.status(406)
         .json({
@@ -49,7 +49,7 @@ class DiaryEntriesValidator {
         });
     }
 
-    const alphaNumeric = /^([A-Za-z0-9])$/;
+    const alphaNumeric = /^[a-z0-9]+$/i;
     if(!alphaNumeric.test(username)) {
       return res.status(406)
         .json({
