@@ -21,6 +21,29 @@ class UserAuthHandler{
         message: 'Signup was successful',
       })
   }
+
+  static userSignin(req, res) {
+    const { username, password } = req.body;
+    const foundUser = users.find(user => user.username === username);
+    if (foundUser) {
+      if (username === foundUser.username
+        && foundUser.password === password) {
+        return res.status(200)
+          .json({
+            message: `Welcome '${foundUser.username}'!`,
+          });
+      }
+      return res.status(401)
+        .json({
+          message: 'Incorrect password',
+        });
+    }
+    return res.status(401)
+      .json({
+        message: 'username does not exist. Input your correct username or Signup!',
+      });
+  }
+
 }
 
 export default UserAuthHandler;
