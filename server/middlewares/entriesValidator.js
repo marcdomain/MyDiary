@@ -94,7 +94,7 @@ class DiaryEntriesValidator {
     if(title.length < 3 || title.length > 40) {
       return res.status(406)
         .json({
-         message: 'Your username should be 3 to 40 characters long',
+         message: 'Your title should be 3 to 40 characters long',
         })
     }
 
@@ -106,12 +106,36 @@ class DiaryEntriesValidator {
         })
     }
 
+    if(description === undefined) {
+      return res.status(404)
+        .json({
+         message: 'You have made no input for Diary Entry description',
+        })
+    }
+    if(description === '') {
+      return res.status(404)
+        .json({
+         message: 'description field cannot be empty',
+        })
+    }
+    if(description.length < 3 || description.length > 40) {
+      return res.status(406)
+        .json({
+         message: 'Your description should be 10 to 300 characters long',
+        })
+    }
+
+    const validdescriptionText = /^[a-z0-9-.!',:; ]+$/i
+    if(!validdescriptionText.test(description)) {
+      return res.status(406)
+        .json({
+          message: "description should not contain special characters except for ! . - ' : ; ,",
+        })
+    }
 
     req.body.foundEntry = foundEntry;
-    
     return next();
   }
-
 
 }
 
