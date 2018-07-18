@@ -12,7 +12,7 @@ class DiaryEntriesHandler {
 
   static getADiaryEntry(req,res) {
     const { entryId } = req.params;
-    const foundEntry = entries.find(entries => entries.id === parseInt(entryId, 10));
+    const foundEntry = entries.find(entry => entry.id === parseInt(entryId, 10));
     if (!foundEntry) {
       return res.status(404)
         .json({
@@ -44,6 +44,26 @@ class DiaryEntriesHandler {
         newEntry,
         status: 'created',
         message: 'Success'
+      });
+  }
+
+  static modifyEntry(req, res) {
+    const foundEntry = entries.find(entry =>
+      entry.id === parseInt(req.params.entryId, 10));
+    if (foundEntry) {
+      foundEntry.username = req.body.username;
+      foundEntry.email = req.body.email;
+      foundEntry.title = req.body.title;
+      foundEntry.description = req.body.description;
+      return res.status(200)
+        .json({
+          foundEntry,
+          message: 'Entry modified successfully',
+        });
+    }
+    return res.status(404)
+      .json({
+        message: 'Invalid Entry Id',
       });
   }
 
