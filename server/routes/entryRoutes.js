@@ -5,13 +5,13 @@ import entriesValidator from '../middlewares/entriesValidator';
 
 const { getAllEntries, getADiaryEntry, postEntry, modifyEntry } = entriesController;
 const { userSignUp, userSignin } = usersController;
-const { getADiaryEntryValidator, modifyEntryValidator } = entriesValidator;
+const { getADiaryEntryValidator, modifyEntryValidator, postEntryValidator } = entriesValidator;
 
 const router = express.Router();
 
 router.get("/entries", getAllEntries);
 router.get("/entries/:entryId", getADiaryEntryValidator, getADiaryEntry);
-router.post("/entries", postEntry);
+router.post("/entries", postEntryValidator, postEntry);
 router.put("/entries/:entryId", modifyEntryValidator, modifyEntry);
 router.post("/users/signup", userSignUp);
 router.post("/users/signin", userSignin);

@@ -14,3 +14,4 @@ export default [
         description: 'The Andela values are carefully chosen for delivery of excellence in all dimensions...',
     }
   ];
+  

@@ -34,7 +34,6 @@ class DiaryEntriesHandler {
     res.status(201)
       .json({
         newEntry,
-        status: 'created',
         message: 'Success'
       });
   }
