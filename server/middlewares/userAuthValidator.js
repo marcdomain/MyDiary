@@ -139,6 +139,55 @@ class UserAuthHandler{
     req.body.email = email;
     return next();
   }
+
+  static signinValidator(req, res, next) {
+    let { username, password } = req.body;
+    if (username === undefined) {
+      return res.status(406)
+        .json({
+            message: 'You have made no input for username',
+        });
+    }
+    if (username === "") {
+      return res.status(406)
+        .json({
+        message: 'username field cannot be empty',
+        });
+    }
+    username = username.trim();
+    username = username.toLowerCase();
+    const foundUser = users.find(user => user.username === username);
+    if (!foundUser) {
+      return res.status(401)
+        .json({
+            message: 'username does not exist. Input your correct username or Signup!',
+        });
+    }
+    if (password === undefined) {
+      return res.status(406)
+        .json({
+            message: 'You have made no input for password',
+        }); 
+    }
+    if (password === "") {
+      return res.status(406)
+          .json({
+          message: 'password field cannot be empty',
+          });
+    }
+
+    password = password.trim();
+    if (foundUser && password !== foundUser.password) {
+      return res.status(401)
+        .json({
+            message: 'Incorrect password',
+        });
+    }
+
+    req.body.foundUser = foundUser;
+    req.body.password = password;
+    return next();
+  }
   
 }
 export default UserAuthHandler;
