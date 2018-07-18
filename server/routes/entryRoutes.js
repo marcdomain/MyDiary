@@ -1,6 +1,6 @@
 import express from 'express';
 import entriesController from '../controllers/entriesController';
-import usersController from '../controllers/usersControlller';
+import usersController from '../controllers/usersController';
 
 const { getAllEntries, getADiaryEntry, postEntry, modifyEntry } = entriesController;
 const { userSignUp } = usersController;
