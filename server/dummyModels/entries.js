@@ -13,4 +13,4 @@ export default [
         title: 'My reflection on Andela EPIC value',
         description: 'The Andela values are carefully chosen for delivery of excellence in all dimensions...',
     }
-  ];
+];
