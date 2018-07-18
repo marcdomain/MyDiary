@@ -31,7 +31,7 @@ class DiaryEntriesValidator {
     if (username === undefined) {
       return res.status(404)
       .json({
-        message: 'You made no input for username',
+        message: 'You have made no input for username',
       });
     }
     if (username === "") {
@@ -42,6 +42,7 @@ class DiaryEntriesValidator {
     }
 
     username = username.trim();
+    username = username.toLowerCase();
     if (username.length < 3 || username.length >25) {
       return res.status(406)
         .json({
@@ -57,7 +58,57 @@ class DiaryEntriesValidator {
         });
     }
 
+    if (email === undefined){
+      return res.status(404)
+        .json({
+          message: 'You have made no input for email'
+        })
+    }
+    if(email === ''){
+      return res.status(404)
+        .json({
+          message: 'Email field cannot be empty'
+        })
+    }
+    if(!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]+\.[a-zA-Z]{2,5}(\.[a-zA-Z]{2,5})?$/.test(email)) {
+      return res.status(406)
+        .json({
+          message: 'You email format is invalid'
+        })
+    }
+    email = email.trim();
+    email = email.toLowerCase();
+
+    if(title === undefined) {
+      return res.status(404)
+        .json({
+         message: 'You have made no input for Diary Entry Title',
+        })
+    }
+    if(title === '') {
+      return res.status(404)
+        .json({
+         message: 'Title field cannot be empty',
+        })
+    }
+    if(title.length < 3 || title.length > 40) {
+      return res.status(406)
+        .json({
+         message: 'Your username should be 3 to 40 characters long',
+        })
+    }
+
+    const validTitleText = /^[a-z0-9-.! ]+$/i
+    if(!validTitleText.test(title)) {
+      return res.status(406)
+        .json({
+          message: 'Title should not contain special characters except for ! . -',
+        })
+    }
+
+
     req.body.foundEntry = foundEntry;
+    
     return next();
   }
 
