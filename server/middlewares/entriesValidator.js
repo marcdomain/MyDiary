@@ -73,7 +73,7 @@ class DiaryEntriesValidator {
     if(!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]+\.[a-zA-Z]{2,5}(\.[a-zA-Z]{2,5})?$/.test(email)) {
       return res.status(406)
         .json({
-          message: 'You email format is invalid'
+          message: 'Your email format is invalid'
         })
     }
     email = email.trim();
@@ -125,8 +125,8 @@ class DiaryEntriesValidator {
         })
     }
 
-    const validdescriptionText = /^[a-z0-9-.!',:; ]+$/i
-    if(!validdescriptionText.test(description)) {
+    const validDescriptionText = /^[a-z0-9-.!',:; ]+$/i
+    if(!validDescriptionText.test(description)) {
       return res.status(406)
         .json({
           message: "description should not contain special characters except for ! . - ' : ; ,",
