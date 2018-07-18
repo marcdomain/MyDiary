@@ -11,18 +11,9 @@ class DiaryEntriesHandler {
   }
 
   static getADiaryEntry(req,res) {
-    const { entryId } = req.params;
-    const foundEntry = entries.find(entry =>
-      entry.id === parseInt(entryId, 10));
-    if (!foundEntry) {
-      return res.status(404)
-        .json({
-          message: 'Entry not found',
-        });
-    }
-    return res.status(200)
+    res.status(200)
       .json({
-        Entry: foundEntry,
+        Entry: req.body.foundEntry,
         message: 'Entry fetched successfully',
       });
   }
