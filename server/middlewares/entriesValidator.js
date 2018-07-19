@@ -21,7 +21,7 @@ class DiaryEntriesValidator {
       username, email, title, description
     } = req.body;
     if (username === undefined) {
-      return res.status(404)
+      return res.status(406)
       .json({
         message: 'You have made no input for username',
       });
@@ -51,7 +51,7 @@ class DiaryEntriesValidator {
     }
 
     if (email === undefined){
-      return res.status(404)
+      return res.status(406)
         .json({
           message: 'You have made no input for email'
         })
@@ -79,7 +79,7 @@ class DiaryEntriesValidator {
     }
 
     if(title === undefined) {
-      return res.status(404)
+      return res.status(406)
         .json({
         message: 'You have made no input for Diary Entry Title',
         })
@@ -108,7 +108,7 @@ class DiaryEntriesValidator {
     }
 
     if(description === undefined) {
-      return res.status(404)
+      return res.status(406)
         .json({
         message: 'You have made no input for Diary Entry description',
         })
@@ -151,7 +151,7 @@ class DiaryEntriesValidator {
       username, email, title, description
     } = req.body;
     if (username === undefined) {
-      return res.status(404)
+      return res.status(406)
       .json({
         message: 'You have made no input for username',
       });
@@ -181,7 +181,7 @@ class DiaryEntriesValidator {
     }
 
     if (email === undefined){
-      return res.status(404)
+      return res.status(406)
         .json({
           message: 'You have made no input for email'
         })
@@ -209,7 +209,7 @@ class DiaryEntriesValidator {
     }
 
     if(title === undefined) {
-      return res.status(404)
+      return res.status(406)
         .json({
          message: 'You have made no input for Diary Entry Title',
         })
@@ -238,7 +238,7 @@ class DiaryEntriesValidator {
     }
 
     if(description === undefined) {
-      return res.status(404)
+      return res.status(406)
         .json({
          message: 'You have made no input for Diary Entry description',
         })

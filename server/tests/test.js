@@ -39,7 +39,7 @@ describe('Test Default API Endpoints', () => {
 
 describe('POST Diary Entries', () => {
   
-  it('Should return 404 for a post having undefined username field', (done) => {
+  it('Should return 406 for a post having undefined username field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -49,7 +49,7 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for username');
         done();
       });
@@ -106,7 +106,7 @@ describe('POST Diary Entries', () => {
       });
   });
   
-  it('Should return 404 for a post having undefined email field', (done) => {
+  it('Should return 406 for a post having undefined email field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -116,7 +116,7 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for email');
         done();
       });
@@ -173,7 +173,7 @@ describe('POST Diary Entries', () => {
       });
   });
   
-  it('Should return 404 for a post having undefined title field', (done) => {
+  it('Should return 406 for a post having undefined title field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -183,7 +183,7 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for Diary Entry Title');
         done();
       });
@@ -240,7 +240,7 @@ describe('POST Diary Entries', () => {
       });
   });  
   
-  it('Should return 404 for a post having undefined description field', (done) => {
+  it('Should return 406 for a post having undefined description field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -250,7 +250,7 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey',
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
@@ -375,7 +375,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 404 for an undefined username', (done) => {
+  it('Should return 406 for an undefined username', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -385,7 +385,7 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for username');
         done();
       });
@@ -442,7 +442,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 404 for an undefined email field', (done) => {
+  it('Should return 406 for an undefined email field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -452,7 +452,7 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for email');
         done();
       });
@@ -509,7 +509,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 404 for an undefined title field', (done) => {
+  it('Should return 406 for an undefined title field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -519,7 +519,7 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for Diary Entry Title');
         done();
       });
@@ -576,7 +576,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 404 for an undefined description field', (done) => {
+  it('Should return 406 for an undefined description field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -586,7 +586,7 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
@@ -663,7 +663,7 @@ describe('Modify specific diary entry API', () => {
 }); // Modify Diary Entry ends here
 
 describe('Test Post user Signup API', () => {
-  it('Should return 404 for a signup having undefined fullName', (done) => {
+  it('Should return 406 for a signup having undefined fullName', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
@@ -673,7 +673,7 @@ describe('Test Post user Signup API', () => {
         password: 'marcpass'
       })
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for fullName');
         done();
       });
@@ -832,7 +832,7 @@ describe('Test Post user Signup API', () => {
       });
   });
 
-  it('Should return 400 for undefined email field', (done) => {
+  it('Should return 406 for undefined email field', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
@@ -842,7 +842,7 @@ describe('Test Post user Signup API', () => {
           password: 'marcpass'
       })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(406);
         expect(res.body.message).to.equal('You have made no input for email');
         done();
       });

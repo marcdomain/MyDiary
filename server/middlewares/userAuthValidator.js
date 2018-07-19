@@ -9,7 +9,7 @@ class UserAuthHandler{
     } = req.body;
 
     if (fullName === undefined ){
-      return res.status(404)
+      return res.status(406)
       .json({
         message: 'You have made no input for fullName',
       });
@@ -81,7 +81,7 @@ class UserAuthHandler{
     }
 
     if (email === undefined ){
-        return res.status(400)
+        return res.status(406)
         .json({
           message: 'You have made no input for email',
         });
