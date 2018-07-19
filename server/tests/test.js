@@ -321,3 +321,27 @@ describe('GET all diary entries', () => {
   });
 
 }); //Get all entries test end here
+
+describe('GET A specific diary entry', () => {
+  
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/entries/1')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Entry fetched successfully');
+        done();
+      });
+  });
+
+  it('Should return 404 for an invalid diary entry id', (done) => {
+    chai.request(app)
+      .get('/api/v1/entries/500')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.message).to.equal('Entry not found');
+        done();
+      });
+  });
+
+});  // Get a specific diary entry ends here
