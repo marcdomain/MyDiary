@@ -9,12 +9,12 @@ MyDiary is an online journal where users can pen down their thoughts and feeling
 
 ## Table of Content
 
-- [Features](#features) <br>
-- [Technology](#technology) <br>
-- [Installation](#installation) <br>
-- [Start](#start) <br>
-- [Testing](#testing) <br>
-- [API End Points](#api-end-points) <br>
+[Features](#features)
+[Technology](#technologies)
+[Installation](#installation)
+[Start App](#start-mydiary-app)
+[Testing](#testing)
+[API End Points](#api-end-points)
 
 ## Features
 Below are the features of MyDiary Application
@@ -57,7 +57,7 @@ cd MyDiary
 npm install
 ```
 
-## Start
+## Start MyDiary App
 1. Start the application by running:
 ```
 npm start
