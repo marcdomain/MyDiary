@@ -1,7 +1,21 @@
 import entries from '../dummyModels/entries';
 
-class DiaryEntriesHandler {
+/*
+ * Class representing Diary Entries Handler
+ *
+ * @class DiaryEntriesHandler
+ */
 
+class DiaryEntriesHandler {
+  /*
+   * Get all Diary entries
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} - JSON object representing diary entries and success message
+   * @memberof DiaryEntriesHandler
+   */
   static getAllEntries(req, res) {
     res.status(200)
       .json({
@@ -10,7 +24,16 @@ class DiaryEntriesHandler {
       });
   }
 
-  static getADiaryEntry(req,res) {
+  /*
+   * Get a specific diary entry
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} - JSON object representing the diary entry
+   * @memberof DiaryEntriesHandler
+   */
+  static getADiaryEntry(req, res) {
     res.status(200)
       .json({
         Entry: req.body.foundEntry,
@@ -18,6 +41,15 @@ class DiaryEntriesHandler {
       });
   }
 
+  /*
+   * Add a diary entry
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} - JSON object representing success
+   * @memberof DiaryEntriesHandler
+   */
   static postEntry(req, res) {
     const {
       username, email, title, description
@@ -38,6 +70,15 @@ class DiaryEntriesHandler {
       });
   }
 
+  /*
+   * Modify a diary
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} - JSON object representing success
+   * @memberof DiaryEntriesHandler
+   */
   static modifyEntry(req, res) {
     const { foundEntry } = req.body;
     foundEntry.username = req.body.username;
@@ -50,7 +91,6 @@ class DiaryEntriesHandler {
         message: 'Entry modified successfully',
       });
   }
-
 }
 
 export default DiaryEntriesHandler;
