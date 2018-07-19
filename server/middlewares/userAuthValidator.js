@@ -9,7 +9,7 @@ class UserAuthHandler{
     } = req.body;
 
     if (fullName === undefined ){
-      return res.status(400)
+      return res.status(404)
       .json({
         message: 'You have made no input for fullName',
       });
@@ -33,7 +33,7 @@ class UserAuthHandler{
     if (!fullNameValidCharacters.test(fullName)) {
       return res.status(406)
         .json({
-          message: 'fullName can only contain alphabets and space',
+          message: 'fullName can only contain alphabets and whitespace',
         });
     }
 
@@ -100,6 +100,12 @@ class UserAuthHandler{
     }
     email = email.trim();
     email = email.toLowerCase();
+    if(email.length < 10 || email.length > 50){
+      return res.status(406)
+        .json({
+          message: 'Your email should be 10 to 50 characters long'
+        })
+    }
     
     const foundEmail = users.find(user => user.email === email);
     if(foundEmail){
