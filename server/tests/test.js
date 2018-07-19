@@ -306,4 +306,18 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-});
+}); // Post entries test ends here
+
+describe('GET all diary entries', () => {
+  
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/entries')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('All diary entries served');
+        done();
+      });
+  });
+
+}); //Get all entries test end here
