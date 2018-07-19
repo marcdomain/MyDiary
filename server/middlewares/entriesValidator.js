@@ -27,7 +27,7 @@ class DiaryEntriesValidator {
       });
     }
     if (username === "") {
-      return res.status(404)
+      return res.status(406)
       .json({
         message: 'Username field cannot be empty',
       });
@@ -57,7 +57,7 @@ class DiaryEntriesValidator {
         })
     }
     if(email === ''){
-      return res.status(404)
+      return res.status(406)
         .json({
           message: 'Email field cannot be empty'
         })
@@ -71,6 +71,13 @@ class DiaryEntriesValidator {
     email = email.trim();
     email = email.toLowerCase();
 
+    if(email.length < 10 || email.length > 50){
+      return res.status(406)
+        .json({
+          message: 'Your email should be 10 to 50 characters long'
+        })
+    }
+
     if(title === undefined) {
       return res.status(404)
         .json({
@@ -80,7 +87,7 @@ class DiaryEntriesValidator {
 
     title = title.trim();
     if(title === '') {
-      return res.status(404)
+      return res.status(406)
         .json({
         message: 'Title field cannot be empty',
         })
@@ -92,11 +99,11 @@ class DiaryEntriesValidator {
         })
     }
 
-    const validTitleText = /^[a-z0-9-.! ]+$/i
+    const validTitleText = /^[a-z0-9-.!@&' ]+$/i
     if(!validTitleText.test(title)) {
       return res.status(406)
         .json({
-          message: 'Title should not contain special characters except for ! . -',
+          message: 'Title should not contain special characters except for ! . - @ & ',
         })
     }
 
@@ -114,18 +121,18 @@ class DiaryEntriesValidator {
         message: 'description field cannot be empty',
         })
     }
-    if(description.length < 3 || description.length > 40) {
+    if(description.length < 10 || description.length > 300) {
       return res.status(406)
         .json({
         message: 'Your description should be 10 to 300 characters long',
         })
     }
 
-    const validDescriptionText = /^[a-z0-9-.!',:; ]+$/i
+    const validDescriptionText = /^[a-z0-9-.!',:;@ ]+$/i
     if(!validDescriptionText.test(description)) {
       return res.status(406)
         .json({
-          message: "description should not contain special characters except for ! . - ' : ; ,",
+          message: "description should not contain special characters except for ! . - ' : ; , @",
         })
     }
     return next();
