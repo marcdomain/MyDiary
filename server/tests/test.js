@@ -1,6 +1,6 @@
-import app from '../../app';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import app from '../../app';
 
 const { expect } = chai;
 
@@ -16,7 +16,7 @@ describe('Test Default API Endpoints', () => {
         done();
       });
   });
-  
+
   it('Should return 404 for routes not specified', (done) => {
     chai.request(app)
       .get('/another/undefined/route')
@@ -34,11 +34,9 @@ describe('Test Default API Endpoints', () => {
         done();
       });
   });
-
-}) // Test Default Ends here
+}); // Test Default Ends here
 
 describe('POST Diary Entries', () => {
-  
   it('Should return 406 for a post having undefined username field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -54,7 +52,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having empty username field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -71,7 +69,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having invalid username length', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -88,7 +86,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a non-alphanumeric character in username field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -105,12 +103,12 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having undefined email field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
-        id: 1 ,
+        id: 1,
         username: 'marcodynamics',
         title: 'My coding journey',
         description: 'Coding has been an awesome experience so far...'
@@ -121,7 +119,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having empty email field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -138,7 +136,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having invalid email format', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -155,7 +153,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having invalid email length', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -172,7 +170,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having undefined title field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -188,7 +186,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having empty title field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -238,8 +236,8 @@ describe('POST Diary Entries', () => {
         expect(res.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
         done();
       });
-  });  
-  
+  });
+
   it('Should return 406 for a post having undefined description field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -254,8 +252,8 @@ describe('POST Diary Entries', () => {
         expect(res.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
-  })
-  
+  });
+
   it('Should return 404 for a post having empty description field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -272,22 +270,22 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for a post having invalid description character length', (done) => {
     chai.request(app)
-    .post('/api/v1/entries')
-    .send({
-      id: 1,
-      username: 'marcodynamics',
-      email: 'marcus2cu@gmail.com',
-      title: 'My coding journey',
-      description: 'abcd ef'
-    })
-    .end((err, res) => {
-      expect(res).to.have.status(406);
-      expect(res.body.message).to.equal('Your description should be 10 to 300 characters long');
-      done();
-    });
+      .post('/api/v1/entries')
+      .send({
+        id: 1,
+        username: 'marcodynamics',
+        email: 'marcus2cu@gmail.com',
+        title: 'My coding journey',
+        description: 'abcd ef'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body.message).to.equal('Your description should be 10 to 300 characters long');
+        done();
+      });
   });
 
   it('Should return 406 for an invalid description character', (done) => {
@@ -306,7 +304,7 @@ describe('POST Diary Entries', () => {
         done();
       });
   });
-  
+
   it('Should return 201 for a post that is successful', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -326,7 +324,6 @@ describe('POST Diary Entries', () => {
 }); // Post entries test ends here
 
 describe('GET all diary entries', () => {
-  
   it('Should return 200 for success', (done) => {
     chai.request(app)
       .get('/api/v1/entries')
@@ -336,11 +333,9 @@ describe('GET all diary entries', () => {
         done();
       });
   });
-
-}); //Get all entries test end here
+}); // Get all entries test end here
 
 describe('GET A specific diary entry', () => {
-  
   it('Should return 200 for success', (done) => {
     chai.request(app)
       .get('/api/v1/entries/1')
@@ -360,11 +355,9 @@ describe('GET A specific diary entry', () => {
         done();
       });
   });
-
-});  // Get a specific diary entry ends here
+}); // Get a specific diary entry ends here
 
 describe('Modify specific diary entry API', () => {
-  
   it('Should return 404 for an invalid entry id', (done) => {
     chai.request(app)
       .put('/api/v1/entries/50')
@@ -424,16 +417,16 @@ describe('Modify specific diary entry API', () => {
         done();
       });
   });
-  
+
   it('Should return 406 for non-alphanumeric characters in username field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
-          id: 1,
-          username: 'king marc',
-          email:"marcus2cu@gmail.com",
-          title: 'My coding journey',
-          description: 'Coding has been an awesome experience so far...'
+        id: 1,
+        username: 'king marc',
+        email: 'marcus2cu@gmail.com',
+        title: 'My coding journey',
+        description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -591,7 +584,7 @@ describe('Modify specific diary entry API', () => {
         done();
       });
   });
-  
+
   it('Should return 404 for an empty description field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
@@ -659,7 +652,6 @@ describe('Modify specific diary entry API', () => {
         done();
       });
   });
-
 }); // Modify Diary Entry ends here
 
 describe('Test Post user Signup API', () => {
@@ -683,11 +675,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: '',
-          username: 'marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: '',
+        username: 'marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -700,11 +692,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'marc',
-          username: 'marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'marc',
+        username: 'marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -712,16 +704,16 @@ describe('Test Post user Signup API', () => {
         done();
       });
   });
- 
+
   it('Should return 406 for invalid characters in fullName field', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'marc #%',
-          username: 'marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'marc #%',
+        username: 'marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -734,10 +726,10 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -750,11 +742,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: '',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: '',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -767,11 +759,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'm',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'm',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -784,11 +776,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marc marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marc marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -797,16 +789,16 @@ describe('Test Post user Signup API', () => {
       });
   });
 
-  
+
   it('Should return 406 for a username having non-alphanumeric characters', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: '#marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: '#marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -819,11 +811,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marc',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marc',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
@@ -836,10 +828,10 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -852,11 +844,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email: '',
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: '',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -869,11 +861,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email:"marc#gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'marc#gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -886,11 +878,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email:"ab@h.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'ab@h.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -903,11 +895,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email:"marc@gmail.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'marc@gmail.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
@@ -920,10 +912,10 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email:"marc@yahoo.com",
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'marc@yahoo.com',
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -936,11 +928,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email:"marc@yahoo.com",
-          password: ''
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'marc@yahoo.com',
+        password: ''
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -953,11 +945,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email: 'marc@yahoo.com',
-          password: 'mar'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'marc@yahoo.com',
+        password: 'mar'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -970,11 +962,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marco',
-          email: 'marc@yahoo.com',
-          password: 'marc pass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marco',
+        email: 'marc@yahoo.com',
+        password: 'marc pass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -987,11 +979,11 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
-          id: 1,
-          fullName: 'king marc',
-          username: 'marcman',
-          email:"marcus@yahoo.com",
-          password: 'marcpass'
+        id: 1,
+        fullName: 'king marc',
+        username: 'marcman',
+        email: 'marcus@yahoo.com',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
@@ -999,16 +991,14 @@ describe('Test Post user Signup API', () => {
         done();
       });
   });
-
 }); // User signup test ends here
 
 describe('Test Post user Signin API', () => {
-
   it('Should return 406 for an undefined username field', (done) => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          password: 'marcpass'
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -1021,8 +1011,8 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          username: '',
-          password: 'marcpass'
+        username: '',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -1035,8 +1025,8 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          username: 'lorem',
-          password: 'marcpass'
+        username: 'lorem',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -1049,7 +1039,7 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          username: 'marc',
+        username: 'marc',
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -1062,8 +1052,8 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          username: 'marc',
-          password: ''
+        username: 'marc',
+        password: ''
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -1076,8 +1066,8 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          username: 'marc',
-          password: 'marc#pass'
+        username: 'marc',
+        password: 'marc#pass'
       })
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -1090,8 +1080,8 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
-          username: 'marc',
-          password: 'marcpass'
+        username: 'marc',
+        password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -1099,5 +1089,4 @@ describe('Test Post user Signin API', () => {
         done();
       });
   });
-
 }); // User signin test ends here
