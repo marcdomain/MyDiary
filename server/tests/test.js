@@ -1001,3 +1001,103 @@ describe('Test Post user Signup API', () => {
   });
 
 }); // User signup test ends here
+
+describe('Test Post user Signin API', () => {
+
+  it('Should return 406 for an undefined username field', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          password: 'marcpass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body.message).to.equal('You have made no input for username');
+        done();
+      });
+  });
+
+  it('Should return 406 for an empty username field', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          username: '',
+          password: 'marcpass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body.message).to.equal('username field cannot be empty');
+        done();
+      });
+  });
+
+  it('Should return 401 for a non-existing username', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          username: 'lorem',
+          password: 'marcpass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.message).to.equal('username does not exist. Input your correct username or Signup!');
+        done();
+      });
+  });
+
+  it('Should return 406 for a signin having undefined password', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          username: 'marc',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body.message).to.equal('You have made no input for password');
+        done();
+      });
+  });
+
+  it('Should return 406 for a signin having empty password field', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          username: 'marc',
+          password: ''
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body.message).to.equal('password field cannot be empty');
+        done();
+      });
+  });
+
+  it('Should return 401 for a comibination of correct username and incorrect password', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          username: 'marc',
+          password: 'marc#pass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.message).to.equal('Incorrect password');
+        done();
+      });
+  });
+
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/signin')
+      .send({
+          username: 'marc',
+          password: 'marcpass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.be.a('string');
+        done();
+      });
+  });
+
+}); // User signin test ends here
