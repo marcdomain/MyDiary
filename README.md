@@ -21,9 +21,35 @@ Below are the features of MyDiary Application
 
 ###  Users
 
-- Users can Signup on MyDiary App<br/>
-- Users can Signin on MyDiary App<br/>
-- Users can Post Diary Entries<br/>
+- Users can Signup on MyDiary App:
+```
+     Required Inputs
+    {
+        fullName:
+        username:
+        email:
+        password:
+    }
+```
+- Users can Signin on MyDiary App:
+```
+    Required Inputs
+    {
+        username:
+        password:
+    }
+```
+- Users can Post Diary Entries:
+```
+    Required Inputs
+    {
+        username:
+        email:
+        title:
+        description:
+    }
+
+```
 - Users can Get all Diary Entries<br/>
 - Users can Get a Diary Entry<br/>
 - Users can Modify a Diary Entry<br/>
