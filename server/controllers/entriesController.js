@@ -34,9 +34,10 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static getADiaryEntry(req, res) {
+    const { foundEntry } = req.body;
     res.status(200)
       .json({
-        Entry: req.body.foundEntry,
+        Entry: foundEntry,
         message: 'Entry fetched successfully',
       });
   }
