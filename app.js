@@ -1,14 +1,17 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import router from './server/routes/entryRoutes';
+import router from './server/routes/index';
+
+const { defaultRouter, userRouter, entriesRouter } = router;
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/v1', router);
-app.use(router);
+app.use('/api/v1', userRouter);
+app.use('/api/v1', entriesRouter);
+app.use('/', defaultRouter);
 
 const port = process.env.PORT || 3310;
 app.listen(port, () => {
