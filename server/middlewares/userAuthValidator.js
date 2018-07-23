@@ -62,8 +62,7 @@ class UserAuthHandler {
           message: 'Username field cannot be empty',
         });
     }
-    username = username.trim();
-    username = username.toLowerCase();
+    username = username.toLowerCase().trim();
 
     if (username.length < 2 || username.length > 15) {
       return res.status(406)
@@ -111,8 +110,7 @@ class UserAuthHandler {
           message: 'Your email format is invalid',
         });
     }
-    email = email.trim();
-    email = email.toLowerCase();
+    email = email.toLowerCase().trim();
     if (email.length < 10 || email.length > 50) {
       return res.status(406)
         .json({

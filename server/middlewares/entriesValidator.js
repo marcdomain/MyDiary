@@ -55,8 +55,7 @@ class DiaryEntriesValidator {
         });
     }
 
-    username = username.trim();
-    username = username.toLowerCase();
+    username = username.toLowerCase().trim();
     if (username.length < 3 || username.length > 25) {
       return res.status(406)
         .json({
@@ -90,8 +89,7 @@ class DiaryEntriesValidator {
           message: 'Your email format is invalid'
         });
     }
-    email = email.trim();
-    email = email.toLowerCase();
+    email = email.toLowerCase().trim();
 
     if (email.length < 10 || email.length > 50) {
       return res.status(406)
@@ -194,8 +192,7 @@ class DiaryEntriesValidator {
         });
     }
 
-    username = username.trim();
-    username = username.toLowerCase();
+    username = username.toLowerCase().trim();
     if (username.length < 3 || username.length > 25) {
       return res.status(406)
         .json({
@@ -229,8 +226,7 @@ class DiaryEntriesValidator {
           message: 'Your email format is invalid'
         });
     }
-    email = email.trim();
-    email = email.toLowerCase();
+    email = email.toLowerCase().trim();
 
     if (email.length < 10 || email.length > 50) {
       return res.status(406)
