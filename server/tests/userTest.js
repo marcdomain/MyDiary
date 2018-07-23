@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
+import users from '../dummyModels/users';
 
 const { expect } = chai;
 
@@ -328,6 +329,7 @@ describe('Test Post user Signup API', () => {
   });
 
   it('Should return 201 for success', (done) => {
+    const newLength = users.length + 1;
     chai.request(app)
       .post('/api/v1/users/signup')
       .send({
@@ -340,6 +342,7 @@ describe('Test Post user Signup API', () => {
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.message).to.equal('Signup was successful');
+        expect(users).to.have.length(newLength);
         done();
       });
   });
