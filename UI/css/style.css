@@ -30,7 +30,8 @@ header .logo{
     letter-spacing: 5px;
     padding: 5px;
 }
-a{
+a, nav a{
+    color: #fff;
     cursor: pointer;
     text-decoration: none;
 }
@@ -51,15 +52,23 @@ ul{
 nav li{
     float: left;
 }
-nav a{
+nav .left-nav, nav #user, #signup{
     color: #fff;
-    padding: 8px 5px;
     margin-left: 15px;
     display: inline-block;
 }
-nav a:hover{
+nav .left-nav, #signup {
+    padding: 8px 10px
+}
+nav .left-nav:hover, #signup:hover {
     border-radius: 3px;
     background:  #2b2a2a;
+}
+#avatar {
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    margin-top: -7px;
 }
 .container, .container-entries, .container-entry{
     margin: 5% auto;
@@ -96,6 +105,7 @@ nav a:hover{
     transform: translate(-50%, -50%);
     text-align: center;
     color: #ffffff;
+    z-index: 1;
 }
 .quote-div {
     height: 200px;
@@ -135,7 +145,7 @@ form input:focus, textarea:focus {
     border: 1px solid lime;
     outline:none ;
 }
-form input[type="submit"]{
+form input[type="submit"], form input.later{
     display: inline-block;
     width: auto;
     padding: 10px 20px;
@@ -150,7 +160,7 @@ form input[type=file]{
     width: 100px;
     color: transparent;
 }
-form input[type="submit"]:hover, .entry-time input:hover {
+form input[type="submit"]:hover, .entry-time input:hover{
     color: #fff;
     font-weight: bold;
 }
@@ -224,7 +234,7 @@ div.userData > ul > li {
     margin-left: 28%;
 }
 div#count {
-    width: 60%
+    width: 60%;
 }
 .entry-count {
     display: flex;
@@ -240,7 +250,7 @@ div#count {
     width: 95px;
 }
 .reminder {
-    height: 200px;
+    height: 235px;
     background: rgba(1, 2, 4, 0.51);
 }
 .settings > h2 {
@@ -250,7 +260,7 @@ div#count {
 span.create {
     background: green;
     border-radius: 5px;
-    padding: 3px;
+    padding: 2px;
     font-weight: bolder;
     margin-left: 28px;
     cursor: pointer;
@@ -258,12 +268,14 @@ span.create {
 span.cancel {
     background: red;
     border-radius: 5px;
-    padding: 3px;
+    padding: 2px;
     font-weight: bolder;
     margin-left: 50px;
     cursor: pointer;
 }
-
+#delete {
+    background: red;
+}
 
 @media screen and (min-width: 40em) {
     .all-entries {
@@ -281,13 +293,19 @@ span.cancel {
     }
 
 }
-@media (max-width: 1024px) {
+@media screen and (max-width: 1325px) {
+    .all-entries {
+        width: 90%;
+        padding-left: 5%;
+    }
+}
+@media screen and (max-width: 1024px) {
 	header .logo{
         font-size: 1.5em;
     }
     .nav-bar{
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 	.split{
         width: 100%;
@@ -321,7 +339,7 @@ span.cancel {
         width: 90%;
     }
     div#userData{
-        top: 35%;
+        top: 45%;
         width: 90%;
     }
     div.userData > ul > li {
@@ -329,17 +347,17 @@ span.cancel {
         margin-left: 38%;
     }
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .dropdown-content {
         left: 85%;
     }
 }
-@media (max-width: 640px) {
+@media screen and (max-width: 640px) {
     h2.entry-title {
         padding-top: 20px;
     }
 }
-@media (max-width: 414px) {
+@media screen and (max-width: 414px) {
     .dropdown-content {
         left: 71%;
     }
@@ -353,8 +371,11 @@ span.cancel {
         text-align: left;
         margin-left: 24%;
     }
+    .entry-time span#time {
+        margin-right: 1em;
+    }
 }
-@media (max-width: 375px) {
+@media screen and (max-width: 375px) {
     .dropdown-content {
         left: 66%;
     }
@@ -363,7 +384,7 @@ span.cancel {
         margin-left: 20%;
     }
 }
-@media (max-width: 320px) {
+@media screen and (max-width: 320px) {
     .dropdown-content {
         left: 62%;
     }

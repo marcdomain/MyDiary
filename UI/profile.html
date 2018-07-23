@@ -6,6 +6,7 @@
         <title>My Diary | Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/reminder.css" />
     </head>
     <body>
         <header>
@@ -15,8 +16,13 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="add-entry.html">Add Entry</a></li>
-                        <li><a href="index.html">Signout</a></li>
+                        <li><a href="add-entry.html" class="left-nav">Add Entry</a></li>
+                        <li class="dropdown">
+                            <a href="#" id="user" aria-haspopup="true"><img id="avatar" src="img/dp.jpg"></a>
+                            <div class="dropdown-content" style="height: 70px;">
+                                <a href="index.html"><p id="signout">Sign out</p></a>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -26,6 +32,27 @@
                     <h1>PROFILE</h1>
                     <h2><em>This is a Collection of Your Activities on MyDiary</em>.</h2>
                 </span>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form autocomplete="off" action="profile.html">
+                            <label for="title">Entry Title</label>
+                            <input required  type="text" name="title" id="title" placeholder="Title your entry">
+
+                            <label for="calendar">Calendar</label>
+                            <ul id="calendar">
+                                <li>
+                                    <input type="date" required name="date" id="date">
+                                </li>
+                                <li>
+                                    <input type="time" required name="time" id="time" value="00:00">
+                                </li>
+                            </ul>
+                            
+                            <input id="signup-btn" type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
             <div class="split intro">
                 <div class="centered" id="count">
 
@@ -46,10 +73,10 @@
                             Add Reminder  <span class="create">+</span>
                         </p>
                         <p>
-                            Reminder 1   <span class="cancel">x</span>
+                            Reminder 1   <span class="cancel">&times</span>
                         </p>
                         <p>
-                            Reminder 2   <span class="cancel">x</span>
+                            Reminder 2   <span class="cancel">&times</span>
                         </p>
                     </div>
 
@@ -67,13 +94,13 @@
                                 <ul>
                                     <li>
                                         Name: Marcus Chukwuoma
-                                    </li><br>
+                                    </li>
                                     <li>
                                         Username: Marcodynamics
-                                    </li><br>
+                                    </li>
                                     <li>
                                         Email: marcus2cu@gmail.com
-                                    </li><br>
+                                    </li>
                                     <li>
                                         Password: ************
                                     </li>
@@ -88,7 +115,7 @@
                 </div>
             </div>
         </div>
-        
+        <script src="js/reminder.js"></script>
     </body>
 </html>
 
