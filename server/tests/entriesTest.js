@@ -640,6 +640,7 @@ describe('Modify specific diary entry API', () => {
   });
 
   it('Should return 205 for success', (done) => {
+    const newLength = entries.length;
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -652,6 +653,7 @@ describe('Modify specific diary entry API', () => {
       .end((err, res) => {
         expect(res).to.have.status(205);
         expect(res.body.message).to.equal('Entry modified successfully');
+        expect(entries).to.have.length(newLength);
         done();
       });
   });

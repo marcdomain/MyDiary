@@ -432,6 +432,7 @@ describe('Test Post user Signin API', () => {
   });
 
   it('Should return 200 for success', (done) => {
+    const newLength = users.length;
     chai.request(app)
       .post('/api/v1/users/signin')
       .send({
@@ -441,6 +442,7 @@ describe('Test Post user Signin API', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.be.a('string');
+        expect(users).to.have.length(newLength);
         done();
       });
   });
