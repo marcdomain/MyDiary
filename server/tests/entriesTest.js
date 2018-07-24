@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
+import entries from '../dummyModels/entries';
 
 const { expect } = chai;
 
@@ -306,6 +307,7 @@ describe('POST Diary Entries', () => {
   });
 
   it('Should return 201 for a post that is successful', (done) => {
+    const newLength = entries.length + 1;
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -318,6 +320,7 @@ describe('POST Diary Entries', () => {
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.message).to.equal('Success');
+        expect(entries).to.have.length(newLength);
         done();
       });
   });
@@ -637,6 +640,7 @@ describe('Modify specific diary entry API', () => {
   });
 
   it('Should return 205 for success', (done) => {
+    const newLength = entries.length;
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -649,6 +653,7 @@ describe('Modify specific diary entry API', () => {
       .end((err, res) => {
         expect(res).to.have.status(205);
         expect(res.body.message).to.equal('Entry modified successfully');
+        expect(entries).to.have.length(newLength);
         done();
       });
   });

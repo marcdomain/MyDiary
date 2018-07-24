@@ -43,12 +43,10 @@ class UserAuthHandler {
    */
   static userSignin(req, res) {
     const { foundUser } = req.body;
-    if (foundUser && foundUser.password === req.body.password) {
-      return res.status(200)
-        .json({
-          message: `Welcome ${foundUser.username}!`,
-        });
-    }
+    return res.status(200)
+      .json({
+        message: `Welcome ${foundUser.username}!`,
+      });
   }
 }
 

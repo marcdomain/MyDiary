@@ -180,8 +180,7 @@ class UserAuthHandler {
           message: 'username field cannot be empty',
         });
     }
-    username = username.trim();
-    username = username.toLowerCase();
+    username = username.toLowerCase().trim();
     const foundUser = users.find(user => user.username === username);
     if (!foundUser) {
       return res.status(401)
