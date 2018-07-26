@@ -10,7 +10,6 @@ const usersTable = 'DROP TABLE IF EXISTS users ;' +
 const entriesTable = 'DROP TABLE IF EXISTS entries ;' +
 	'CREATE TABLE entries (' +
 	'entry_id SERIAL PRIMARY KEY NOT NULL,' +
-	'owner_id INT NOT NULL,' +
 	'username CHARACTER VARYING(25) NOT NULL,' +
 	'title CHARACTER VARYING(20) NOT NULL,' +
 	'description CHARACTER VARYING(255) NOT NULL,' +

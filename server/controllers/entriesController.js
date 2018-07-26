@@ -1,4 +1,6 @@
 import entries from '../dummyModels/entries';
+import pool from './connect';
+
 
 /*
  * Class representing Diary Entries Handler
@@ -52,22 +54,25 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static postEntry(req, res) {
-    const {
-      username, email, title, description
-    } = req.body;
-    const id = entries[entries.length - 1].id + 1;
-    const newEntry = {
-      id,
-      username,
-      email,
-      title,
-      description,
-    };
-    entries.push(newEntry);
-    res.status(201)
-      .json({
-        newEntry,
-        message: 'Success'
+    const sql = `insert into entries (username, title, description)
+    values ($1, $2, $3)`;
+
+    const params = [
+      req.body.username,
+      req.body.title,
+      req.body.description
+    ];
+
+    pool.query(sql, params)
+      .then(() => res.status(201)
+        .json({
+          message: `${params[0]}, your entry was recorded!`,
+        }))
+      .catch((err) => {
+        res.status(500)
+          .json({
+            message: err.message
+          });
       });
   }
 
