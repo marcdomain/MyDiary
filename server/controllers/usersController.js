@@ -18,7 +18,7 @@ class UserAuthHandler {
    * @memberof UserHandler
    */
   static userSignup(req, res) {
-    const sql = 'insert into users (name, email, username, password) values ($1, $2, $3, $4)';
+    const sql = 'insert into users (name, username, email, password) values ($1, $2, $3, $4)';
     const params = [
       req.body.name,
       req.body.username,

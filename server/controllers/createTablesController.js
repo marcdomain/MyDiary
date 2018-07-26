@@ -18,7 +18,7 @@ class TablesHandler {
    * @memberof TablesHandler
    */
   static createTable(req, res) {
-    pool.query(table.entriesTable)
+    pool.query(table.usersTable)
       .then(result => res.status(201)
         .json({
           result,

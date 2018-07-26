@@ -4,7 +4,7 @@ const usersTable = 'DROP TABLE IF EXISTS users ;' +
 	'name CHARACTER VARYING(50) NOT NULL,' +
 	'username CHARACTER VARYING(25) UNIQUE NOT NULL,' +
 	'email CHARACTER VARYING(50) UNIQUE NOT NULL,' +
-	'password CHARACTER VARYING(20) NOT NULL' +
+	'password CHARACTER VARYING(255) NOT NULL' +
 ')';
 
 const entriesTable = 'DROP TABLE IF EXISTS entries ;' +
