@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import pool from './connect';
 
 /*
@@ -27,10 +28,19 @@ class UserAuthHandler {
     ];
     pool.query(sql, params)
       .then(() => {
-        res.status(201)
-          .json({
-            message: 'Your signup was successful',
-          });
+        const newUser = [{
+          name: params[0],
+          username: params[1],
+          email: params[2],
+          password: params[3]
+        }];
+        return jwt.sign({ newUser }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
+          res.status(201)
+            .json({
+              message: `Contratulations ${params[1]}, signup was successful`,
+              yourToken: token
+            });
+        });
       })
       .catch((err) => {
         res.json({
