@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import entries from '../dummyModels/entries';
-import pool from './db/connect';
+import pool from './db/connectDb';
 
 
 /*

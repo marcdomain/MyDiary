@@ -1,4 +1,4 @@
-import pool from './connect';
+import pool from './connectDb';
 import table from './dbTables';
 
 /*
@@ -18,7 +18,7 @@ class TablesHandler {
    * @memberof TablesHandler
    */
   static createTable(req, res) {
-    pool.query(table.usersTable)
+    pool.query(table.createUsersTable)
       .then(result => res.status(201)
         .json({
           result,
