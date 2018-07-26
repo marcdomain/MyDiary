@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/v1', userRouter);
 app.use('/api/v1', entriesRouter);
+app.use('/', createTable);
 app.use('/', defaultRouter);
-app.use('/api/v1', createTable);
 
 const port = process.env.PORT || 3310;
 app.listen(port, () => {

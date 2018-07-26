@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import entries from '../dummyModels/entries';
 import pool from './connect';
 
@@ -50,30 +51,38 @@ class DiaryEntriesHandler {
    * @static
    * @param {object} req - The request object
    * @param {object} res - The response object
-   * @returns {object} - JSON object representing success
+   * @returns {object} - JSON object representing respone message
    * @memberof DiaryEntriesHandler
    */
   static postEntry(req, res) {
-    const sql = `insert into entries (username, title, description)
-    values ($1, $2, $3)`;
-
-    const params = [
-      req.body.username,
-      req.body.title,
-      req.body.description
-    ];
-
-    pool.query(sql, params)
-      .then(() => res.status(201)
-        .json({
-          message: `${params[0]}, your entry was recorded!`,
-        }))
-      .catch((err) => {
-        res.status(500)
+    jwt.verify(req.token, 'secretKey', (err, authInfo) => {
+      if (err) {
+        res.status(403)
           .json({
-            message: err.message
+            message: 'supplied token is invalid'
           });
-      });
+      } else {
+        req.body.username = authInfo.user[0].username || authInfo.newUser[0].username;
+        const sql = 'insert into entries (username, title, description) values ($1, $2, $3)';
+        const params = [
+          req.body.username,
+          req.body.title,
+          req.body.description
+        ];
+
+        pool.query(sql, params)
+          .then(() => res.status(201)
+            .json({
+              message: 'req.body.username, your entry was recorded!',
+            }))
+          .catch((err) => {
+            res.status(500)
+              .json({
+                message: err.message
+              });
+          });
+      }
+    });
   }
 
   /*
