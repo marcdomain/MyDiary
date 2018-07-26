@@ -8,7 +8,9 @@
     "start": "nodemon --exec babel-node -- ./app.js",
     "test": "nyc --reporter=html --reporter=text mocha server/tests/*.js --exit --compilers js:babel-core/register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "resetTables": "babel-node -- ./server/db/resetTables",
+    ""
   },
   "repository": {
     "type": "git",
