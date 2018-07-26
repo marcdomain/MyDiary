@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './server/routes/index';
-import tables from './server/controllers/createTablesController';
+import tables from './server/controllers/db/createTablesController';
 
 const { createTable } = tables;
 

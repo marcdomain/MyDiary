@@ -1,6 +1,6 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import pool from './connect';
+import pool from './db/connect';
 
 /*
  * Class representing User Auth Handler
