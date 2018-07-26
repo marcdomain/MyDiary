@@ -1,4 +1,5 @@
-import users from '../dummyModels/users';
+import bcrypt from 'bcrypt';
+import pool from './connect';
 
 /*
  * Class representing User Auth Handler
@@ -13,24 +14,31 @@ class UserAuthHandler {
    * @static
    * @param {object} req - The request object
    * @param {object} res - The response object
-   * @returns {object} JSON object representing the user info and success message
+   * @returns {object} JSON object representing the error or success message
    * @memberof UserHandler
    */
-  static userSignUp(req, res) {
-    const newUser = {
-      id: users.length + 1,
-      fullName: req.body.fullName,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    };
-    users.push(newUser);
-    return res.status(201)
-      .json({
-        newUser,
-        message: 'Signup was successful',
+  static userSignup(req, res) {
+    const sql = 'insert into users (name, email, username, password) values ($1, $2, $3, $4)';
+    const params = [
+      req.body.name,
+      req.body.username,
+      req.body.email,
+      bcrypt.hashSync(req.body.password, 10),
+    ];
+    pool.query(sql, params)
+      .then(() => {
+        res.status(201)
+          .json({
+            message: 'Your signup was successful',
+          });
+      })
+      .catch((err) => {
+        res.json({
+          error: err.message,
+          message: 'something went wrong',
+        });
       });
-  }
+  } // End userSignup
 
   /*
    * Signin user
