@@ -29,7 +29,7 @@ const sellectAllUsers = 'select * from users';
 const sellectAllEntries = 'select * from entries';
 const sellectAllReminders = 'select * from reminders';
 
-const allTables = {
+const dbQueries = {
   createUsersTable,
   createEntriesTable,
   createRemindersTable,
@@ -38,4 +38,4 @@ const allTables = {
   sellectAllReminders
 };
 
-export default allTables;
+export default dbQueries;
