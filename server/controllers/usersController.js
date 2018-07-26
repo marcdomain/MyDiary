@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt, { compareSync } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import pool from './connect';
 
@@ -56,16 +56,34 @@ class UserAuthHandler {
    * @static
    * @param {object} req - The request object
    * @param {object} res - The response object
-   * @returns {object} JSON object representing success message
+   * @returns {object} JSON object representing response message
    * @memberof UserHandler
    */
   static userSignin(req, res) {
-    const { foundUser } = req.body;
-    return res.status(200)
-      .json({
-        message: `Welcome ${foundUser.username}!`,
+    const sql = 'select * from users where username = $1';
+    const params = [req.body.username];
+    pool.query(sql, params)
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          const compHash = compareSync(req.body.password, result.rows[0].password);
+          if (compHash) {
+            const user = result.rows;
+            return jwt.sign({ user }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
+              res.status(200)
+                .json({
+                  message: `Welcome back ${params[0]}`,
+                  yourToken: token
+                });
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        res.json({
+          message: err.message,
+        });
       });
-  }
+  } // End userSignin
 }
 
 export default UserAuthHandler;
