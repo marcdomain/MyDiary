@@ -30,13 +30,13 @@ const createRemindersTable = 'DROP TABLE IF EXISTS reminders ;' +
 
 
 pool.query(createUsersTable)
-  .then(result => console.log('userTable', result.command))
+  .then(result => console.log(`usersTable: ${result[0].command}PED and ${result[1].command}D`))
   .catch(err => console.log(`from database ${err}`));
 
 pool.query(createEntriesTable)
-  .then(result => console.log('entriesTable', result.command))
+  .then(result => console.log(`entriesTable: ${result[0].command}PED and ${result[1].command}D`))
   .catch(err => console.log(`from database ${err}`));
 
 pool.query(createRemindersTable)
-  .then(result => console.log('remindersTable', result.command))
+  .then(result => console.log(`remindersTable: ${result[0].command}PED and ${result[1].command}D`))
   .catch(err => console.log(`from database ${err}`));
