@@ -77,6 +77,16 @@ class UserAuthHandler {
             });
           }
         }
+        if (result.rowCount === 0) {
+          res.status(404)
+            .json({
+              message: 'User not found. Please signup',
+            });
+        }
+        return res.status(404)
+          .json({
+            message: 'Incorrect password',
+          });
       })
       .catch((err) => {
         res.json({
