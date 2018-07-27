@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import pool from '../db/connectDb';
-
+import queries from '../db/dbQueries';
 
 /*
  * Class representing Diary Entries Handler
@@ -27,7 +27,6 @@ class DiaryEntriesHandler {
           });
       }
 
-      const sql = 'select * from entries where username = $1';
       if (authInfo.user === undefined) {
         req.body.username = authInfo.newUser[0].username;
       }
@@ -35,7 +34,7 @@ class DiaryEntriesHandler {
         req.body.username = authInfo.user[0].username;
       }
       const params = [req.body.username];
-      pool.query(sql, params)
+      pool.query(queries.queryEntriesByUsername, params)
         .then((result) => {
           const userEntries = result.rows;
           if (!userEntries.length) {
@@ -77,7 +76,7 @@ class DiaryEntriesHandler {
             message: 'supplied token is invalid'
           });
       }
-      const sql = 'select * from entries where username = $1';
+      
       if (authInfo.user === undefined) {
         req.body.username = authInfo.newUser[0].username;
       }
@@ -85,7 +84,7 @@ class DiaryEntriesHandler {
         req.body.username = authInfo.user[0].username;
       }
       const params = [req.body.username];
-      pool.query(sql, params)
+      pool.query(queries.queryEntriesByUsername, params)
         .then((result) => {
           const userEntries = result.rows;
 
@@ -136,14 +135,14 @@ class DiaryEntriesHandler {
         if (authInfo.newUser === undefined) {
           req.body.username = authInfo.user[0].username;
         }
-        const sql = 'insert into entries (username, title, description) values ($1, $2, $3)';
+        
         const params = [
           req.body.username,
           req.body.title,
           req.body.description
         ];
 
-        pool.query(sql, params)
+        pool.query(queries.insertIntoEntries, params)
           .then(() => res.status(201)
             .json({
               message: `${req.body.username}, your entry was recorded!`,
