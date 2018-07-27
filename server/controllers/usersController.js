@@ -1,6 +1,7 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import pool from '../db/connectDb';
+import queries from '../db/dbQueries';
 
 /*
  * Class representing User Auth Handler
@@ -19,14 +20,13 @@ class UserAuthHandler {
    * @memberof UserHandler
    */
   static userSignup(req, res) {
-    const sql = 'insert into users (name, username, email, password) values ($1, $2, $3, $4)';
     const params = [
       req.body.name,
       req.body.username,
       req.body.email,
       bcrypt.hashSync(req.body.password, 10),
     ];
-    pool.query(sql, params)
+    pool.query(queries.insertIntoUsers, params)
       .then(() => {
         const newUser = [{
           name: params[0],
@@ -60,9 +60,8 @@ class UserAuthHandler {
    * @memberof UserHandler
    */
   static userSignin(req, res) {
-    const sql = 'select * from users where username = $1';
     const params = [req.body.username];
-    pool.query(sql, params)
+    pool.query(queries.queryUsersByUsername, params)
       .then((result) => {
         if (result.rowCount !== 0) {
           const compHash = compareSync(req.body.password, result.rows[0].password);
