@@ -6,12 +6,12 @@ import verifyToken from '../middlewares/verify';
 const {
   getAllEntries, getADiaryEntry, postEntry, modifyEntry
 } = entriesController;
-const { getADiaryEntryValidator, modifyEntryValidator } = entriesValidator;
+const { modifyEntryValidator } = entriesValidator;
 
 const entriesRouter = express.Router();
 
 entriesRouter.get('/entries', verifyToken, getAllEntries);
-entriesRouter.get('/entries/:entryId', getADiaryEntryValidator, getADiaryEntry);
+entriesRouter.get('/entries/:entryId', verifyToken, getADiaryEntry);
 entriesRouter.post('/entries', verifyToken, postEntry);
 entriesRouter.put('/entries/:entryId', modifyEntryValidator, modifyEntry);
 
