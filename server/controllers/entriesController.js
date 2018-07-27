@@ -96,7 +96,12 @@ class DiaryEntriesHandler {
             message: 'supplied token is invalid'
           });
       } else {
-        req.body.username = authInfo.user[0].username || authInfo.newUser[0].username;
+        if (authInfo.user === undefined) {
+          req.body.username = authInfo.newUser[0].username;
+        }
+        if (authInfo.newUser === undefined) {
+          req.body.username = authInfo.user[0].username;
+        }
         const sql = 'insert into entries (username, title, description) values ($1, $2, $3)';
         const params = [
           req.body.username,
