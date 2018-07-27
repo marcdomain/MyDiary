@@ -28,13 +28,13 @@ class UserAuthHandler {
     ];
     pool.query(queries.insertIntoUsers, params)
       .then(() => {
-        const newUser = [{
+        const authUser = [{
           name: params[0],
           username: params[1],
           email: params[2],
           password: params[3]
         }];
-        return jwt.sign({ newUser }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
+        return jwt.sign({ authUser }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
           res.status(201)
             .json({
               message: `Contratulations ${params[1]}, signup was successful`,
@@ -66,8 +66,8 @@ class UserAuthHandler {
         if (result.rowCount !== 0) {
           const compHash = compareSync(req.body.password, result.rows[0].password);
           if (compHash) {
-            const user = result.rows;
-            return jwt.sign({ user }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
+            const authUser = result.rows;
+            return jwt.sign({ authUser }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
               res.status(200)
                 .json({
                   message: `Welcome back ${params[0]}`,
