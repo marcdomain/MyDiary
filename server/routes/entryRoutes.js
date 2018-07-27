@@ -10,7 +10,7 @@ const { getADiaryEntryValidator, modifyEntryValidator } = entriesValidator;
 
 const entriesRouter = express.Router();
 
-entriesRouter.get('/entries', getAllEntries);
+entriesRouter.get('/entries', verifyToken, getAllEntries);
 entriesRouter.get('/entries/:entryId', getADiaryEntryValidator, getADiaryEntry);
 entriesRouter.post('/entries', verifyToken, postEntry);
 entriesRouter.put('/entries/:entryId', modifyEntryValidator, modifyEntry);

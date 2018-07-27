@@ -20,12 +20,46 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static getAllEntries(req, res) {
-    res.status(200)
-      .json({
-        diaryEntries: entries,
-        message: 'All diary entries served'
-      });
-  }
+    jwt.verify(req.token, 'secretKey', (err, authInfo) => {
+      if (err) {
+        return res.status(403)
+          .json({
+            message: 'supplied token is invalid'
+          });
+      }
+
+      const sql = 'select * from entries where username = $1';
+      if (authInfo.user === undefined) {
+        req.body.username = authInfo.newUser[0].username;
+      }
+      if (authInfo.newUser === undefined) {
+        req.body.username = authInfo.user[0].username;
+      }
+      const params = [req.body.username];
+      pool.query(sql, params)
+        .then((result) => {
+          const userEntries = result.rows;
+          if (!userEntries.length) {
+            return res.status(200)
+              .json({
+                message: 'Your diary entries list is empty, create one now'
+              });
+          }
+          res.status(200)
+            .json({
+              Entries: userEntries,
+              message: 'all entries successfully served'
+            });
+        })
+        .catch((err) => {
+          res.status(500)
+            .json({
+              message: err.message
+            });
+        });
+    });
+  } // End getAllEntries
+
 
   /*
    * Get a specific diary entry
@@ -73,7 +107,7 @@ class DiaryEntriesHandler {
         pool.query(sql, params)
           .then(() => res.status(201)
             .json({
-              message: 'req.body.username, your entry was recorded!',
+              message: `${req.body.username}, your entry was recorded!`,
             }))
           .catch((err) => {
             res.status(500)
@@ -83,7 +117,7 @@ class DiaryEntriesHandler {
           });
       }
     });
-  }
+  } // End postEntry
 
   /*
    * Modify a diary
