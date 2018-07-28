@@ -1,7 +1,9 @@
 import bcrypt, { compareSync } from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import pool from '../db/connectDb';
 import queries from '../db/dbQueries';
+import auth from '../middlewares/authenticator';
+
+const { generateToken } = auth;
 
 /*
  * Class representing User Auth Handler
@@ -34,13 +36,12 @@ class UserAuthHandler {
           email: params[2],
           password: params[3]
         }];
-        return jwt.sign({ authUser }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
-          res.status(201)
-            .json({
-              message: `Contratulations ${params[1]}, signup was successful`,
-              yourToken: token
-            });
-        });
+        const token = generateToken(authUser);
+        res.status(201)
+          .json({
+            message: `Contratulations ${params[1]}, signup was successful`,
+            yourToken: token
+          });
       })
       .catch((err) => {
         res.json({
@@ -67,13 +68,13 @@ class UserAuthHandler {
           const compHash = compareSync(req.body.password, result.rows[0].password);
           if (compHash) {
             const authUser = result.rows;
-            return jwt.sign({ authUser }, 'secretKey', { expiresIn: '1200s' }, (err, token) => {
-              res.status(200)
-                .json({
-                  message: `Welcome back ${params[0]}`,
-                  yourToken: token
-                });
-            });
+            console.log('AUTH USER', authUser);
+            const token = generateToken(authUser);
+            res.status(200)
+              .json({
+                message: `Welcome back ${params[0]}`,
+                yourToken: token
+              });
           }
         }
         if (result.rowCount === 0) {
