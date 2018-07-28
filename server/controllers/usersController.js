@@ -68,7 +68,6 @@ class UserAuthHandler {
           const compHash = compareSync(req.body.password, result.rows[0].password);
           if (compHash) {
             const authUser = result.rows;
-            console.log('AUTH USER', authUser);
             const token = generateToken(authUser);
             res.status(200)
               .json({
