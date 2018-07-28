@@ -54,42 +54,32 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static getADiaryEntry(req, res) {
-    jwt.verify(req.token, 'secretKey', (err, authInfo) => {
-      if (err) {
-        res.status(403)
-          .json({
-            message: 'supplied token is invalid'
-          });
-      }
+    const params = [req.authData.authUser[0].username];
+    pool.query(queries.queryEntriesByUsername, params)
+      .then((result) => {
+        const userEntries = result.rows;
 
-      req.body.username = authInfo.authUser[0].username;
-      const params = [req.body.username];
-      pool.query(queries.queryEntriesByUsername, params)
-        .then((result) => {
-          const userEntries = result.rows;
-
-          const { entryId } = req.params;
-          const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
-          if (diaryEntry) {
-            res.status(200)
-              .json({
-                diaryEntry,
-                message: 'entry successfully served'
-              });
-          } else {
-            res.status(404)
-              .json({
-                message: 'Entry id is invalid'
-              });
-          }
-        })
-        .catch((err) => {
-          res.status(500)
+        const { entryId } = req.params;
+        const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
+        if (diaryEntry) {
+          res.status(200)
             .json({
-              message: err.message
+              diaryEntry,
+              message: 'entry successfully served'
             });
-        });
-    });
+        } else {
+          res.status(404)
+            .json({
+              message: 'Entry id is invalid'
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(500)
+          .json({
+            message: err.message
+          });
+      });
   }
 
   /*
