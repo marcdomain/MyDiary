@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import pool from '../db/connectDb';
 import queries from '../db/dbQueries';
 
@@ -92,33 +91,24 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static postEntry(req, res) {
-    jwt.verify(req.token, 'secretKey', (err, authInfo) => {
-      if (err) {
-        res.status(403)
+    req.body.username = req.authData.authUser[0].username;
+    const params = [
+      req.body.username,
+      req.body.title,
+      req.body.description
+    ];
+
+    pool.query(queries.insertIntoEntries, params)
+      .then(() => res.status(201)
+        .json({
+          message: `${req.body.username}, your entry was recorded!`,
+        }))
+      .catch((err) => {
+        res.status(500)
           .json({
-            message: 'supplied token is invalid'
+            message: err.message
           });
-      }
-
-      req.body.username = authInfo.authUser[0].username;
-      const params = [
-        req.body.username,
-        req.body.title,
-        req.body.description
-      ];
-
-      pool.query(queries.insertIntoEntries, params)
-        .then(() => res.status(201)
-          .json({
-            message: `${req.body.username}, your entry was recorded!`,
-          }))
-        .catch((err) => {
-          res.status(500)
-            .json({
-              message: err.message
-            });
-        });
-    });
+      });
   } // End postEntry
 
   /*
