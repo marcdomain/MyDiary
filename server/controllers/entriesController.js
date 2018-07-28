@@ -1,6 +1,8 @@
 import pool from '../db/connectDb';
 import queries from '../db/dbQueries';
 
+const { queryEntriesByUsername, insertIntoEntries } = queries;
+
 /*
  * Class representing Diary Entries Handler
  *
@@ -19,7 +21,7 @@ class DiaryEntriesHandler {
    */
   static getAllEntries(req, res) {
     const params = [req.authData.authUser[0].username];
-    pool.query(queries.queryEntriesByUsername, params)
+    pool.query(queryEntriesByUsername, params)
       .then((result) => {
         const userEntries = result.rows;
         if (!userEntries.length) {
@@ -54,7 +56,7 @@ class DiaryEntriesHandler {
    */
   static getADiaryEntry(req, res) {
     const params = [req.authData.authUser[0].username];
-    pool.query(queries.queryEntriesByUsername, params)
+    pool.query(queryEntriesByUsername, params)
       .then((result) => {
         const userEntries = result.rows;
 
@@ -98,7 +100,7 @@ class DiaryEntriesHandler {
       req.body.description
     ];
 
-    pool.query(queries.insertIntoEntries, params)
+    pool.query(insertIntoEntries, params)
       .then(() => res.status(201)
         .json({
           message: `${req.body.username}, your entry was recorded!`,

@@ -4,6 +4,7 @@ import queries from '../db/dbQueries';
 import auth from '../middlewares/authenticator';
 
 const { generateToken } = auth;
+const { insertIntoUsers, queryUsersByUsername } = queries;
 
 /*
  * Class representing User Auth Handler
@@ -28,7 +29,7 @@ class UserAuthHandler {
       req.body.email,
       bcrypt.hashSync(req.body.password, 10),
     ];
-    pool.query(queries.insertIntoUsers, params)
+    pool.query(insertIntoUsers, params)
       .then(() => {
         const authUser = [{
           name: params[0],
@@ -62,7 +63,7 @@ class UserAuthHandler {
    */
   static userSignin(req, res) {
     const params = [req.body.username];
-    pool.query(queries.queryUsersByUsername, params)
+    pool.query(queryUsersByUsername, params)
       .then((result) => {
         if (result.rowCount !== 0) {
           const compHash = compareSync(req.body.password, result.rows[0].password);
