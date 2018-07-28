@@ -19,37 +19,28 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static getAllEntries(req, res) {
-    jwt.verify(req.token, 'secretKey', (err, authInfo) => {
-      if (err) {
-        return res.status(403)
+    const params = [req.authData.authUser[0].username];
+    pool.query(queries.queryEntriesByUsername, params)
+      .then((result) => {
+        const userEntries = result.rows;
+        if (!userEntries.length) {
+          return res.status(200)
+            .json({
+              message: 'Your diary entries list is empty, create one now'
+            });
+        }
+        res.status(200)
           .json({
-            message: 'supplied token is invalid'
+            Entries: userEntries,
+            message: 'all entries successfully served'
           });
-      }
-      req.body.username = authInfo.authUser[0].username;
-      const params = [req.body.username];
-      pool.query(queries.queryEntriesByUsername, params)
-        .then((result) => {
-          const userEntries = result.rows;
-          if (!userEntries.length) {
-            return res.status(200)
-              .json({
-                message: 'Your diary entries list is empty, create one now'
-              });
-          }
-          res.status(200)
-            .json({
-              Entries: userEntries,
-              message: 'all entries successfully served'
-            });
-        })
-        .catch((err) => {
-          res.status(500)
-            .json({
-              message: err.message
-            });
-        });
-    });
+      })
+      .catch((err) => {
+        res.status(500)
+          .json({
+            message: err.message
+          });
+      });
   } // End getAllEntries
 
 
