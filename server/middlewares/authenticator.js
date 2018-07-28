@@ -26,7 +26,6 @@ export default {
           });
       }
       req.authData = authData;
-      console.log('AUTHDATA', authData);
       return next();
     });
   }
