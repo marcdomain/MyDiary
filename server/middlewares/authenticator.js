@@ -19,7 +19,6 @@ export default {
         });
     } else {
       jwt.verify(token, process.env.KEYCODE, (err, authData) => {
-        console.log('TOKEN ERROR', err);
         if (err) {
           if (err.message.includes('signature')) {
             res.status(403)
