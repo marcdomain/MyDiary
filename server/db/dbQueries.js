@@ -1,6 +1,6 @@
 const queryUsersByUsername = 'select * from users where username = $1';
 
-const queryEntriesByUsername = 'select * from entries where username = $1';
+const queryEntriesByUsername = 'select * from entries where username = $1 order by entry_id desc';
 
 const insertIntoUsers = 'insert into users (name, username, email, password) values ($1, $2, $3, $4)';
 
