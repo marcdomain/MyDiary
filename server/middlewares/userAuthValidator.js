@@ -199,7 +199,37 @@ class UserAuthHandler {
         });
     }
     username = username.toLowerCase().trim();
-    
+    pool.query('select username from users where username = $1', [username])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          return res.status(404)
+            .json({
+              message: 'User not found. Please signup',
+            });
+        }
+
+        if (password === undefined) {
+          return res.status(406)
+            .json({
+              message: 'You have made no input for password',
+            });
+        }
+
+        if (password === '') {
+          return res.status(406)
+            .json({
+              message: 'password field cannot be empty',
+            });
+        }
+        password = password.trim();
+
+        req.body.password = password;
+        req.body.username = username;
+        next();
+      })
+      .catch(() => {
+        res.status(500);
+      });
   }
 }
 export default UserAuthHandler;
