@@ -8,12 +8,15 @@ const insertIntoEntries = 'insert into entries (username, title, description) va
 
 const updateDiaryEntry = 'update entries set username = $1, title = $2, description = $3 where entry_id = $4';
 
+const deleteDiaryEntry = 'delete from entries where entry_id = $1';
+
 const dbQueries = {
   queryUsersByUsername,
   queryEntriesByUsername,
   insertIntoEntries,
   insertIntoUsers,
-  updateDiaryEntry
+  updateDiaryEntry,
+  deleteDiaryEntry
 };
 
 export default dbQueries;
