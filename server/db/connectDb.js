@@ -1,8 +1,6 @@
 import { Pool } from 'pg';
+import 'dotenv/config';
 
-const pool = new Pool({
-  connectionString: 'postgresql://postgres:marc2014@localhost:5432/mydiarydb',
-  ssl: false,
-});
+const pool = new Pool();
 
 export default pool;

@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+// An idea from stackoverflow https://stackoverflow.com/questions/20155989/if-table-exists-drop-table-then-create-it-if-it-does-not-exist-just-create-it/20156024
 import pool from './connectDb';
 
 const createUsersTable = 'DROP TABLE IF EXISTS users ;' + 
@@ -28,7 +28,7 @@ const createRemindersTable = 'DROP TABLE IF EXISTS reminders ;' +
 	'date TIMESTAMP NOT NULL' +
 ')';
 
-
+/* eslint-disable no-console */
 pool.query(createUsersTable)
   .then(result => console.log(`usersTable: ${result[0].command}PED and ${result[1].command}D`))
   .catch(err => console.log(`from database ${err}`));

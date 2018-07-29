@@ -1,17 +1,19 @@
 import express from 'express';
 import entriesController from '../controllers/entriesController';
 import entriesValidator from '../middlewares/entriesValidator';
-import verifyToken from '../middlewares/verify';
+import verify from '../middlewares/authenticator';
+
+const { verifyToken } = verify;
 
 const {
   getAllEntries, getADiaryEntry, postEntry, modifyEntry
 } = entriesController;
-const { getADiaryEntryValidator, modifyEntryValidator } = entriesValidator;
+const { modifyEntryValidator } = entriesValidator;
 
 const entriesRouter = express.Router();
 
-entriesRouter.get('/entries', getAllEntries);
-entriesRouter.get('/entries/:entryId', getADiaryEntryValidator, getADiaryEntry);
+entriesRouter.get('/entries', verifyToken, getAllEntries);
+entriesRouter.get('/entries/:entryId', verifyToken, getADiaryEntry);
 entriesRouter.post('/entries', verifyToken, postEntry);
 entriesRouter.put('/entries/:entryId', modifyEntryValidator, modifyEntry);
 
