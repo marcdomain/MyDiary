@@ -132,29 +132,39 @@ class DiaryEntriesHandler {
         const { entryId } = req.params;
         const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
         if (diaryEntry) {
-          const params1 = [
-            req.authData.authUser[0].username,
-            req.body.title,
-            req.body.description,
-            entryId
-          ];
-          console.log('CHECK DATE', diaryEntry);
-          pool.query(updateDiaryEntry, params1)
-            .then((modifyResult) => {
-              console.log('MODIFY RESULT LOG', modifyResult);
-              if (modifyResult.rowCount) {
-                res.status(205)
+          const dateCreated = new Date(diaryEntry.date);
+          const convertDateCreated = dateCreated.getTime();
+          const currentDate = new Date();
+          const convertCurrentDate = currentDate.getTime();
+          const entryLifeSpan = convertCurrentDate - convertDateCreated;
+          if (entryLifeSpan < 86400000) {
+            const params1 = [
+              req.authData.authUser[0].username,
+              req.body.title,
+              req.body.description,
+              entryId
+            ];
+            pool.query(updateDiaryEntry, params1)
+              .then((modifyResult) => {
+                if (modifyResult.rowCount) {
+                  res.status(205)
+                    .json({
+                      message: 'Entry modified successfully'
+                    });
+                }
+              })
+              .catch((err) => {
+                res.status(500)
                   .json({
-                    message: 'Entry modified successfully'
+                    message: err.message
                   });
-              }
-            })
-            .catch((err) => {
-              res.status(500)
-                .json({
-                  message: err.message
-                });
-            });
+              });
+          } else {
+            res.status(403)
+              .json({
+                message: "You can't modify this entry, it's over 24hrs already"
+              });
+          }
         } else {
           res.status(404)
             .json({
