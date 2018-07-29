@@ -1,4 +1,3 @@
-import users from '../dummyModels/users';
 import pool from '../db/connectDb';
 
 /*
