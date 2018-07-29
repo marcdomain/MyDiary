@@ -1,4 +1,4 @@
-import users from '../dummyModels/users';
+import pool from '../db/connectDb';
 
 /*
  * Class representing User Auth Validator
@@ -18,35 +18,35 @@ class UserAuthHandler {
    */
   static signupValidator(req, res, next) {
     let {
-      fullName, username, email, password
+      name, username, email, password
     } = req.body;
 
-    if (fullName === undefined) {
+    if (name === undefined) {
       return res.status(406)
         .json({
-          message: 'You have made no input for fullName',
+          message: 'You have made no input for name',
         });
     }
-    if (fullName === '') {
+    if (name === '') {
       return res.status(406)
         .json({
-          message: 'fullName field cannot be empty',
-        });
-    }
-
-    fullName = fullName.trim();
-    if (fullName.length < 5 || fullName.length > 25) {
-      return res.status(406)
-        .json({
-          message: 'fullName should be 5 to 25 characters long',
+          message: 'name field cannot be empty',
         });
     }
 
-    const fullNameValidCharacters = /^[a-z ]+$/i;
-    if (!fullNameValidCharacters.test(fullName)) {
+    name = name.trim();
+    if (name.length < 5 || name.length > 50) {
       return res.status(406)
         .json({
-          message: 'fullName can only contain alphabets and whitespace',
+          message: 'name should be 5 to 50 characters long',
+        });
+    }
+
+    const nameValidCharacters = /^[a-z ]+$/i;
+    if (!nameValidCharacters.test(name)) {
+      return res.status(406)
+        .json({
+          message: 'name can only contain alphabets and whitespace',
         });
     }
 
@@ -64,10 +64,10 @@ class UserAuthHandler {
     }
     username = username.toLowerCase().trim();
 
-    if (username.length < 2 || username.length > 15) {
+    if (username.length < 2 || username.length > 25) {
       return res.status(406)
         .json({
-          message: 'username should be 2 to 15 characters long',
+          message: 'username should be 2 to 25 characters long',
         });
     }
     if (username.includes(' ')) {
@@ -84,13 +84,23 @@ class UserAuthHandler {
           message: 'Only Alphanumeric charaters are allowed for username',
         });
     }
-    const foundUsername = users.find(user => user.username === username);
-    if (foundUsername) {
-      return res.status(409)
-        .json({
-          message: 'Username taken! Login if it is yours or sign up with a new username',
-        });
-    }
+
+    pool.query('select username from users where username = $1', [username])
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          return res.status(409)
+            .json({
+              message: 'Username taken! Login if it is yours or signup with a new username',
+            });
+        }
+        req.body.username = username;
+      })
+      .catch((err) => {
+        res.status(500)
+          .json({
+            message: err.message
+          });
+      });
 
     if (email === undefined) {
       return res.status(406)
@@ -104,7 +114,7 @@ class UserAuthHandler {
           message: 'Email field cannot be empty',
         });
     }
-    if (!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]+\.[a-zA-Z]{2,5}(\.[a-zA-Z]{2,5})?$/.test(email)) {
+    if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       return res.status(406)
         .json({
           message: 'Your email format is invalid',
@@ -117,14 +127,22 @@ class UserAuthHandler {
           message: 'Your email should be 10 to 50 characters long'
         });
     }
-
-    const foundEmail = users.find(user => user.email === email);
-    if (foundEmail) {
-      return res.status(409)
-        .json({
-          message: 'Email taken! Login if it is yours or sign up with a new email',
-        });
-    }
+    pool.query('select email from users where email = $1', [email])
+      .then((result1) => {
+        if (result1.rowCount !== 0) {
+          return res.status(409)
+            .json({
+              message: 'Email taken! Login if it is yours or signup with a new email',
+            });
+        }
+        req.body.email = email;
+      })
+      .catch((err) => {
+        res.status(500)
+          .json({
+            message: err.message
+          });
+      });
 
     if (password === undefined) {
       return res.status(406)
@@ -138,6 +156,7 @@ class UserAuthHandler {
           message: 'Password field cannot be empty',
         });
     }
+
     password = password.trim();
 
     if (password.length < 4 || password.length > 16) {
@@ -152,9 +171,7 @@ class UserAuthHandler {
           message: 'Remove whitespace from your password',
         });
     }
-    req.body.username = username;
-    req.body.email = email;
-    return next();
+    next();
   }
 
   static signinValidator(req, res, next) {
@@ -181,37 +198,37 @@ class UserAuthHandler {
         });
     }
     username = username.toLowerCase().trim();
-    const foundUser = users.find(user => user.username === username);
-    if (!foundUser) {
-      return res.status(401)
-        .json({
-          message: 'username does not exist. Input your correct username or Signup!',
-        });
-    }
-    if (password === undefined) {
-      return res.status(406)
-        .json({
-          message: 'You have made no input for password',
-        });
-    }
-    if (password === '') {
-      return res.status(406)
-        .json({
-          message: 'password field cannot be empty',
-        });
-    }
+    pool.query('select username from users where username = $1', [username])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          return res.status(404)
+            .json({
+              message: 'User not found. Please signup',
+            });
+        }
 
-    password = password.trim();
-    if (foundUser && password !== foundUser.password) {
-      return res.status(401)
-        .json({
-          message: 'Incorrect password',
-        });
-    }
+        if (password === undefined) {
+          return res.status(406)
+            .json({
+              message: 'You have made no input for password',
+            });
+        }
 
-    req.body.foundUser = foundUser;
-    req.body.password = password;
-    return next();
+        if (password === '') {
+          return res.status(406)
+            .json({
+              message: 'password field cannot be empty',
+            });
+        }
+        password = password.trim();
+
+        req.body.password = password;
+        req.body.username = username;
+        next();
+      })
+      .catch(() => {
+        res.status(500);
+      });
   }
 }
 export default UserAuthHandler;

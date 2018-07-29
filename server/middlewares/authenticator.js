@@ -17,16 +17,24 @@ export default {
         .json({
           message: 'No token supplied',
         });
+    } else {
+      jwt.verify(token, process.env.KEYCODE, (err, authData) => {
+        if (err) {
+          if (err.message.includes('signature')) {
+            res.status(403)
+              .json({
+                message: 'Invalid token supplied',
+              });
+          } else {
+            res.status(403)
+              .json({
+                message: err,
+              });
+          }
+        }
+        req.authData = authData;
+        return next();
+      });
     }
-    jwt.verify(token, process.env.KEYCODE, (err, authData) => {
-      if (err) {
-        res.status(403)
-          .json({
-            message: 'Invalid token supplied',
-          });
-      }
-      req.authData = authData;
-      return next();
-    });
   }
 };
