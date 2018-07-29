@@ -10,13 +10,16 @@ const updateDiaryEntry = 'update entries set username = $1, title = $2, descript
 
 const deleteDiaryEntry = 'delete from entries where entry_id = $1';
 
+const insertIntoReminders = 'insert into reminders (username, email, title, date) values ($1, $2, $3, $4)';
+
 const dbQueries = {
   queryUsersByUsername,
   queryEntriesByUsername,
   insertIntoEntries,
   insertIntoUsers,
   updateDiaryEntry,
-  deleteDiaryEntry
+  deleteDiaryEntry,
+  insertIntoReminders
 };
 
 export default dbQueries;
