@@ -1,5 +1,3 @@
-import entries from '../dummyModels/entries';
-
 /*
  * Class representing Diary Entries Validator
  *
