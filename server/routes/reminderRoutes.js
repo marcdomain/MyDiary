@@ -4,10 +4,11 @@ import verify from '../middlewares/authenticator';
 
 const { verifyToken } = verify;
 
-const { postReminder } = reminderscontroller;
+const { postReminder, deleteReminder } = reminderscontroller;
 
 const reminderRouter = express.Router();
 
-reminderRouter.post('/entries', verifyToken, postReminder);
+reminderRouter.post('/reminders', verifyToken, postReminder);
+reminderRouter.delete('/reminders/:reminderId', verifyToken, deleteReminder);
 
 export default reminderRouter;
