@@ -1,7 +1,9 @@
 import pool from '../db/connectDb';
 import queries from '../db/dbQueries';
 
-const { queryEntriesByUsername, insertIntoEntries } = queries;
+const {
+  queryEntriesByUsername, insertIntoEntries, updateDiaryEntry
+} = queries;
 
 /*
  * Class representing Diary Entries Handler
@@ -123,15 +125,48 @@ class DiaryEntriesHandler {
    * @memberof DiaryEntriesHandler
    */
   static modifyEntry(req, res) {
-    const { foundEntry } = req.body;
-    foundEntry.username = req.body.username;
-    foundEntry.email = req.body.email;
-    foundEntry.title = req.body.title;
-    foundEntry.description = req.body.description;
-    return res.status(205)
-      .json({
-        foundEntry,
-        message: 'Entry modified successfully',
+    const params = [req.authData.authUser[0].username];
+    pool.query(queryEntriesByUsername, params)
+      .then((result) => {
+        const userEntries = result.rows;
+        const { entryId } = req.params;
+        const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
+        if (diaryEntry) {
+          const params1 = [
+            req.authData.authUser[0].username,
+            req.body.title,
+            req.body.description,
+            entryId
+          ];
+          console.log('CHECK DATE', diaryEntry);
+          pool.query(updateDiaryEntry, params1)
+            .then((modifyResult) => {
+              console.log('MODIFY RESULT LOG', modifyResult);
+              if (modifyResult.rowCount) {
+                res.status(205)
+                  .json({
+                    message: 'Entry modified successfully'
+                  });
+              }
+            })
+            .catch((err) => {
+              res.status(500)
+                .json({
+                  message: err.message
+                });
+            });
+        } else {
+          res.status(404)
+            .json({
+              message: 'Entry not found'
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(500)
+          .json({
+            message: err.message
+          });
       });
   }
 }
