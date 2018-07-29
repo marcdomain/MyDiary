@@ -180,6 +180,14 @@ class DiaryEntriesHandler {
       });
   } // End modfyEntry
 
+  /*
+   * Delete a diary entry
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @memberof DiaryEntriesHandler
+   */
   static deleteEntry(req, res) {
     const params = [req.authData.authUser[0].username];
     pool.query(queryEntriesByUsername, params)
