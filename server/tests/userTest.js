@@ -8,9 +8,9 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Test Post user Signup API', () => {
-  it('Should return 406 for a signup having undefined fullName', (done) => {
+  it('Should return 406 for a signup having undefined name', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
         username: 'marc',
@@ -19,68 +19,67 @@ describe('Test Post user Signup API', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for fullName');
+        expect(res.body.message).to.equal('You have made no input for name');
         done();
       });
   });
 
-  it('Should return 406 for an empty fullName field', (done) => {
+  it('Should return 406 for an empty name field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: '',
+        name: '',
         username: 'marc',
         email: 'marc@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('fullName field cannot be empty');
+        expect(res.body.message).to.equal('name field cannot be empty');
         done();
       });
   });
 
-  it('Should return 406 for an invalid fullName character length', (done) => {
+  it('Should return 406 for an invalid name character length', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
-        id: 1,
-        fullName: 'marc',
+        name: 'marc',
         username: 'marc',
         email: 'marc@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('fullName should be 5 to 25 characters long');
+        expect(res.body.message).to.equal('name should be 5 to 50 characters long');
         done();
       });
   });
 
-  it('Should return 406 for invalid characters in fullName field', (done) => {
+  it('Should return 406 for invalid characters in name field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'marc #%',
+        name: 'marc #%',
         username: 'marc',
         email: 'marc@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('fullName can only contain alphabets and whitespace');
+        expect(res.body.message).to.equal('name can only contain alphabets and whitespace');
         done();
       });
   });
 
   it('Should return 406 for an undefined username field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         email: 'marc@gmail.com',
         password: 'marcpass'
       })
@@ -93,10 +92,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for an empty username field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: '',
         email: 'marc@gmail.com',
         password: 'marcpass'
@@ -110,27 +109,27 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for an invalid username character length', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'm',
         email: 'marc@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('username should be 2 to 15 characters long');
+        expect(res.body.message).to.equal('username should be 2 to 25 characters long');
         done();
       });
   });
 
   it('Should return 406 for a username having whitespace', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marc marc',
         email: 'marc@gmail.com',
         password: 'marcpass'
@@ -145,10 +144,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for a username having non-alphanumeric characters', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: '#marc',
         email: 'marc@gmail.com',
         password: 'marcpass'
@@ -162,27 +161,27 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 409 for an existing username', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
-        username: 'marc',
-        email: 'marc@gmail.com',
+        name: 'king marc',
+        username: 'marcco',
+        email: 'marcjj@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
-        expect(res.body.message).to.equal('Username taken! Login if it is yours or sign up with a new username');
+        expect(res.body.message).to.equal('Username taken! Login if it is yours or signup with a new username');
         done();
       });
   });
 
   it('Should return 406 for undefined email field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         password: 'marcpass'
       })
@@ -195,10 +194,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for signup having empty email field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: '',
         password: 'marcpass'
@@ -212,10 +211,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for signup having invalid email format', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: 'marc#gmail.com',
         password: 'marcpass'
@@ -229,10 +228,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for signup having invalid email character length', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: 'ab@h.com',
         password: 'marcpass'
@@ -246,27 +245,27 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 409 for an existing email address', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
-        username: 'marco',
-        email: 'marc@gmail.com',
+        name: 'king marc',
+        username: 'marccco',
+        email: 'marc28@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
-        expect(res.body.message).to.equal('Email taken! Login if it is yours or sign up with a new email');
+        expect(res.body.message).to.equal('Email taken! Login if it is yours or signup with a new email');
         done();
       });
   });
 
   it('Should return 406 for a signup having undefined password', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: 'marc@yahoo.com',
       })
@@ -279,10 +278,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for a signup having empty password field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: 'marc@yahoo.com',
         password: ''
@@ -296,10 +295,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for invalid password length', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: 'marc@yahoo.com',
         password: 'mar'
@@ -313,10 +312,10 @@ describe('Test Post user Signup API', () => {
 
   it('Should return 406 for a password having whitespace', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
+        name: 'king marc',
         username: 'marco',
         email: 'marc@yahoo.com',
         password: 'marc pass'
@@ -329,20 +328,18 @@ describe('Test Post user Signup API', () => {
   });
 
   it('Should return 201 for success', (done) => {
-    const newLength = users.length + 1;
     chai.request(app)
-      .post('/api/v1/users/signup')
+      .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        fullName: 'king marc',
-        username: 'marcman',
-        email: 'marcus@yahoo.com',
+        name: 'king marc',
+        username: 'marcman27',
+        email: 'marcus27@yahoo.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
-        expect(res.body.message).to.equal('Signup was successful');
-        expect(users).to.have.length(newLength);
+        expect(res.body.message).to.be.a('string');
         done();
       });
   });
@@ -351,7 +348,7 @@ describe('Test Post user Signup API', () => {
 describe('Test Post user Signin API', () => {
   it('Should return 406 for an undefined username field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
         password: 'marcpass'
       })
@@ -364,7 +361,7 @@ describe('Test Post user Signin API', () => {
 
   it('Should return 406 for an empty username field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
         username: '',
         password: 'marcpass'
@@ -378,21 +375,21 @@ describe('Test Post user Signin API', () => {
 
   it('Should return 401 for a non-existing username', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
-        username: 'lorem',
+        username: 'lorem124',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(401);
-        expect(res.body.message).to.equal('username does not exist. Input your correct username or Signup!');
+        expect(res.body.message).to.equal('User not found. Please signup');
         done();
       });
   });
 
   it('Should return 406 for a signin having undefined password', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
         username: 'marc',
       })
@@ -405,7 +402,7 @@ describe('Test Post user Signin API', () => {
 
   it('Should return 406 for a signin having empty password field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
         username: 'marc',
         password: ''
@@ -419,9 +416,9 @@ describe('Test Post user Signin API', () => {
 
   it('Should return 401 for a comibination of correct username and incorrect password', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
-        username: 'marc',
+        username: 'marc25',
         password: 'marc#pass'
       })
       .end((err, res) => {
@@ -434,10 +431,10 @@ describe('Test Post user Signin API', () => {
   it('Should return 200 for success', (done) => {
     const newLength = users.length;
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/auth/login')
       .send({
-        username: 'marc',
-        password: 'marcpass'
+        username: 'marcco',
+        password: 'marc9pass'
       })
       .end((err, res) => {
         expect(res).to.have.status(200);

@@ -40,7 +40,7 @@ class UserAuthHandler {
         const token = generateToken(authUser);
         res.status(201)
           .json({
-            message: `Contratulations ${params[1]}, signup was successful`,
+            message: `Congratulations ${params[1]} signup was successful`,
             yourToken: token
           });
       })
@@ -78,12 +78,12 @@ class UserAuthHandler {
           }
         }
         if (result.rowCount === 0) {
-          res.status(404)
+          res.status(401)
             .json({
               message: 'User not found. Please signup',
             });
         }
-        return res.status(404)
+        return res.status(401)
           .json({
             message: 'Incorrect password',
           });
