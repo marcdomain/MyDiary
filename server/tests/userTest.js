@@ -13,8 +13,8 @@ describe('Test Post user Signup API', () => {
       .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        username: 'marc',
-        email: 'marc@gmail.com',
+        username: 'marc4',
+        email: 'marc4@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -30,8 +30,8 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: '',
-        username: 'marc',
-        email: 'marc@gmail.com',
+        username: 'marc2',
+        email: 'marc2@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -46,8 +46,8 @@ describe('Test Post user Signup API', () => {
       .post('/api/v1/auth/signup')
       .send({
         name: 'marc',
-        username: 'marc',
-        email: 'marc@gmail.com',
+        username: 'marc3',
+        email: 'marc3@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -63,8 +63,8 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'marc #%',
-        username: 'marc',
-        email: 'marc@gmail.com',
+        username: 'marc6',
+        email: 'marc6@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -80,7 +80,7 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        email: 'marc@gmail.com',
+        email: 'marc7@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -97,7 +97,7 @@ describe('Test Post user Signup API', () => {
         id: 1,
         name: 'king marc',
         username: '',
-        email: 'marc@gmail.com',
+        email: 'marc8@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -114,7 +114,7 @@ describe('Test Post user Signup API', () => {
         id: 1,
         name: 'king marc',
         username: 'm',
-        email: 'marc@gmail.com',
+        email: 'marc9@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -129,9 +129,9 @@ describe('Test Post user Signup API', () => {
       .post('/api/v1/auth/signup')
       .send({
         id: 1,
-        name: 'king marc',
+        name: 'marc space',
         username: 'marc marc',
-        email: 'marc@gmail.com',
+        email: 'marc10@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -149,12 +149,29 @@ describe('Test Post user Signup API', () => {
         id: 1,
         name: 'king marc',
         username: '#marc',
-        email: 'marc@gmail.com',
+        email: 'marc13@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
         expect(res.body.message).to.equal('Only Alphanumeric charaters are allowed for username');
+        done();
+      });
+  });
+
+  it('Should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        id: 1,
+        name: 'king marc',
+        username: 'testuser',
+        email: 'testuser@gmail.com',
+        password: 'testuser'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.message).to.be.a('string');
         done();
       });
   });
@@ -165,14 +182,12 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marcco',
-        email: 'marcjj@gmail.com',
-        password: 'marcpass'
+        username: 'testuser',
+        email: 'marc11@gmail.com',
+        password: 'testuser'
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
-        expect(res.body.message).to.equal('Username taken! Login if it is yours or signup with a new username');
-        done();
       });
   });
 
@@ -198,7 +213,7 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
+        username: 'marcooo',
         email: '',
         password: 'marcpass'
       })
@@ -215,7 +230,7 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
+        username: 'marco1',
         email: 'marc#gmail.com',
         password: 'marcpass'
       })
@@ -232,7 +247,7 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
+        username: 'marco3',
         email: 'ab@h.com',
         password: 'marcpass'
       })
@@ -250,7 +265,7 @@ describe('Test Post user Signup API', () => {
         id: 1,
         name: 'king marc',
         username: 'marccco',
-        email: 'marc28@gmail.com',
+        email: 'testuser@gmail.com',
         password: 'marcpass'
       })
       .end((err, res) => {
@@ -266,8 +281,8 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
-        email: 'marc@yahoo.com',
+        username: 'marco4',
+        email: 'marc4@yahoo.com',
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -282,8 +297,8 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
-        email: 'marc@yahoo.com',
+        username: 'marco5',
+        email: 'marc5@yahoo.com',
         password: ''
       })
       .end((err, res) => {
@@ -299,8 +314,8 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
-        email: 'marc@yahoo.com',
+        username: 'marco6',
+        email: 'marc6@yahoo.com',
         password: 'mar'
       })
       .end((err, res) => {
@@ -316,30 +331,13 @@ describe('Test Post user Signup API', () => {
       .send({
         id: 1,
         name: 'king marc',
-        username: 'marco',
-        email: 'marc@yahoo.com',
+        username: 'marco7',
+        email: 'marc7@yahoo.com',
         password: 'marc pass'
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
         expect(res.body.message).to.equal('Remove whitespace from your password');
-        done();
-      });
-  });
-
-  it('Should return 201 for success', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send({
-        id: 1,
-        name: 'king marc',
-        username: 'marcman27',
-        email: 'marcus27@yahoo.com',
-        password: 'marcpass'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.message).to.be.a('string');
         done();
       });
   });
@@ -373,15 +371,15 @@ describe('Test Post user Signin API', () => {
       });
   });
 
-  it('Should return 401 for a non-existing username', (done) => {
+  it('Should return 404 for a non-existing username', (done) => {
     chai.request(app)
       .post('/api/v1/auth/login')
       .send({
-        username: 'lorem124',
+        username: 'testuser2',
         password: 'marcpass'
       })
       .end((err, res) => {
-        expect(res).to.have.status(401);
+        expect(res).to.have.status(404);
         expect(res.body.message).to.equal('User not found. Please signup');
         done();
       });
@@ -418,7 +416,7 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/auth/login')
       .send({
-        username: 'marc25',
+        username: 'testuser',
         password: 'marc#pass'
       })
       .end((err, res) => {
@@ -433,8 +431,8 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/auth/login')
       .send({
-        username: 'marcco',
-        password: 'marc9pass'
+        username: 'testuser',
+        password: 'testuser'
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
