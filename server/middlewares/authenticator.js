@@ -10,30 +10,29 @@ export default {
     return token;
   },
 
-  verifyToken(req, res, next) {
-    const token = req.headers.authorization || req.body.token || req.query.token;
+  verifyToken(request, response, next) {
+    const token = request.headers.authorization || request.body.token || request.query.token;
     if (token === undefined) {
-      res.status(403)
+      response.status(403)
         .json({
           message: 'No token supplied',
         });
     } else {
-      jwt.verify(token, process.env.KEYCODE, (err, authData) => {
-        if (err) {
-          if (err.message.includes('signature')) {
-            res.status(403)
+      jwt.verify(token, process.env.KEYCODE, (error, authData) => {
+        if (error) {
+          if (error.message.includes('signature')) {
+            response.status(403)
               .json({
                 message: 'Invalid token supplied',
               });
           } else {
-            res.status(403)
+            response.status(403)
               .json({
-                message: err,
+                message: error,
               });
           }
         }
-        req.authData = authData;
-        console.log('AUTH DATA', authData);
+        request.authData = authData;
         return next();
       });
     }

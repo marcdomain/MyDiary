@@ -11,9 +11,9 @@ describe('Test Default API Endpoints', () => {
   it('Should return 200 for homepage', (done) => {
     chai.request(app)
       .get('/')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('Welcome to Marcodynamics MyDiary App! Create an account and start penning down your Thoughts/Feelings.');
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('Welcome to Marcodynamics MyDiary App! Create an account and start penning down your Thoughts/Feelings.');
         done();
       });
   });
@@ -21,8 +21,8 @@ describe('Test Default API Endpoints', () => {
   it('Should return 404 for routes not specified', (done) => {
     chai.request(app)
       .get('/another/undefined/route')
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
+      .end((error, response) => {
+        expect(response.status).to.equal(404);
         done();
       });
   });
@@ -30,8 +30,8 @@ describe('Test Default API Endpoints', () => {
     chai.request(app)
       .post('/another/undefined/route')
       .send({ random: 'random' })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
+      .end((error, response) => {
+        expect(response).to.have.status(404);
         done();
       });
   });
@@ -45,9 +45,9 @@ describe('Get your token', () => {
         username: 'testuser',
         password: 'testuser'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        getToken = res.body.yourToken;
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        getToken = response.body.yourToken;
         done();
       });
   });
@@ -65,9 +65,9 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.message).to.equal('Success');
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body.message).to.equal('Success');
         done();
       });
   });
@@ -81,9 +81,9 @@ describe('POST Diary Entries', () => {
         email: 'marcus2cu@gmail.com',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for Diary Entry Title');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('You have made no input for Diary Entry Title');
         done();
       });
   });
@@ -98,9 +98,9 @@ describe('POST Diary Entries', () => {
         title: '',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Title field cannot be empty');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('Title field cannot be empty');
         done();
       });
   });
@@ -115,9 +115,9 @@ describe('POST Diary Entries', () => {
         title: 'ab',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your title should be 3 to 20 characters long');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('Your title should be 3 to 20 characters long');
         done();
       });
   });
@@ -132,9 +132,9 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey^',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
         done();
       });
   });
@@ -148,9 +148,9 @@ describe('POST Diary Entries', () => {
         email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for Diary Entry description');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
   });
@@ -165,9 +165,9 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey',
         description: ''
       })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('description field cannot be empty');
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('description field cannot be empty');
         done();
       });
   });
@@ -182,9 +182,9 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey',
         description: 'abcd ef'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your description should be 10 to 255 characters long');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('Your description should be 10 to 255 characters long');
         done();
       });
   });
@@ -199,9 +199,9 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey',
         description: 'Coding ha^^^'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
         done();
       });
   });
@@ -212,9 +212,9 @@ describe('GET all diary entries', () => {
     chai.request(app)
       .get('/api/v1/entries')
       .set('authorization', getToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('all entries successfully served');
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('all entries successfully served');
         done();
       });
   });
@@ -225,9 +225,9 @@ describe('GET A specific diary entry', () => {
     chai.request(app)
       .get('/api/v1/entries/1')
       .set('authorization', getToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('entry successfully served');
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('entry successfully served');
         done();
       });
   });
@@ -236,9 +236,9 @@ describe('GET A specific diary entry', () => {
     chai.request(app)
       .get('/api/v1/entries/500')
       .set('authorization', getToken)
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Entry id is invalid');
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('Entry id is invalid');
         done();
       });
   });
@@ -253,9 +253,9 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Entry not found');
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('Entry not found');
         done();
       });
   });
@@ -267,9 +267,9 @@ describe('Modify specific diary entry API', () => {
       .send({
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for Diary Entry Title');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('You have made no input for Diary Entry Title');
         done();
       });
   });
@@ -282,9 +282,9 @@ describe('Modify specific diary entry API', () => {
         title: '',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Title field cannot be empty');
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('Title field cannot be empty');
         done();
       });
   });
@@ -297,9 +297,9 @@ describe('Modify specific diary entry API', () => {
         title: 'ab',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your title should be 3 to 40 characters long');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('Your title should be 3 to 40 characters long');
         done();
       });
   });
@@ -312,9 +312,9 @@ describe('Modify specific diary entry API', () => {
         title: 'abcd ef^^',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
         done();
       });
   });
@@ -326,9 +326,9 @@ describe('Modify specific diary entry API', () => {
       .send({
         title: 'My coding journey',
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for Diary Entry description');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
   });
@@ -341,9 +341,9 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
         description: ''
       })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('description field cannot be empty');
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('description field cannot be empty');
         done();
       });
   });
@@ -356,9 +356,9 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
         description: 'Coding ha'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your description should be 10 to 255 characters long');
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal('Your description should be 10 to 255 characters long');
         done();
       });
   });
@@ -371,9 +371,9 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
         description: 'Coding ha^^^'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
         done();
       });
   });
@@ -386,9 +386,9 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
         description: 'Coding has been an awesome experience so far...'
       })
-      .end((err, res) => {
-        expect(res).to.have.status(205);
-        expect(res.body.message).to.equal('Entry modified successfully');
+      .end((error, response) => {
+        expect(response).to.have.status(205);
+        expect(response.body.message).to.equal('Entry modified successfully');
         done();
       });
   });

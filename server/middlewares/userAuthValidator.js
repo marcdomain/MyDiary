@@ -10,25 +10,25 @@ class UserAuthHandler {
   /*
    * Signup new user to the application
    *
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @param {function} next - Calls the next route handler
    * @returns {object} JSON object representing failure message
    * @memberof UserAuthHandler
    */
-  static signupValidator(req, res, next) {
+  static signupValidator(request, response, next) {
     let {
       name, username, email, password
-    } = req.body;
+    } = request.body;
 
     if (name === undefined) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'You have made no input for name',
         });
     }
     if (name === '') {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'name field cannot be empty',
         });
@@ -36,7 +36,7 @@ class UserAuthHandler {
 
     name = name.trim();
     if (name.length < 5 || name.length > 50) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'name should be 5 to 50 characters long',
         });
@@ -44,20 +44,20 @@ class UserAuthHandler {
 
     const nameValidCharacters = /^[a-z ]+$/i;
     if (!nameValidCharacters.test(name)) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'name can only contain alphabets and whitespace',
         });
     }
 
     if (username === undefined) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'You have made no input for username',
         });
     }
     if (username === '') {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Username field cannot be empty',
         });
@@ -65,13 +65,13 @@ class UserAuthHandler {
     username = username.toLowerCase().trim();
 
     if (username.length < 2 || username.length > 25) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'username should be 2 to 25 characters long',
         });
     }
     if (username.includes(' ')) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Remove whitespace from your username',
         });
@@ -79,7 +79,7 @@ class UserAuthHandler {
 
     const alphaNumeric = /^[a-z0-9]+$/i;
     if (!alphaNumeric.test(username)) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Only Alphanumeric charaters are allowed for username',
         });
@@ -88,41 +88,41 @@ class UserAuthHandler {
     pool.query('select username from users where username = $1', [username])
       .then((result) => {
         if (result.rowCount !== 0) {
-          return res.status(409)
+          return response.status(409)
             .json({
               message: 'Username taken! Login if it is yours or signup with a new username',
             });
         }
-        req.body.username = username;
+        request.body.username = username;
       })
-      .catch((err) => {
-        res.status(500)
+      .catch((error) => {
+        response.status(500)
           .json({
-            message: err.message
+            message: error.message
           });
       });
 
     if (email === undefined) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'You have made no input for email',
         });
     }
     if (email === '') {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Email field cannot be empty',
         });
     }
     if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Your email format is invalid',
         });
     }
     email = email.toLowerCase().trim();
     if (email.length < 10 || email.length > 50) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Your email should be 10 to 50 characters long'
         });
@@ -130,28 +130,28 @@ class UserAuthHandler {
     pool.query('select email from users where email = $1', [email])
       .then((result1) => {
         if (result1.rowCount !== 0) {
-          return res.status(409)
+          return response.status(409)
             .json({
               message: 'Email taken! Login if it is yours or signup with a new email',
             });
         }
-        req.body.email = email;
+        request.body.email = email;
       })
-      .catch((err) => {
-        res.status(500)
+      .catch((error) => {
+        response.status(500)
           .json({
-            message: err.message
+            message: error.message
           });
       });
 
     if (password === undefined) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'You have made no input for password',
         });
     }
     if (password === '') {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Password field cannot be empty',
         });
@@ -160,13 +160,13 @@ class UserAuthHandler {
     password = password.trim();
 
     if (password.length < 4 || password.length > 16) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Password should be 4 to 16 characters long',
         });
     }
     if (password.includes(' ')) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'Remove whitespace from your password',
         });
@@ -174,59 +174,59 @@ class UserAuthHandler {
     next();
   }
 
-  static signinValidator(req, res, next) {
+  static signinValidator(request, response, next) {
   /*
    * Signin user to the application
    *
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @param {function} next - Calls the next route handler
    * @returns {object} JSON object representing failure message
    * @memberof UserAuthHandler
    */
-    let { username, password } = req.body;
+    let { username, password } = request.body;
     if (username === undefined) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'You have made no input for username',
         });
     }
     if (username === '') {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'username field cannot be empty',
         });
     }
     username = username.toLowerCase().trim();
     pool.query('select username from users where username = $1', [username])
-      .then((result) => {
-        if (result.rowCount === 0) {
-          return res.status(404)
+      .then((responseult) => {
+        if (responseult.rowCount === 0) {
+          return response.status(404)
             .json({
               message: 'User not found. Please signup',
             });
         }
       })
       .catch(() => {
-        res.status(500);
+        response.status(500);
       });
     if (password === undefined) {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'You have made no input for password',
         });
     }
 
     if (password === '') {
-      return res.status(406)
+      return response.status(406)
         .json({
           message: 'password field cannot be empty',
         });
     }
     password = password.trim();
 
-    req.body.password = password;
-    req.body.username = username;
+    request.body.password = password;
+    request.body.username = username;
     next();
   }
 }

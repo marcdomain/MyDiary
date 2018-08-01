@@ -8,13 +8,13 @@ const { postEntryValidator, modifyEntryValidator } = validation;
 const { verifyToken } = verify;
 
 const {
-  getAllEntries, getADiaryEntry, postEntry, modifyEntry, deleteEntry
+  getAllEntries, getDiaryEntry, postEntry, modifyEntry, deleteEntry
 } = entriesController;
 
 const entriesRouter = express.Router();
 
 entriesRouter.get('/entries', verifyToken, getAllEntries);
-entriesRouter.get('/entries/:entryId', verifyToken, getADiaryEntry);
+entriesRouter.get('/entries/:entryId', verifyToken, getDiaryEntry);
 entriesRouter.post('/entries', postEntryValidator, verifyToken, postEntry);
 entriesRouter.put('/entries/:entryId', modifyEntryValidator, verifyToken, modifyEntry);
 entriesRouter.delete('/entries/:entryId', verifyToken, deleteEntry);

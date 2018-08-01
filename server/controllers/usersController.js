@@ -17,17 +17,17 @@ class UserAuthHandler {
    * Signup user to the application
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @returns {object} JSON object representing the error or success message
    * @memberof UserHandler
    */
-  static userSignup(req, res) {
+  static userSignup(request, result) {
     const params = [
-      req.body.name,
-      req.body.username,
-      req.body.email,
-      bcrypt.hashSync(req.body.password, 10),
+      request.body.name,
+      request.body.username,
+      request.body.email,
+      bcrypt.hashSync(request.body.password, 10),
     ];
     pool.query(insertIntoUsers, params)
       .then(() => {
@@ -38,15 +38,15 @@ class UserAuthHandler {
           password: params[3]
         }];
         const token = generateToken(authUser);
-        res.status(201)
+        result.status(201)
           .json({
             message: `Congratulations ${params[1]} signup was successful`,
             yourToken: token
           });
       })
-      .catch((err) => {
-        res.json({
-          error: err.message,
+      .catch((error) => {
+        result.json({
+          error: error.message,
           message: 'something went wrong',
         });
       });
@@ -56,21 +56,21 @@ class UserAuthHandler {
    * Signin user
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @returns {object} JSON object representing response message
    * @memberof UserHandler
    */
-  static userSignin(req, res) {
-    const params = [req.body.username];
+  static userSignin(request, response) {
+    const params = [request.body.username];
     pool.query(queryUsersByUsername, params)
       .then((result) => {
         if (result.rowCount !== 0) {
-          const compHash = compareSync(req.body.password, result.rows[0].password);
+          const compHash = compareSync(request.body.password, result.rows[0].password);
           if (compHash) {
             const authUser = result.rows;
             const token = generateToken(authUser);
-            res.status(200)
+            response.status(200)
               .json({
                 message: `Welcome back ${params[0]}`,
                 yourToken: token
@@ -78,19 +78,19 @@ class UserAuthHandler {
           }
         }
         if (result.rowCount === 0) {
-          res.status(404)
+          response.status(404)
             .json({
               message: 'User not found. Please signup',
             });
         }
-        return res.status(401)
+        return response.status(401)
           .json({
             message: 'Incorrect password',
           });
       })
-      .catch((err) => {
-        res.json({
-          message: err.message,
+      .catch((error) => {
+        response.json({
+          message: error.message,
         });
       });
   } // End userSignin
