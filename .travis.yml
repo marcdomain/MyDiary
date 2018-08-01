@@ -7,7 +7,7 @@ global:
 services:
   - postgresql
 before_script:
-- psql -c 'drop database if exists mydiarydb_test;' -U postgres
+- psql -c "create user marcus with password 'macodynamics';" -U postgres
 - psql -c 'create database mydiarydb_test;' -U postgres
 - npm install
 - npm run createTables
