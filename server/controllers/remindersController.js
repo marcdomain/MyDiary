@@ -21,12 +21,12 @@ class ReminderSettingsHandler {
   static setReminder(req, res) {
     req.body.username = req.authData.authUser[0].username;
     req.body.email = req.authData.authUser[0].email;
-    const reminderDate = `${req.body.date} ${req.body.time}`;
     const params = [
       req.body.username,
       req.body.email,
       req.body.title,
-      reminderDate
+      req.body.setdate,
+      req.body.time
     ];
 
     pool.query(insertIntoReminders, params)

@@ -25,7 +25,8 @@ const createRemindersTable = 'DROP TABLE IF EXISTS reminders ;' +
 	'username CHARACTER VARYING(25) NOT NULL,' +
 	'email CHARACTER VARYING(50) NOT NULL,' +
 	'title CHARACTER VARYING(20) NOT NULL,' +
-	'date TIMESTAMP NOT NULL' +
+	'setdate CHARACTER VARYING(255) NOT NULL,' +
+	'time CHARACTER VARYING(255) NOT NULL' +
 ')';
 
 /* eslint-disable no-console */

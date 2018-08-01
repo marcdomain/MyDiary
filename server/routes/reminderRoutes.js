@@ -11,7 +11,7 @@ const { setReminder, deleteReminder } = reminderscontroller;
 
 const reminderRouter = express.Router();
 
-reminderRouter.post('/reminders', postReminderValidator, verifyToken, setReminder);
-reminderRouter.delete('/reminders/:reminderId', verifyToken, deleteReminder);
+reminderRouter.post('/entries/reminders', postReminderValidator, verifyToken, setReminder);
+reminderRouter.delete('/entries/reminders/:reminderId', verifyToken, deleteReminder);
 
 export default reminderRouter;

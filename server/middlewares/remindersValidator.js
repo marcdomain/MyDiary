@@ -15,7 +15,7 @@ class ReminderSettingsValidator {
      * @memberof reminderSettingsValidator
      */
   static postReminderValidator(req, res, next) {
-    let { title, date, time } = req.body;
+    let { title, time, setdate } = req.body;
 
     if (title === undefined) {
       return res.status(406)
@@ -46,18 +46,17 @@ class ReminderSettingsValidator {
         });
     }
 
-    if (date === undefined) {
+    if (setdate === undefined) {
       return res.status(406)
         .json({
           message: 'You have made no input for Diary Entry description',
         });
     }
-
-    date = date.trim();
-    if (date === '') {
+    setdate = setdate.trim();
+    if (setdate === '') {
       return res.status(404)
         .json({
-          message: 'date field cannot be empty',
+          message: 'setdate field cannot be empty',
         });
     }
 
@@ -76,7 +75,7 @@ class ReminderSettingsValidator {
         });
     }
     req.body.title = title;
-    req.body.date = date;
+    req.body.date = setdate;
     req.body.time = time;
     return next();
   }

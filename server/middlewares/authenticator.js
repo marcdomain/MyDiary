@@ -33,6 +33,7 @@ export default {
           }
         }
         req.authData = authData;
+        console.log('AUTH DATA', authData);
         return next();
       });
     }
