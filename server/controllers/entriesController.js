@@ -105,7 +105,7 @@ class DiaryEntriesHandler {
     pool.query(insertIntoEntries, params)
       .then(() => res.status(201)
         .json({
-          message: `${req.body.username}, your entry was recorded!`,
+          message: 'Success',
         }))
       .catch((err) => {
         res.status(500)

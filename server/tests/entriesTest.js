@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
-import entries from '../dummyModels/entries';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
+let getToken;
 
 describe('Test Default API Endpoints', () => {
   it('Should return 200 for homepage', (done) => {
@@ -37,7 +37,54 @@ describe('Test Default API Endpoints', () => {
   });
 }); // Test Default Ends here
 
+describe('Login or Signup to get token', () => {
+  it('return token for successful signin', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        username: 'testuser',
+        password: 'testuser'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        getToken = res.body.yourToken;
+        done();
+      });
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        name: 'test user2',
+        username: 'testuser2',
+        email: 'testuser2@gmail.com',
+        password: 'testuser2'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        getToken = res.body.yourToken;
+        done();
+      });
+  });
+});
+
 describe('POST Diary Entries', () => {
+  it('Should return 201 for a post that is successful', (done) => {
+    chai.request(app)
+      .post('/api/v1/entries')
+      .set('authorization', getToken)
+      .send({
+        id: 1,
+        username: 'testuser',
+        email: 'testuser@gmail.com',
+        title: 'My coding journey',
+        description: 'Coding has been an awesome experience so far...'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.message).to.equal('Success');
+        done();
+      });
+  });
+
   it('Should return 406 for a post having undefined username field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
@@ -217,7 +264,7 @@ describe('POST Diary Entries', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your title should be 3 to 40 characters long');
+        expect(res.body.message).to.equal('Your title should be 3 to 20 characters long');
         done();
       });
   });
@@ -284,7 +331,7 @@ describe('POST Diary Entries', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your description should be 10 to 300 characters long');
+        expect(res.body.message).to.equal('Your description should be 10 to 255 characters long');
         done();
       });
   });
@@ -302,25 +349,6 @@ describe('POST Diary Entries', () => {
       .end((err, res) => {
         expect(res).to.have.status(406);
         expect(res.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
-        done();
-      });
-  });
-
-  it('Should return 201 for a post that is successful', (done) => {
-    const newLength = entries.length + 1;
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.message).to.equal('Success');
-        expect(entries).to.have.length(newLength);
         done();
       });
   });
@@ -617,7 +645,7 @@ describe('Modify specific diary entry API', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your description should be 10 to 300 characters long');
+        expect(res.body.message).to.equal('Your description should be 10 to 255 characters long');
         done();
       });
   });
@@ -640,7 +668,6 @@ describe('Modify specific diary entry API', () => {
   });
 
   it('Should return 205 for success', (done) => {
-    const newLength = entries.length;
     chai.request(app)
       .put('/api/v1/entries/1')
       .send({
@@ -653,7 +680,6 @@ describe('Modify specific diary entry API', () => {
       .end((err, res) => {
         expect(res).to.have.status(205);
         expect(res.body.message).to.equal('Entry modified successfully');
-        expect(entries).to.have.length(newLength);
         done();
       });
   });

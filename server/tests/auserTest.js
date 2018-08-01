@@ -1,13 +1,31 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
-import users from '../dummyModels/users';
 
 const { expect } = chai;
+
+// let generatedToken;
 
 chai.use(chaiHttp);
 
 describe('Test Post user Signup API', () => {
+  it('Should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        name: 'valid user',
+        username: 'testuser',
+        email: 'testuser@gmail.com',
+        password: 'testuser'
+      })
+      .end((err, res) => {
+        // generatedToken = res.body.yourToken;
+        expect(res).to.have.status(201);
+        expect(res.body.message).to.be.a('string');
+        done();
+      });
+  });
+
   it('Should return 406 for a signup having undefined name', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -159,23 +177,6 @@ describe('Test Post user Signup API', () => {
       });
   });
 
-  it('Should return 201 for success', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send({
-        id: 1,
-        name: 'king marc',
-        username: 'testuser',
-        email: 'testuser@gmail.com',
-        password: 'testuser'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.message).to.be.a('string');
-        done();
-      });
-  });
-
   it('Should return 409 for an existing username', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -188,6 +189,7 @@ describe('Test Post user Signup API', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
+        done();
       });
   });
 
@@ -427,7 +429,6 @@ describe('Test Post user Signin API', () => {
   });
 
   it('Should return 200 for success', (done) => {
-    const newLength = users.length;
     chai.request(app)
       .post('/api/v1/auth/login')
       .send({
@@ -437,7 +438,6 @@ describe('Test Post user Signin API', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.be.a('string');
-        expect(users).to.have.length(newLength);
         done();
       });
   });
