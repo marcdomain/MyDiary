@@ -6,13 +6,10 @@
   "scripts": {
     "babel": "babel-node --presets=es2015",
     "start": "nodemon --exec babel-node -- ./app.js",
-    "test": "nyc --reporter=html --reporter=text mocha server/tests/*.js --exit --compilers js:babel-core/register",
+    "test": "babel-node -- ./server/db/createTables && nyc --reporter=html --reporter=text mocha server/tests/*.js --exit --compilers js:babel-core/register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "createTables": "babel-node -- ./server/db/createTables",
-    "selectAllEntries": "babel-node -- ./server/db/selectAllEntries",
-    "selectAllUsers": "babel-node -- ./server/db/selectAllUsers",
-    "selectAllReminders": "babel-node -- ./server/db/selectAllReminders"
+    "createTables": "babel-node -- ./server/db/createTables"
   },
   "repository": {
     "type": "git",

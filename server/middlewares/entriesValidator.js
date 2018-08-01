@@ -1,5 +1,3 @@
-import entries from '../dummyModels/entries';
-
 /*
  * Class representing Diary Entries Validator
  *
@@ -7,28 +5,6 @@ import entries from '../dummyModels/entries';
  */
 
 class DiaryEntriesValidator {
-  /*
-   * Get for a specific diary entry
-   *
-   * @param {object} req - The request object
-   * @param {object} res - The response object
-   * @param {function} next - Calls the next route handler
-   * @returns {object} JSON object representing failure message
-   * @memberof DiaryEntriesValidator
-   */
-  static getADiaryEntryValidator(req, res, next) {
-    const { entryId } = req.params;
-    const foundEntry = entries.find(entry => entry.id === parseInt(entryId, 10));
-    if (!foundEntry) {
-      return res.status(404)
-        .json({
-          message: 'Entry not found',
-        });
-    }
-    req.body.foundEntry = foundEntry;
-    next();
-  }
-
   /*
    * Post for a diary entry
    *
@@ -39,64 +15,7 @@ class DiaryEntriesValidator {
    * @memberof DiaryEntriesValidator
    */
   static postEntryValidator(req, res, next) {
-    let {
-      username, email, title, description
-    } = req.body;
-    if (username === undefined) {
-      return res.status(406)
-        .json({
-          message: 'You have made no input for username',
-        });
-    }
-    if (username === '') {
-      return res.status(406)
-        .json({
-          message: 'Username field cannot be empty',
-        });
-    }
-
-    username = username.toLowerCase().trim();
-    if (username.length < 3 || username.length > 25) {
-      return res.status(406)
-        .json({
-          message: 'Your username should be 3 to 25 characters long',
-        });
-    }
-
-    const alphaNumeric = /^[a-z0-9]+$/i;
-    if (!alphaNumeric.test(username)) {
-      return res.status(406)
-        .json({
-          message: 'Only Alphanumeric charaters are allowed for username',
-        });
-    }
-
-    if (email === undefined) {
-      return res.status(406)
-        .json({
-          message: 'You have made no input for email'
-        });
-    }
-    if (email === '') {
-      return res.status(406)
-        .json({
-          message: 'Email field cannot be empty'
-        });
-    }
-    if (!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]+\.[a-zA-Z]{2,5}(\.[a-zA-Z]{2,5})?$/.test(email)) {
-      return res.status(406)
-        .json({
-          message: 'Your email format is invalid'
-        });
-    }
-    email = email.toLowerCase().trim();
-
-    if (email.length < 10 || email.length > 50) {
-      return res.status(406)
-        .json({
-          message: 'Your email should be 10 to 50 characters long'
-        });
-    }
+    let { title, description } = req.body;
 
     if (title === undefined) {
       return res.status(406)
@@ -112,10 +31,10 @@ class DiaryEntriesValidator {
           message: 'Title field cannot be empty',
         });
     }
-    if (title.length < 3 || title.length > 40) {
+    if (title.length < 3 || title.length > 20) {
       return res.status(406)
         .json({
-          message: 'Your title should be 3 to 40 characters long',
+          message: 'Your title should be 3 to 20 characters long',
         });
     }
 
@@ -141,10 +60,10 @@ class DiaryEntriesValidator {
           message: 'description field cannot be empty',
         });
     }
-    if (description.length < 10 || description.length > 300) {
+    if (description.length < 10 || description.length > 255) {
       return res.status(406)
         .json({
-          message: 'Your description should be 10 to 300 characters long',
+          message: 'Your description should be 10 to 255 characters long',
         });
     }
 
@@ -155,6 +74,8 @@ class DiaryEntriesValidator {
           message: "description should not contain special characters except for ! . - ' : ; , @ &",
         });
     }
+    req.body.title = title;
+    req.body.description = description;
     return next();
   }
 
@@ -168,73 +89,7 @@ class DiaryEntriesValidator {
    * @memberof DiaryEntriesValidator
    */
   static modifyEntryValidator(req, res, next) {
-    const foundEntry = entries.find(entry => entry.id === parseInt(req.params.entryId, 10));
-    if (!foundEntry) {
-      return res.status(404)
-        .json({
-          message: 'Invalid Entry Id',
-        });
-    }
-
-    let {
-      username, email, title, description
-    } = req.body;
-    if (username === undefined) {
-      return res.status(406)
-        .json({
-          message: 'You have made no input for username',
-        });
-    }
-    if (username === '') {
-      return res.status(404)
-        .json({
-          message: 'Username field cannot be empty',
-        });
-    }
-
-    username = username.toLowerCase().trim();
-    if (username.length < 3 || username.length > 25) {
-      return res.status(406)
-        .json({
-          message: 'Your username should be 3 to 25 characters long',
-        });
-    }
-
-    const alphaNumeric = /^[a-z0-9]+$/i;
-    if (!alphaNumeric.test(username)) {
-      return res.status(406)
-        .json({
-          message: 'Only Alphanumeric charaters are allowed for username',
-        });
-    }
-
-    if (email === undefined) {
-      return res.status(406)
-        .json({
-          message: 'You have made no input for email'
-        });
-    }
-    if (email === '') {
-      return res.status(404)
-        .json({
-          message: 'Email field cannot be empty'
-        });
-    }
-    if (!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]+\.[a-zA-Z]{2,5}(\.[a-zA-Z]{2,5})?$/.test(email)) {
-      return res.status(406)
-        .json({
-          message: 'Your email format is invalid'
-        });
-    }
-    email = email.toLowerCase().trim();
-
-    if (email.length < 10 || email.length > 50) {
-      return res.status(406)
-        .json({
-          message: 'Your email should be 10 to 50 characters long'
-        });
-    }
-
+    let { title, description } = req.body;
     if (title === undefined) {
       return res.status(406)
         .json({
@@ -278,10 +133,10 @@ class DiaryEntriesValidator {
           message: 'description field cannot be empty',
         });
     }
-    if (description.length < 10 || description.length > 300) {
+    if (description.length < 10 || description.length > 255) {
       return res.status(406)
         .json({
-          message: 'Your description should be 10 to 300 characters long',
+          message: 'Your description should be 10 to 255 characters long',
         });
     }
 
@@ -293,7 +148,8 @@ class DiaryEntriesValidator {
         });
     }
 
-    req.body.foundEntry = foundEntry;
+    req.body.title = title;
+    req.body.description = description;
     return next();
   }
 }

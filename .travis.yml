@@ -4,8 +4,13 @@ node_js:
 env:
 global:
  - export NODE_ENV=test
+services:
+  - postgresql
 before_script:
+- psql -c 'drop database if exists mydiarydb_test;' -U postgres
+- psql -c 'create database mydiarydb_test;' -U postgres
 - npm install
+- npm run createTables
 script:
 - npm test
 - npm run coverage

@@ -206,29 +206,28 @@ class UserAuthHandler {
               message: 'User not found. Please signup',
             });
         }
-
-        if (password === undefined) {
-          return res.status(406)
-            .json({
-              message: 'You have made no input for password',
-            });
-        }
-
-        if (password === '') {
-          return res.status(406)
-            .json({
-              message: 'password field cannot be empty',
-            });
-        }
-        password = password.trim();
-
-        req.body.password = password;
-        req.body.username = username;
-        next();
       })
       .catch(() => {
         res.status(500);
       });
+    if (password === undefined) {
+      return res.status(406)
+        .json({
+          message: 'You have made no input for password',
+        });
+    }
+
+    if (password === '') {
+      return res.status(406)
+        .json({
+          message: 'password field cannot be empty',
+        });
+    }
+    password = password.trim();
+
+    req.body.password = password;
+    req.body.username = username;
+    next();
   }
 }
 export default UserAuthHandler;

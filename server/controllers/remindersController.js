@@ -25,7 +25,8 @@ class ReminderSettingsHandler {
       req.body.username,
       req.body.email,
       req.body.title,
-      req.body.date
+      req.body.setdate,
+      req.body.time
     ];
 
     pool.query(insertIntoReminders, params)

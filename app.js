@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/v1', userRouter);
 app.use('/api/v1', entriesRouter);
-app.use('api/v1', reminderRouter);
+app.use('/api/v1', reminderRouter);
 app.use('/', defaultRouter);
 
 const port = process.env.PORT || 3310;
