@@ -4,8 +4,6 @@ import app from '../../app';
 
 const { expect } = chai;
 
-// let generatedToken;
-
 chai.use(chaiHttp);
 
 describe('Test Post user Signup API', () => {
@@ -19,7 +17,6 @@ describe('Test Post user Signup API', () => {
         password: 'testuser'
       })
       .end((err, res) => {
-        // generatedToken = res.body.yourToken;
         expect(res).to.have.status(201);
         expect(res.body.message).to.be.a('string');
         done();
@@ -181,10 +178,9 @@ describe('Test Post user Signup API', () => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send({
-        id: 1,
-        name: 'king marc',
+        name: 'valid user',
         username: 'testuser',
-        email: 'marc11@gmail.com',
+        email: 'testuser@gmail.com',
         password: 'testuser'
       })
       .end((err, res) => {

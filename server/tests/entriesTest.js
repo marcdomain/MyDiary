@@ -37,7 +37,7 @@ describe('Test Default API Endpoints', () => {
   });
 }); // Test Default Ends here
 
-describe('Login or Signup to get token', () => {
+describe('Get your token', () => {
   it('return token for successful signin', (done) => {
     chai.request(app)
       .post('/api/v1/auth/login')
@@ -47,19 +47,6 @@ describe('Login or Signup to get token', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
-        getToken = res.body.yourToken;
-        done();
-      });
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send({
-        name: 'test user2',
-        username: 'testuser2',
-        email: 'testuser2@gmail.com',
-        password: 'testuser2'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
         getToken = res.body.yourToken;
         done();
       });
@@ -81,140 +68,6 @@ describe('POST Diary Entries', () => {
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.message).to.equal('Success');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having undefined username field', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for username');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having empty username field', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: '',
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Username field cannot be empty');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having invalid username length', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'ma',
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your username should be 3 to 25 characters long');
-        done();
-      });
-  });
-
-  it('Should return 406 for a non-alphanumeric character in username field', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'marc!',
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Only Alphanumeric charaters are allowed for username');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having undefined email field', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for email');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having empty email field', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: '',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Email field cannot be empty');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having invalid email format', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcab',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your email format is invalid');
-        done();
-      });
-  });
-
-  it('Should return 406 for a post having invalid email length', (done) => {
-    chai.request(app)
-      .post('/api/v1/entries')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'ab@b.co',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your email should be 10 to 50 characters long');
         done();
       });
   });
@@ -358,9 +211,10 @@ describe('GET all diary entries', () => {
   it('Should return 200 for success', (done) => {
     chai.request(app)
       .get('/api/v1/entries')
+      .set('authorization', getToken)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('All diary entries served');
+        expect(res.body.message).to.equal('all entries successfully served');
         done();
       });
   });
@@ -370,9 +224,10 @@ describe('GET A specific diary entry', () => {
   it('Should return 200 for success', (done) => {
     chai.request(app)
       .get('/api/v1/entries/1')
+      .set('authorization', getToken)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('Entry fetched successfully');
+        expect(res.body.message).to.equal('entry successfully served');
         done();
       });
   });
@@ -380,9 +235,10 @@ describe('GET A specific diary entry', () => {
   it('Should return 404 for an invalid diary entry id', (done) => {
     chai.request(app)
       .get('/api/v1/entries/500')
+      .set('authorization', getToken)
       .end((err, res) => {
         expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Entry not found');
+        expect(res.body.message).to.equal('Entry id is invalid');
         done();
       });
   });
@@ -391,155 +247,24 @@ describe('GET A specific diary entry', () => {
 describe('Modify specific diary entry API', () => {
   it('Should return 404 for an invalid entry id', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/50')
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Invalid Entry Id');
-        done();
-      });
-  });
-
-  it('Should return 406 for an undefined username', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/3')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for username');
-        done();
-      });
-  });
-
-  it('Should return 404 for an empty username field', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: '',
-        email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
         expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Username field cannot be empty');
-        done();
-      });
-  });
-
-  it('Should return 406 for an invalid username character length', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: 'ma',
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your username should be 3 to 25 characters long');
-        done();
-      });
-  });
-
-  it('Should return 406 for non-alphanumeric characters in username field', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: 'king marc',
-        email: 'marcus2cu@gmail.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Only Alphanumeric charaters are allowed for username');
-        done();
-      });
-  });
-
-  it('Should return 406 for an undefined email field', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('You have made no input for email');
-        done();
-      });
-  });
-
-  it('Should return 404 for an empty email field', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: '',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Email field cannot be empty');
-        done();
-      });
-  });
-
-  it('Should return 406 for an invalid email format', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'm@ab.com',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your email format is invalid');
-        done();
-      });
-  });
-
-  it('Should return 406 for an invalid email character length', (done) => {
-    chai.request(app)
-      .put('/api/v1/entries/1')
-      .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'ab@ba.co',
-        title: 'My coding journey',
-        description: 'Coding has been an awesome experience so far...'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.message).to.equal('Your email should be 10 to 50 characters long');
+        expect(res.body.message).to.equal('Entry not found');
         done();
       });
   });
 
   it('Should return 406 for an undefined title field', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         description: 'Coding has been an awesome experience so far...'
       })
       .end((err, res) => {
@@ -551,11 +276,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 404 for an empty title field', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: '',
         description: 'Coding has been an awesome experience so far...'
       })
@@ -568,11 +291,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 406 for an empty title field', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'ab',
         description: 'Coding has been an awesome experience so far...'
       })
@@ -585,11 +306,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 406 for an invalid title field character', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'abcd ef^^',
         description: 'Coding has been an awesome experience so far...'
       })
@@ -602,11 +321,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 406 for an undefined description field', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
       })
       .end((err, res) => {
@@ -618,11 +335,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 404 for an empty description field', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
         description: ''
       })
@@ -635,11 +350,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 406 for invalid description character length', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
         description: 'Coding ha'
       })
@@ -652,11 +365,9 @@ describe('Modify specific diary entry API', () => {
 
   it('Should return 406 for an invalid description character', (done) => {
     chai.request(app)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/:entryId')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
         description: 'Coding ha^^^'
       })
@@ -670,10 +381,8 @@ describe('Modify specific diary entry API', () => {
   it('Should return 205 for success', (done) => {
     chai.request(app)
       .put('/api/v1/entries/1')
+      .set('authorization', getToken)
       .send({
-        id: 1,
-        username: 'marcodynamics',
-        email: 'marcus2cu@gmail.com',
         title: 'My coding journey',
         description: 'Coding has been an awesome experience so far...'
       })
