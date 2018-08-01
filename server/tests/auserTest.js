@@ -268,6 +268,7 @@ describe('Test Post user Signup API', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
+        expect(err).to.have.status(500);
         expect(res.body.message).to.equal('Email taken! Login if it is yours or signup with a new email');
         done();
       });
