@@ -1,5 +1,9 @@
 import pool from '../db/connectDb';
+<<<<<<< HEAD
 import { insertIntoReminders, deleteEntryReminder } from '../db/dbQueries';
+=======
+import { insertIntoReminders, queryRemindersByUsername, deleteEntryReminder } from '../db/dbQueries';
+>>>>>>> ft-implement-feedback-on-api-endpoints-159471108
 
 /*
  * Class representing Reminder Settings Handler
@@ -44,7 +48,7 @@ class ReminderSettingsHandler {
 
   static deleteReminder(request, response) {
     const params = [request.authData.authUser[0].username];
-    pool.query(deleteEntryReminder, params)
+    pool.query(queryRemindersByUsername, params)
       .then((result) => {
         const entryReminders = result.rows;
         const { reminderId } = request.params;

@@ -12,8 +12,13 @@ const deleteDiaryEntry = 'delete from entries where entry_id = $1';
 
 const insertIntoReminders = 'insert into reminders (username, email, title, setdate, time) values ($1, $2, $3, $4, $5) returning *';
 
-const deleteEntryReminder = 'delete from entries where entry_id = $1';
+const queryRemindersByUsername = 'select * from reminders where username = $1 order by reminder_id desc';
 
+<<<<<<< HEAD
+=======
+const deleteEntryReminder = 'delete from reminders where reminder_id = $1';
+
+>>>>>>> ft-implement-feedback-on-api-endpoints-159471108
 export {
   queryUsersByUsername,
   queryEntriesByUsername,
@@ -22,5 +27,6 @@ export {
   updateDiaryEntry,
   deleteDiaryEntry,
   insertIntoReminders,
+  queryRemindersByUsername,
   deleteEntryReminder
 };
