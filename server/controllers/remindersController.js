@@ -30,13 +30,15 @@ class ReminderSettingsHandler {
     ];
 
     pool.query(insertIntoReminders, params)
-      .then(() => response.status(201)
+      .then(result => response.status(201)
         .json({
           message: 'Reminder recorded successfully!',
+          reminderData: result.rows[0]
         }))
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });

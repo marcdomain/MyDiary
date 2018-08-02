@@ -20,6 +20,7 @@ class DiaryEntriesValidator {
     if (title === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for Diary Entry Title',
         });
     }
@@ -28,12 +29,14 @@ class DiaryEntriesValidator {
     if (title === '') {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Title field cannot be empty',
         });
     }
     if (title.length < 3 || title.length > 20) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Your title should be 3 to 20 characters long',
         });
     }
@@ -42,6 +45,7 @@ class DiaryEntriesValidator {
     if (!validTitleText.test(title)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: "Title should not contain special characters except for ! . - @ & '",
         });
     }
@@ -49,6 +53,7 @@ class DiaryEntriesValidator {
     if (description === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for Diary Entry description',
         });
     }
@@ -57,12 +62,14 @@ class DiaryEntriesValidator {
     if (description === '') {
       return response.status(404)
         .json({
+          status: 'error',
           message: 'description field cannot be empty',
         });
     }
     if (description.length < 10 || description.length > 255) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Your description should be 10 to 255 characters long',
         });
     }
@@ -71,6 +78,7 @@ class DiaryEntriesValidator {
     if (!validDescriptionText.test(description)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: "description should not contain special characters except for ! . - ' : ; , @ &",
         });
     }
@@ -93,6 +101,7 @@ class DiaryEntriesValidator {
     if (title === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for Diary Entry Title',
         });
     }
@@ -101,12 +110,14 @@ class DiaryEntriesValidator {
     if (title === '') {
       return response.status(404)
         .json({
+          status: 'error',
           message: 'Title field cannot be empty',
         });
     }
     if (title.length < 3 || title.length > 40) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Your title should be 3 to 40 characters long',
         });
     }
@@ -115,6 +126,7 @@ class DiaryEntriesValidator {
     if (!validTitleText.test(title)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: "Title should not contain special characters except for ! . - @ & '",
         });
     }
@@ -122,6 +134,7 @@ class DiaryEntriesValidator {
     if (description === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for Diary Entry description',
         });
     }
@@ -130,12 +143,14 @@ class DiaryEntriesValidator {
     if (description === '') {
       return response.status(404)
         .json({
+          status: 'error',
           message: 'description field cannot be empty',
         });
     }
     if (description.length < 10 || description.length > 255) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Your description should be 10 to 255 characters long',
         });
     }
@@ -144,6 +159,7 @@ class DiaryEntriesValidator {
     if (!validDescriptionText.test(description)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: "description should not contain special characters except for ! . - ' : ; , @ &",
         });
     }

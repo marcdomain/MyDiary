@@ -24,12 +24,14 @@ class UserAuthHandler {
     if (name === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for name',
         });
     }
-    if (name === '') {
+    if (name.trim() === '') {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'name field cannot be empty',
         });
     }
@@ -38,6 +40,7 @@ class UserAuthHandler {
     if (name.length < 5 || name.length > 50) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'name should be 5 to 50 characters long',
         });
     }
@@ -46,6 +49,7 @@ class UserAuthHandler {
     if (!nameValidCharacters.test(name)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'name can only contain alphabets and whitespace',
         });
     }
@@ -53,12 +57,14 @@ class UserAuthHandler {
     if (username === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for username',
         });
     }
-    if (username === '') {
+    if (username.trim() === '') {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Username field cannot be empty',
         });
     }
@@ -67,12 +73,14 @@ class UserAuthHandler {
     if (username.length < 2 || username.length > 25) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'username should be 2 to 25 characters long',
         });
     }
     if (username.includes(' ')) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Remove whitespace from your username',
         });
     }
@@ -81,6 +89,7 @@ class UserAuthHandler {
     if (!alphaNumeric.test(username)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Only Alphanumeric charaters are allowed for username',
         });
     }
@@ -90,6 +99,7 @@ class UserAuthHandler {
         if (result.rowCount !== 0) {
           return response.status(409)
             .json({
+              status: 'error',
               message: 'Username taken! Login if it is yours or signup with a new username',
             });
         }
@@ -98,6 +108,7 @@ class UserAuthHandler {
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });
@@ -105,18 +116,21 @@ class UserAuthHandler {
     if (email === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for email',
         });
     }
-    if (email === '') {
+    if (email.trim() === '') {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Email field cannot be empty',
         });
     }
     if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Your email format is invalid',
         });
     }
@@ -124,6 +138,7 @@ class UserAuthHandler {
     if (email.length < 10 || email.length > 50) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Your email should be 10 to 50 characters long'
         });
     }
@@ -132,6 +147,7 @@ class UserAuthHandler {
         if (result1.rowCount !== 0) {
           return response.status(409)
             .json({
+              status: 'error',
               message: 'Email taken! Login if it is yours or signup with a new email',
             });
         }
@@ -140,6 +156,7 @@ class UserAuthHandler {
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });
@@ -147,12 +164,14 @@ class UserAuthHandler {
     if (password === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for password',
         });
     }
-    if (password === '') {
+    if (password.trim() === '') {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Password field cannot be empty',
         });
     }
@@ -162,12 +181,14 @@ class UserAuthHandler {
     if (password.length < 4 || password.length > 16) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Password should be 4 to 16 characters long',
         });
     }
     if (password.includes(' ')) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'Remove whitespace from your password',
         });
     }
@@ -188,21 +209,23 @@ class UserAuthHandler {
     if (username === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for username',
         });
     }
+    username = username.toLowerCase().trim();
     if (username === '') {
       return response.status(406)
         .json({
           message: 'username field cannot be empty',
         });
     }
-    username = username.toLowerCase().trim();
     pool.query('select username from users where username = $1', [username])
-      .then((responseult) => {
-        if (responseult.rowCount === 0) {
+      .then((result) => {
+        if (result.rowCount === 0) {
           return response.status(404)
             .json({
+              status: 'error',
               message: 'User not found. Please signup',
             });
         }
@@ -213,17 +236,19 @@ class UserAuthHandler {
     if (password === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for password',
         });
     }
 
+    password = password.trim();
     if (password === '') {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'password field cannot be empty',
         });
     }
-    password = password.trim();
 
     request.body.password = password;
     request.body.username = username;
