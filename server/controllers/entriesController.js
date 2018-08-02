@@ -1,9 +1,8 @@
 import pool from '../db/connectDb';
-import queries from '../db/dbQueries';
-
-const {
+import {
   queryEntriesByUsername, insertIntoEntries, updateDiaryEntry, deleteDiaryEntry
-} = queries;
+} from '../db/dbQueries';
+
 
 /*
  * Class representing Diary Entries Handler
@@ -29,18 +28,20 @@ class DiaryEntriesHandler {
         if (!userEntries.length) {
           return response.status(200)
             .json({
+              status: 'error',
               message: 'Your diary entries list is empty, create one now'
             });
         }
         response.status(200)
           .json({
-            entries: userEntries,
-            message: 'all entries successfully served'
+            message: 'all entries successfully served',
+            diaryEntries: userEntries
           });
       })
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });
@@ -67,12 +68,13 @@ class DiaryEntriesHandler {
         if (diaryEntry) {
           response.status(200)
             .json({
-              diaryEntry,
-              message: 'entry successfully served'
+              message: 'entry successfully served',
+              diaryEntry
             });
         } else {
           response.status(404)
             .json({
+              status: 'error',
               message: 'Entry id is invalid'
             });
         }
@@ -80,6 +82,7 @@ class DiaryEntriesHandler {
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });
@@ -103,13 +106,17 @@ class DiaryEntriesHandler {
     ];
 
     pool.query(insertIntoEntries, params)
-      .then(() => response.status(201)
-        .json({
-          message: 'Success',
-        }))
+      .then((result) => {
+        response.status(201)
+          .json({
+            message: 'Success',
+            newEntry: result.rows[0]
+          });
+      })
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });
@@ -148,12 +155,11 @@ class DiaryEntriesHandler {
             ];
             pool.query(updateDiaryEntry, updateParams)
               .then((modifyResult) => {
-                if (modifyResult.rowCount) {
-                  response.status(205)
-                    .json({
-                      message: 'Entry modified successfully'
-                    });
-                }
+                response.status(205)
+                  .json({
+                    message: 'Entry modified successfully',
+                    entryUpdate: modifyResult.rows[0]
+                  });
               })
               .catch((error) => {
                 response.status(500)
@@ -164,12 +170,14 @@ class DiaryEntriesHandler {
           } else {
             response.status(403)
               .json({
+                status: 'error',
                 message: "You can't modify this entry, it's over 24hrs already"
               });
           }
         } else {
           response.status(404)
             .json({
+              status: 'error',
               message: 'Entry not found'
             });
         }
@@ -177,6 +185,7 @@ class DiaryEntriesHandler {
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });
@@ -207,11 +216,13 @@ class DiaryEntriesHandler {
               }))
             .catch(error => response.status(500)
               .json({
+                status: 'error',
                 message: error.message
               }));
         } else {
           response.status(404)
             .json({
+              status: 'error',
               message: 'Entry not found'
             });
         }
@@ -219,6 +230,7 @@ class DiaryEntriesHandler {
       .catch((error) => {
         response.status(500)
           .json({
+            status: 'error',
             message: error.message
           });
       });

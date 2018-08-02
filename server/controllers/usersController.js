@@ -1,10 +1,7 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import pool from '../db/connectDb';
-import queries from '../db/dbQueries';
-import auth from '../middlewares/authenticator';
-
-const { generateToken } = auth;
-const { insertIntoUsers, queryUsersByUsername } = queries;
+import { insertIntoUsers, queryUsersByUsername } from '../db/dbQueries';
+import { generateToken } from '../middlewares/authenticator';
 
 /*
  * Class representing User Auth Handler
@@ -22,7 +19,7 @@ class UserAuthHandler {
    * @returns {object} JSON object representing the error or success message
    * @memberof UserHandler
    */
-  static userSignup(request, result) {
+  static userSignup(request, response) {
     const params = [
       request.body.name,
       request.body.username,
@@ -30,22 +27,18 @@ class UserAuthHandler {
       bcrypt.hashSync(request.body.password, 10),
     ];
     pool.query(insertIntoUsers, params)
-      .then(() => {
-        const authUser = [{
-          name: params[0],
-          username: params[1],
-          email: params[2],
-          password: params[3]
-        }];
+      .then((result) => {
+        const authUser = result.rows;
         const token = generateToken(authUser);
-        result.status(201)
+        response.status(201)
           .json({
-            message: `Congratulations ${params[1]} signup was successful`,
+            message: `Congratulations ${params[1]}! Signup was successful`,
+            authUser,
             yourToken: token
           });
       })
       .catch((error) => {
-        result.json({
+        response.json({
           error: error.message,
           message: 'something went wrong',
         });
@@ -80,16 +73,19 @@ class UserAuthHandler {
         if (result.rowCount === 0) {
           response.status(404)
             .json({
+              status: 'error',
               message: 'User not found. Please signup',
             });
         }
         return response.status(401)
           .json({
+            status: 'error',
             message: 'Incorrect password',
           });
       })
       .catch((error) => {
         response.json({
+          status: 'error',
           message: error.message,
         });
       });

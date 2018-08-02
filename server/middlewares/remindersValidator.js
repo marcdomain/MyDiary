@@ -20,6 +20,7 @@ class ReminderSettingsValidator {
     if (title === undefined) {
       return response.status(406)
         .json({
+          status: 'error',
           message: 'You have made no input for Diary Entry Title',
         });
     }
@@ -49,13 +50,15 @@ class ReminderSettingsValidator {
     if (setdate === undefined) {
       return response.status(406)
         .json({
-          message: 'You have made no input for Diary Entry description',
+          status: 'error',
+          message: 'You have made no input for reminder date',
         });
     }
     setdate = setdate.trim();
     if (setdate === '') {
       return response.status(404)
         .json({
+          status: 'error',
           message: 'setdate field cannot be empty',
         });
     }
@@ -63,7 +66,8 @@ class ReminderSettingsValidator {
     if (time === undefined) {
       return response.status(406)
         .json({
-          message: 'You have made no input for Diary Entry description',
+          status: 'error',
+          message: 'You have made no input for reminder time',
         });
     }
 
@@ -71,6 +75,7 @@ class ReminderSettingsValidator {
     if (time === '') {
       return response.status(404)
         .json({
+          status: 'error',
           message: 'time field cannot be empty',
         });
     }
