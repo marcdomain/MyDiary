@@ -156,7 +156,6 @@ describe('Test Post user Signup API', () => {
       });
   });
 
-
   it('Should return 406 for a username having non-alphanumeric characters', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -170,6 +169,21 @@ describe('Test Post user Signup API', () => {
       .end((error, response) => {
         expect(response).to.have.status(406);
         expect(response.body.message).to.equal('Only Alphanumeric charaters are allowed for username');
+        done();
+      });
+  });
+
+  it('Should return 409 for an existing username', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        name: 'valid user',
+        username: 'testuser',
+        email: 'testuser222@gmail.com',
+        password: 'testuser'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(409);
         done();
       });
   });
@@ -237,6 +251,23 @@ describe('Test Post user Signup API', () => {
       .end((error, response) => {
         expect(response).to.have.status(406);
         expect(response.body.message).to.equal('Your email should be 10 to 50 characters long');
+        done();
+      });
+  });
+
+  it('Should return 409 for an existing email address', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        id: 1,
+        name: 'king marc',
+        username: 'marccco',
+        email: 'testuser@gmail.com',
+        password: 'marcpass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        expect(res.body.message).to.equal('Email taken! Login if it is yours or signup with a new email');
         done();
       });
   });
@@ -355,7 +386,7 @@ describe('Test Post user Signin API', () => {
     chai.request(app)
       .post('/api/v1/auth/login')
       .send({
-        username: 'marc',
+        username: 'marc55',
       })
       .end((error, response) => {
         expect(response).to.have.status(406);

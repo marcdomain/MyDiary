@@ -69,6 +69,11 @@ class UserAuthHandler {
                 yourToken: token
               });
           }
+          response.status(401)
+            .json({
+              status: 'error',
+              message: 'Incorrect password',
+            });
         }
         if (result.rowCount === 0) {
           response.status(404)
@@ -77,11 +82,6 @@ class UserAuthHandler {
               message: 'User not found. Please signup',
             });
         }
-        return response.status(401)
-          .json({
-            status: 'error',
-            message: 'Incorrect password',
-          });
       })
       .catch((error) => {
         response.json({
