@@ -3,7 +3,7 @@ import entriesRouter from './entryRoutes';
 import userRouter from './userAuthRoutes';
 import reminderRouter from './reminderRoutes';
 
-export default {
+export {
   userRouter,
   entriesRouter,
   defaultRouter,

@@ -1,7 +1,5 @@
 import pool from '../db/connectDb';
-import queries from '../db/dbQueries';
-
-const { insertIntoReminders, deleteEntryReminder } = queries;
+import { insertIntoReminders, deleteEntryReminder } from '../db/dbQueries';
 
 /*
  * Class representing Reminder Settings Handler

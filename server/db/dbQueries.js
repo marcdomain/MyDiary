@@ -14,7 +14,7 @@ const insertIntoReminders = 'insert into reminders (username, email, title, setd
 
 const deleteEntryReminder = 'delete from entries where entry_id = $1';
 
-const dbQueries = {
+export {
   queryUsersByUsername,
   queryEntriesByUsername,
   insertIntoEntries,
@@ -24,5 +24,3 @@ const dbQueries = {
   insertIntoReminders,
   deleteEntryReminder
 };
-
-export default dbQueries;

@@ -1,10 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import router from './server/routes/index';
-
-const {
-  defaultRouter, userRouter, entriesRouter, reminderRouter
-} = router;
+import {
+  defaultRouter, userRouter, entriesRouter, reminderRouter,
+} from './server/routes/index';
 
 const app = express();
 

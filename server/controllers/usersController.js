@@ -1,10 +1,7 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import pool from '../db/connectDb';
-import queries from '../db/dbQueries';
-import auth from '../middlewares/authenticator';
-
-const { generateToken } = auth;
-const { insertIntoUsers, queryUsersByUsername } = queries;
+import { insertIntoUsers, queryUsersByUsername } from '../db/dbQueries';
+import { generateToken } from '../middlewares/authenticator';
 
 /*
  * Class representing User Auth Handler

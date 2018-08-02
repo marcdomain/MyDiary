@@ -1,9 +1,8 @@
 import pool from '../db/connectDb';
-import queries from '../db/dbQueries';
-
-const {
+import {
   queryEntriesByUsername, insertIntoEntries, updateDiaryEntry, deleteDiaryEntry
-} = queries;
+} from '../db/dbQueries';
+
 
 /*
  * Class representing Diary Entries Handler

@@ -1,11 +1,9 @@
 import express from 'express';
 import entriesController from '../controllers/entriesController';
-import verify from '../middlewares/authenticator';
+import { verifyToken } from '../middlewares/authenticator';
 import validation from '../middlewares/entriesValidator';
 
 const { postEntryValidator, modifyEntryValidator } = validation;
-
-const { verifyToken } = verify;
 
 const {
   getAllEntries, getDiaryEntry, postEntry, modifyEntry, deleteEntry
