@@ -130,5 +130,5 @@ npm test
 
 <tr><td>POST</td> <td>api/v1/entries/reminders</td> <td>Post a reminder</td></tr>
 
-<tr><td>PUT</td> <td>api/v1/entries/reminders/:reminderId</td> <td>Modify a reminder</td></tr>
+<tr><td>DELETE</td> <td>api/v1/entries/reminders/:reminderId</td> <td>Delete a reminder</td></tr>
     </table>
