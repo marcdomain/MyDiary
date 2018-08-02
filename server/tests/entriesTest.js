@@ -67,7 +67,7 @@ describe('POST Diary Entries', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(201);
-        expect(response.body.message).to.equal('Success');
+        expect(response.body.message).to.equal('Your entry is recorded!');
         done();
       });
   });
