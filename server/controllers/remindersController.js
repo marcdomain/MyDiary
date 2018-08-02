@@ -1,9 +1,5 @@
 import pool from '../db/connectDb';
-<<<<<<< HEAD
-import { insertIntoReminders, deleteEntryReminder } from '../db/dbQueries';
-=======
 import { insertIntoReminders, queryRemindersByUsername, deleteEntryReminder } from '../db/dbQueries';
->>>>>>> ft-implement-feedback-on-api-endpoints-159471108
 
 /*
  * Class representing Reminder Settings Handler

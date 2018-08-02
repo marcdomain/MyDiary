@@ -14,11 +14,8 @@ const insertIntoReminders = 'insert into reminders (username, email, title, setd
 
 const queryRemindersByUsername = 'select * from reminders where username = $1 order by reminder_id desc';
 
-<<<<<<< HEAD
-=======
 const deleteEntryReminder = 'delete from reminders where reminder_id = $1';
 
->>>>>>> ft-implement-feedback-on-api-endpoints-159471108
 export {
   queryUsersByUsername,
   queryEntriesByUsername,
