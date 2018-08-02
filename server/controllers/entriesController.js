@@ -1,9 +1,8 @@
 import pool from '../db/connectDb';
-import queries from '../db/dbQueries';
-
-const {
+import {
   queryEntriesByUsername, insertIntoEntries, updateDiaryEntry, deleteDiaryEntry
-} = queries;
+} from '../db/dbQueries';
+
 
 /*
  * Class representing Diary Entries Handler
@@ -16,32 +15,34 @@ class DiaryEntriesHandler {
    * Get all Diary entries
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @returns {object} - JSON object representing diary entries and success message
    * @memberof DiaryEntriesHandler
    */
-  static getAllEntries(req, res) {
-    const params = [req.authData.authUser[0].username];
+  static getAllEntries(request, response) {
+    const params = [request.authData.authUser[0].username];
     pool.query(queryEntriesByUsername, params)
       .then((result) => {
         const userEntries = result.rows;
         if (!userEntries.length) {
-          return res.status(200)
+          return response.status(200)
             .json({
+              status: 'error',
               message: 'Your diary entries list is empty, create one now'
             });
         }
-        res.status(200)
+        response.status(200)
           .json({
-            Entries: userEntries,
-            message: 'all entries successfully served'
+            message: 'all entries successfully served',
+            diaryEntries: userEntries
           });
       })
-      .catch((err) => {
-        res.status(500)
+      .catch((error) => {
+        response.status(500)
           .json({
-            message: err.message
+            status: 'error',
+            message: error.message
           });
       });
   } // End getAllEntries
@@ -51,36 +52,38 @@ class DiaryEntriesHandler {
    * Get a specific diary entry
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @returns {object} - JSON object representing the diary entry
    * @memberof DiaryEntriesHandler
    */
-  static getADiaryEntry(req, res) {
-    const params = [req.authData.authUser[0].username];
+  static getDiaryEntry(request, response) {
+    const params = [request.authData.authUser[0].username];
     pool.query(queryEntriesByUsername, params)
       .then((result) => {
         const userEntries = result.rows;
 
-        const { entryId } = req.params;
+        const { entryId } = request.params;
         const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
         if (diaryEntry) {
-          res.status(200)
+          response.status(200)
             .json({
-              diaryEntry,
-              message: 'entry successfully served'
+              message: 'entry successfully served',
+              diaryEntry
             });
         } else {
-          res.status(404)
+          response.status(404)
             .json({
+              status: 'error',
               message: 'Entry id is invalid'
             });
         }
       })
-      .catch((err) => {
-        res.status(500)
+      .catch((error) => {
+        response.status(500)
           .json({
-            message: err.message
+            status: 'error',
+            message: error.message
           });
       });
   }
@@ -89,28 +92,32 @@ class DiaryEntriesHandler {
    * Add a diary entry
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @returns {object} - JSON object representing respone message
    * @memberof DiaryEntriesHandler
    */
-  static postEntry(req, res) {
-    req.body.username = req.authData.authUser[0].username;
+  static postEntry(request, response) {
+    request.body.username = request.authData.authUser[0].username;
     const params = [
-      req.body.username,
-      req.body.title,
-      req.body.description
+      request.body.username,
+      request.body.title,
+      request.body.description
     ];
 
     pool.query(insertIntoEntries, params)
-      .then(() => res.status(201)
-        .json({
-          message: 'Success',
-        }))
-      .catch((err) => {
-        res.status(500)
+      .then((result) => {
+        response.status(201)
           .json({
-            message: err.message
+            message: 'Success',
+            newEntry: result.rows[0]
+          });
+      })
+      .catch((error) => {
+        response.status(500)
+          .json({
+            status: 'error',
+            message: error.message
           });
       });
   } // End postEntry
@@ -119,63 +126,67 @@ class DiaryEntriesHandler {
    * Modify a diary
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @returns {object} - JSON object representing success
    * @memberof DiaryEntriesHandler
    */
-  static modifyEntry(req, res) {
-    const params = [req.authData.authUser[0].username];
+  static modifyEntry(request, response) {
+    const params = [request.authData.authUser[0].username];
     pool.query(queryEntriesByUsername, params)
       .then((result) => {
         const userEntries = result.rows;
-        const { entryId } = req.params;
+        const { entryId } = request.params;
         const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
+
         if (diaryEntry) {
           const dateCreated = new Date(diaryEntry.date);
           const convertDateCreated = dateCreated.getTime();
           const currentDate = new Date();
           const convertCurrentDate = currentDate.getTime();
           const entryLifeSpan = convertCurrentDate - convertDateCreated;
+
           if (entryLifeSpan < 86400000) {
-            const params1 = [
-              req.authData.authUser[0].username,
-              req.body.title,
-              req.body.description,
+            const updateParams = [
+              request.authData.authUser[0].username,
+              request.body.title,
+              request.body.description,
               entryId
             ];
-            pool.query(updateDiaryEntry, params1)
+            pool.query(updateDiaryEntry, updateParams)
               .then((modifyResult) => {
-                if (modifyResult.rowCount) {
-                  res.status(205)
-                    .json({
-                      message: 'Entry modified successfully'
-                    });
-                }
-              })
-              .catch((err) => {
-                res.status(500)
+                response.status(205)
                   .json({
-                    message: err.message
+                    message: 'Entry modified successfully',
+                    entryUpdate: modifyResult.rows[0]
+                  });
+              })
+              .catch((error) => {
+                response.status(500)
+                  .json({
+                    message: error.message
                   });
               });
           } else {
-            res.status(403)
+            response.status(403)
               .json({
+                status: 'error',
                 message: "You can't modify this entry, it's over 24hrs already"
               });
           }
         } else {
-          res.status(404)
+          response.status(404)
             .json({
+              status: 'error',
               message: 'Entry not found'
             });
         }
       })
-      .catch((err) => {
-        res.status(500)
+      .catch((error) => {
+        response.status(500)
           .json({
-            message: err.message
+            status: 'error',
+            message: error.message
           });
       });
   } // End modfyEntry
@@ -184,40 +195,43 @@ class DiaryEntriesHandler {
    * Delete a diary entry
    *
    * @static
-   * @param {object} req - The request object
-   * @param {object} res - The response object
+   * @param {object} request object
+   * @param {object} response object
    * @memberof DiaryEntriesHandler
    */
-  static deleteEntry(req, res) {
-    const params = [req.authData.authUser[0].username];
+  static deleteEntry(request, response) {
+    const params = [request.authData.authUser[0].username];
     pool.query(queryEntriesByUsername, params)
       .then((result) => {
         const userEntries = result.rows;
-        const { entryId } = req.params;
+        const { entryId } = request.params;
 
         const diaryEntry = userEntries.find(entry => entry.entry_id === parseInt(entryId, 10));
         if (diaryEntry) {
           const param1 = [entryId];
           pool.query(deleteDiaryEntry, param1)
-            .then(() => res.status(200)
+            .then(() => response.status(200)
               .json({
                 message: 'Entry deleted successfully'
               }))
-            .catch(err => res.status(500)
+            .catch(error => response.status(500)
               .json({
-                message: err.message
+                status: 'error',
+                message: error.message
               }));
         } else {
-          res.status(404)
+          response.status(404)
             .json({
+              status: 'error',
               message: 'Entry not found'
             });
         }
       })
-      .catch((err) => {
-        res.status(500)
+      .catch((error) => {
+        response.status(500)
           .json({
-            message: err.message
+            status: 'error',
+            message: error.message
           });
       });
   }// End deleteEntry
