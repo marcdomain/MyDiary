@@ -1,6 +1,4 @@
-html{
-    height: 100%;
-}
+
 body{
     margin: 0;
     padding: 0;
@@ -8,6 +6,8 @@ body{
     background-repeat: repeat;
     font-size: 18px;
     font-family: 'Patua One', serif;
+    height: 100%;
+    width: 100%;
 }
 h1, h2, h3 {
     letter-spacing: 2px;
@@ -194,8 +194,15 @@ form input[type="submit"]:hover, .entry-time input:hover{
 	background: rgba(1, 2, 4, 0.51);
 	margin-bottom: 2em;	
 }
+.entry-title{
+    height: 33px;
+}
+.entry-title::-webkit-scrollbar {
+    display: none;
+}
 .brief-content {
-	padding: .5em;
+    padding: .5em;
+    height: 120px;
 }
 .brief-content p {
     font-size: 90%;
