@@ -123,8 +123,9 @@ nav .left-nav:hover, #signup:hover {
 form label{
   padding:10px;
   color: #fff;
+  float: left;
 }
-form input, textarea{
+form input, textarea, #signin-btn, #signup-btn{
     padding: 10px;
     width: 100%;
     border-radius: 5px;
@@ -137,9 +138,7 @@ form input, textarea{
 textarea{
     min-height: 200px;
 }
-input::placeholder{
-    text-align: center;
-}
+
 form input:focus, textarea:focus {
     border-radius: 5px;
     border: 1px solid lime;
