@@ -201,7 +201,7 @@ form input[type="submit"]:hover, .entry-time input:hover{
 	margin-bottom: 2em;	
 }
 .entry-title{
-    height: 33px;
+    height: 37px;
 }
 .entry-title::-webkit-scrollbar {
     display: none;
