@@ -28,7 +28,7 @@
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <form autocomplete="off" action="profile.html">
+                    <form class="modal-form" autocomplete="off" action="profile.html">
                         <label for="title">Entry Title</label>
                         <input required  type="text" name="title" id="title" placeholder="Title your entry">
 
@@ -42,7 +42,7 @@
                             </li>
                         </ul>
                         
-                        <input id="signup-btn" type="submit" value="Submit">
+                        <input type="submit" value="Save">
                     </form>
                 </div>
             </div>
@@ -55,12 +55,11 @@
                     <label for="description">Description</label>
                     <textarea type="textarea" required name="description" id="description" placeholder="Describe your thoughts/feelings"></textarea>
                     
-                    <label for="image">Image</label>
                     <div id="imageUpload">
                         <input type="file" accept="image/*" id="image" name="image" onchange="imageUpload()">
-                        <span id="fileName">No upload yet</span>
+                        <span id="fileName">Image</span>
                     </div>
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Save">
                     <input type="button" value="Create Later" class="create later" style="background: orange; color: #000;">
                 </form>
             </div>
