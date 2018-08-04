@@ -109,7 +109,7 @@ class DiaryEntriesHandler {
       .then((result) => {
         response.status(201)
           .json({
-            message: 'Success',
+            message: 'Your entry is recorded!',
             newEntry: result.rows[0]
           });
       })

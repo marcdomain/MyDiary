@@ -25,7 +25,7 @@ Below are the features of MyDiary Application
 ```
      Required Inputs
     {
-        fullName:
+        name:
         username:
         email:
         password:
@@ -43,20 +43,28 @@ Below are the features of MyDiary Application
 ```
     Required Inputs
     {
-        username:
-        email:
         title:
         description:
     }
-
 ```
 - Users can Get all Diary Entries<br/>
 - Users can Get a Diary Entry<br/>
 - Users can Modify a Diary Entry<br/>
+- Users can Delete a Diary Entry<br/>
+- Users can Create Reminders:
+```
+    Required Inputs
+    {
+        title:
+        setdate:
+        time:
+    }
+```
+- Users can Delete Reminders
 
 ## Technologies
 
-ES2015: This a widely used version of Javascript
+ES6: This a widely used version of Javascript
 which competes healthily with other languages. See [here](https://en.wikipedia.org/wiki/ECMAScript) for more information.
 
 NodeJS: Node.js is an open-source, cross-platform JavaScript run-time environment which allows you enjoy the features of Javascript off the web browsers and implement server-side web development.
@@ -65,7 +73,7 @@ Visit [here](https://nodejs.org/en/) for more information.
 ExressJS: This is the web application framework for Node.js
 Visit [here](https://expressjs.com) for more information
 
-Dummy Database: User data was stored in array objects.
+Postgresql Database: PostgreSQL is a powerful, open source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
 
 Codes are written in accordance with Airbnb JavaScript style guide, see [here](https://github.com/airbnb/javascript) for details.
 
@@ -81,6 +89,10 @@ cd MyDiary
 3. Open the repository in terminal and Install dependencies by running:
 ```
 npm install
+```
+4. Create Database and run
+```
+npm creatTables
 ```
 
 ## Start MyDiary App
@@ -102,9 +114,9 @@ npm test
 <table>
 <tr><th>HTTP VERB</th><th>ENDPOINT</th><th>FUNCTIONALITY</th></tr>
 
-<tr><td>POST</td> <td>api/v1/users/signup</td>  <td>Signup a user</td></tr>
+<tr><td>POST</td> <td>api/v1/auth/signup</td>  <td>Signup a user</td></tr>
 
-<tr><td>POST</td> <td>api/v1/users/signin</td>  <td>Signin a user</td></tr>
+<tr><td>POST</td> <td>api/v1/auth/login</td>  <td>Login a user</td></tr>
 
 <tr><td>GET</td> <td>api/v1/entries</td>  <td>GET all entries</td></tr>
 
@@ -113,4 +125,10 @@ npm test
 <tr><td>POST</td> <td>api/v1/entries</td>  <td>Post an entry</td></tr>
 
 <tr><td>PUT</td> <td>api/v1/entries/:entryId</td> <td>Modify an entry</td></tr>
+
+<tr><td>DELETE</td> <td>api/v1/entries/:entryId</td> <td>Delete an entry</td></tr>
+
+<tr><td>POST</td> <td>api/v1/entries/reminders</td> <td>Post a reminder</td></tr>
+
+<tr><td>DELETE</td> <td>api/v1/entries/reminders/:reminderId</td> <td>Delete a reminder</td></tr>
     </table>

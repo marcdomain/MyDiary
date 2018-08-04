@@ -10,7 +10,7 @@ let getToken;
 describe('Test Default API Endpoints', () => {
   it('Should return 200 for homepage', (done) => {
     chai.request(app)
-      .get('/')
+      .get('/api/v1')
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body.message).to.equal('Welcome to Marcodynamics MyDiary App! Create an account and start penning down your Thoughts/Feelings.');
@@ -67,7 +67,7 @@ describe('POST Diary Entries', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(201);
-        expect(response.body.message).to.equal('Success');
+        expect(response.body.message).to.equal('Your entry is recorded!');
         done();
       });
   });

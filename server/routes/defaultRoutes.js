@@ -2,7 +2,7 @@ import express from 'express';
 
 const defaultRouter = express.Router();
 
-defaultRouter.get('/', (request, response) => response.status(200)
+defaultRouter.get('/api/v1', (request, response) => response.status(200)
   .json({
     message: 'Welcome to Marcodynamics MyDiary App! Create an account and start penning down your Thoughts/Feelings.'
   }));

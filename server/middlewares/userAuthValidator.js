@@ -103,55 +103,86 @@ class UserAuthHandler {
               message: 'Username taken! Login if it is yours or signup with a new username',
             });
         }
-        request.body.username = username;
-      })
-      .catch((error) => {
-        response.status(500)
-          .json({
-            status: 'error',
-            message: error.message
-          });
-      });
-
-    if (email === undefined) {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'You have made no input for email',
-        });
-    }
-    if (email.trim() === '') {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'Email field cannot be empty',
-        });
-    }
-    if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'Your email format is invalid',
-        });
-    }
-    email = email.toLowerCase().trim();
-    if (email.length < 10 || email.length > 50) {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'Your email should be 10 to 50 characters long'
-        });
-    }
-    pool.query('select email from users where email = $1', [email])
-      .then((result1) => {
-        if (result1.rowCount !== 0) {
-          return response.status(409)
+        if (email === undefined) {
+          return response.status(406)
             .json({
               status: 'error',
-              message: 'Email taken! Login if it is yours or signup with a new email',
+              message: 'You have made no input for email',
             });
         }
-        request.body.email = email;
+        if (email.trim() === '') {
+          return response.status(406)
+            .json({
+              status: 'error',
+              message: 'Email field cannot be empty',
+            });
+        }
+        if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+          return response.status(406)
+            .json({
+              status: 'error',
+              message: 'Your email format is invalid',
+            });
+        }
+        email = email.toLowerCase().trim();
+        if (email.length < 10 || email.length > 50) {
+          return response.status(406)
+            .json({
+              status: 'error',
+              message: 'Your email should be 10 to 50 characters long'
+            });
+        }
+        pool.query('select email from users where email = $1', [email])
+          .then((userFound) => {
+            if (userFound.rowCount !== 0) {
+              return response.status(409)
+                .json({
+                  status: 'error',
+                  message: 'Email taken! Login if it is yours or signup with a new email',
+                });
+            }
+            if (password === undefined) {
+              return response.status(406)
+                .json({
+                  status: 'error',
+                  message: 'You have made no input for password',
+                });
+            }
+            if (password.trim() === '') {
+              return response.status(406)
+                .json({
+                  status: 'error',
+                  message: 'Password field cannot be empty',
+                });
+            }
+
+            password = password.trim();
+
+            if (password.length < 4 || password.length > 16) {
+              return response.status(406)
+                .json({
+                  status: 'error',
+                  message: 'Password should be 4 to 16 characters long',
+                });
+            }
+            if (password.includes(' ')) {
+              return response.status(406)
+                .json({
+                  status: 'error',
+                  message: 'Remove whitespace from your password',
+                });
+            }
+            request.body.username = username;
+            request.body.email = email;
+            next();
+          })
+          .catch((error) => {
+            response.status(500)
+              .json({
+                status: 'error',
+                message: error.message
+              });
+          });
       })
       .catch((error) => {
         response.status(500)
@@ -160,39 +191,6 @@ class UserAuthHandler {
             message: error.message
           });
       });
-
-    if (password === undefined) {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'You have made no input for password',
-        });
-    }
-    if (password.trim() === '') {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'Password field cannot be empty',
-        });
-    }
-
-    password = password.trim();
-
-    if (password.length < 4 || password.length > 16) {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'Password should be 4 to 16 characters long',
-        });
-    }
-    if (password.includes(' ')) {
-      return response.status(406)
-        .json({
-          status: 'error',
-          message: 'Remove whitespace from your password',
-        });
-    }
-    next();
   }
 
   static signinValidator(request, response, next) {
@@ -229,10 +227,15 @@ class UserAuthHandler {
               message: 'User not found. Please signup',
             });
         }
+
+        request.body.password = password;
+        request.body.username = username;
+        next();
       })
-      .catch(() => {
-        response.status(500);
-      });
+      .catch(error => response.status(500)
+        .json({
+          message: error.message
+        }));
     if (password === undefined) {
       return response.status(406)
         .json({
@@ -249,10 +252,6 @@ class UserAuthHandler {
           message: 'password field cannot be empty',
         });
     }
-
-    request.body.password = password;
-    request.body.username = username;
-    next();
   }
 }
 export default UserAuthHandler;
