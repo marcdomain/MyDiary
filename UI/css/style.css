@@ -1,6 +1,4 @@
-html{
-    height: 100%;
-}
+
 body{
     margin: 0;
     padding: 0;
@@ -8,6 +6,8 @@ body{
     background-repeat: repeat;
     font-size: 18px;
     font-family: 'Patua One', serif;
+    height: 100%;
+    width: 100%;
 }
 h1, h2, h3 {
     letter-spacing: 2px;
@@ -123,8 +123,14 @@ nav .left-nav:hover, #signup:hover {
 form label{
   padding:10px;
   color: #fff;
+  float: left;
 }
-form input, textarea{
+form.modal-form label{
+  padding:10px;
+  color: #fff;
+  float: none;
+}
+form input, textarea, #signin-btn, #signup-btn{
     padding: 10px;
     width: 100%;
     border-radius: 5px;
@@ -137,9 +143,7 @@ form input, textarea{
 textarea{
     min-height: 200px;
 }
-input::placeholder{
-    text-align: center;
-}
+
 form input:focus, textarea:focus {
     border-radius: 5px;
     border: 1px solid lime;
@@ -175,11 +179,12 @@ form input[type="submit"]:hover, .entry-time input:hover{
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #000;
-    padding: 12px 16px;
+    background-color: rgba(1, 2, 4, 0.8);
+    padding: 6px 8px;
     width: 90px;
     height: 120px;
     text-align: center;
+    border-radius: 5px;
 }
 .dropdown:hover .dropdown-content {
     display: block;
@@ -195,10 +200,21 @@ form input[type="submit"]:hover, .entry-time input:hover{
 	background: rgba(1, 2, 4, 0.51);
 	margin-bottom: 2em;	
 }
-.brief-content {
-	padding: .5em;
+.entry-title{
+    height: 37px;
+    padding-bottom: 10px;
 }
-.brief-content p {
+.entry-title::-webkit-scrollbar {
+    display: none;
+}
+.brief-content {
+    padding: .5em;
+    height: 120px;
+}
+.full-content{
+    padding: .5em;
+}
+.brief-content p, .full-content p {
     font-size: 90%;
     color: #fff;
     text-align: left;
@@ -246,7 +262,7 @@ div#count {
 }
 .count {
     background: rgba(1, 2, 4, 0.51);
-    height: 70px;
+    height: 100%;
     width: 95px;
 }
 .reminder {
@@ -259,19 +275,32 @@ div#count {
 }
 span.create {
     background: green;
-    border-radius: 5px;
-    padding: 2px;
-    font-weight: bolder;
+    border-radius: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
     margin-left: 28px;
     cursor: pointer;
 }
 span.cancel {
     background: red;
-    border-radius: 5px;
-    padding: 2px;
+    border-radius: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 7px;
+    padding-right: 7px;;
     font-weight: bolder;
-    margin-left: 50px;
+    float: right;
     cursor: pointer;
+}
+span.new-list{
+    float: left;
+}
+div.reminder-list{
+    padding-left: 5%;
+    padding-right: 5%
 }
 #delete {
     background: red;
@@ -297,6 +326,40 @@ span.cancel {
     .all-entries {
         width: 90%;
         padding-left: 5%;
+    }
+}
+@media screen and (max-width: 2100px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 33%;
+    }
+}
+@media screen and (max-width: 1400px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 25%;
+    }
+    .dropdown-content {
+        left: 78%;
+    }
+}
+@media screen and (max-width: 1340px) {
+    .dropdown-content {
+        left: 82%;
+    }
+}
+@media screen and (max-width: 1078px) {
+    .dropdown-content {
+        left: 88%;
+    }
+}
+@media screen and (max-width: 1250px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 20%;
+    }
+    .dropdown-content {
+        left: 87%;
     }
 }
 @media screen and (max-width: 1024px) {
@@ -331,9 +394,6 @@ span.cancel {
     .auth-form{
         width: 100%;
     }
-    .dropdown-content {
-        left: 88%;
-    }
     div#count{
         top: 0%;
         width: 90%;
@@ -346,10 +406,32 @@ span.cancel {
         text-align: left;
         margin-left: 38%;
     }
-}
-@media screen and (max-width: 768px) {
+    .count{
+        width: 200px;
+    }
     .dropdown-content {
-        left: 85%;
+        left: 88%;
+    }
+}
+@media screen and (max-width: 900px) {
+    .dropdown-content {
+        left: 89%;
+    }
+}
+@media screen and (max-width: 720px) {
+    .dropdown-content {
+        left: 84%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .dropdown-content {
+        left: 84%;
+    }
+}
+@media screen and (max-width: 700px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 33%;
     }
 }
 @media screen and (max-width: 640px) {
@@ -357,9 +439,40 @@ span.cancel {
         padding-top: 20px;
     }
 }
+@media screen and (max-width: 500px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 28%;
+    }
+}
+@media screen and (max-width: 820px) {
+    .dropdown-content {
+        left: 88%;
+    }
+}
+@media screen and (max-width: 790px) {
+    .dropdown-content {
+        left: 85%;
+    }   
+}
+@media screen and (max-width: 570px) {
+    .dropdown-content {
+        left: 80%;
+    }
+}
+@media screen and (max-width: 490px) {
+    .dropdown-content {
+        left: 78%;
+    }
+}
 @media screen and (max-width: 414px) {
     .dropdown-content {
-        left: 71%;
+        left: 88%;
+    }
+}
+@media screen and (max-width: 414px) {
+    .dropdown-content {
+        left: 75%;
     }
     header .logo{
         font-size: 1em;
@@ -374,10 +487,13 @@ span.cancel {
     .entry-time span#time {
         margin-right: 1em;
     }
+    .count{
+        width: 150px;
+    }
 }
 @media screen and (max-width: 375px) {
     .dropdown-content {
-        left: 66%;
+        left: 72%;
     }
     div.userData > ul > li {
         text-align: left;
@@ -386,10 +502,13 @@ span.cancel {
 }
 @media screen and (max-width: 320px) {
     .dropdown-content {
-        left: 62%;
+        left: 67%;
     }
     .nav-bar{
         padding-left: 0;
         padding-right: 5px;
+    }
+    .count{
+        width: 70px;
     }
 }

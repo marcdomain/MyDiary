@@ -1,9 +1,9 @@
+.env
+
+.nyc_output/
+
+coverage/
+
 node_modules/
 
 package-lock.json
-
-coverage
-
-.nyc_output
-
-.env
