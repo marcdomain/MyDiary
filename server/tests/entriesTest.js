@@ -72,7 +72,7 @@ describe('POST Diary Entries', () => {
       });
   });
 
-  it('Should return 406 for a post having undefined title field', (done) => {
+  it('Should return 400 for a post having undefined title field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -82,13 +82,13 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('You have made no input for Diary Entry Title');
         done();
       });
   });
 
-  it('Should return 406 for a post having empty title field', (done) => {
+  it('Should return 400 for a post having empty title field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -99,13 +99,13 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Title field cannot be empty');
         done();
       });
   });
 
-  it('Should return 406 for a post with invalid title length', (done) => {
+  it('Should return 400 for a post with invalid title length', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -116,13 +116,13 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Your title should be 3 to 20 characters long');
         done();
       });
   });
 
-  it('Should return 406 for a post with invalid character in title field', (done) => {
+  it('Should return 400 for a post with invalid character in title field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -133,13 +133,13 @@ describe('POST Diary Entries', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
         done();
       });
   });
 
-  it('Should return 406 for a post having undefined description field', (done) => {
+  it('Should return 400 for a post having undefined description field', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -149,7 +149,7 @@ describe('POST Diary Entries', () => {
         title: 'My coding journey',
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
@@ -172,7 +172,7 @@ describe('POST Diary Entries', () => {
       });
   });
 
-  it('Should return 406 for a post having invalid description character length', (done) => {
+  it('Should return 400 for a post having invalid description character length', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -183,13 +183,13 @@ describe('POST Diary Entries', () => {
         description: 'abcd ef'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Your description should be 10 to 255 characters long');
         done();
       });
   });
 
-  it('Should return 406 for an invalid description character', (done) => {
+  it('Should return 400 for an invalid description character', (done) => {
     chai.request(app)
       .post('/api/v1/entries')
       .send({
@@ -200,7 +200,7 @@ describe('POST Diary Entries', () => {
         description: 'Coding ha^^^'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
         done();
       });
@@ -260,7 +260,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 406 for an undefined title field', (done) => {
+  it('Should return 400 for an undefined title field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/:entryId')
       .set('authorization', getToken)
@@ -268,7 +268,7 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('You have made no input for Diary Entry Title');
         done();
       });
@@ -289,7 +289,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 406 for an empty title field', (done) => {
+  it('Should return 400 for an empty title field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/:entryId')
       .set('authorization', getToken)
@@ -298,13 +298,13 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Your title should be 3 to 40 characters long');
         done();
       });
   });
 
-  it('Should return 406 for an invalid title field character', (done) => {
+  it('Should return 400 for an invalid title field character', (done) => {
     chai.request(app)
       .put('/api/v1/entries/:entryId')
       .set('authorization', getToken)
@@ -313,13 +313,13 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding has been an awesome experience so far...'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal("Title should not contain special characters except for ! . - @ & '");
         done();
       });
   });
 
-  it('Should return 406 for an undefined description field', (done) => {
+  it('Should return 400 for an undefined description field', (done) => {
     chai.request(app)
       .put('/api/v1/entries/:entryId')
       .set('authorization', getToken)
@@ -327,7 +327,7 @@ describe('Modify specific diary entry API', () => {
         title: 'My coding journey',
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('You have made no input for Diary Entry description');
         done();
       });
@@ -348,7 +348,7 @@ describe('Modify specific diary entry API', () => {
       });
   });
 
-  it('Should return 406 for invalid description character length', (done) => {
+  it('Should return 400 for invalid description character length', (done) => {
     chai.request(app)
       .put('/api/v1/entries/:entryId')
       .set('authorization', getToken)
@@ -357,13 +357,13 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding ha'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Your description should be 10 to 255 characters long');
         done();
       });
   });
 
-  it('Should return 406 for an invalid description character', (done) => {
+  it('Should return 400 for an invalid description character', (done) => {
     chai.request(app)
       .put('/api/v1/entries/:entryId')
       .set('authorization', getToken)
@@ -372,7 +372,7 @@ describe('Modify specific diary entry API', () => {
         description: 'Coding ha^^^'
       })
       .end((error, response) => {
-        expect(response).to.have.status(406);
+        expect(response).to.have.status(400);
         expect(response.body.message).to.equal("description should not contain special characters except for ! . - ' : ; , @ &");
         done();
       });
