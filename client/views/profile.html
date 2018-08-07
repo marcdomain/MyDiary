@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>My Diary | Profile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/reminder.css" />
+    </head>
+    <body>
+        <header>
+            <div class="nav-bar">
+                <div class="logo">
+                    <a href="index.html">MyDiary</a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="add-entry.html" class="left-nav">Add Entry</a></li>
+                        <li class="dropdown">
+                            <a href="#" id="user" aria-haspopup="true"><img id="avatar" src="img/dp.jpg"></a>
+                            <div class="dropdown-content" style="height: 70px;">
+                                <a href="index.html"><p id="signout">Sign out</p></a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="container">
+                <span class="welcome">
+                    <h1>PROFILE</h1>
+                    <h2><em>This is a Collection of Your Activities on MyDiary</em>.</h2>
+                </span>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form class="modal-form" autocomplete="off" action="profile.html">
+                            <label for="title">Entry Title</label>
+                            <input required  type="text" name="title" id="title" placeholder="Title your entry" min="1" max="20">
+
+                            <label for="calendar">Calendar</label>
+                            <ul id="calendar">
+                                <li>
+                                    <input type="date" required name="date" id="date" min="2018-08-01">
+                                </li>
+                                <li>
+                                    <input type="time" required name="time" id="time" value="00:00">
+                                </li>
+                            </ul>
+                            
+                            <input type="submit" value="Save">
+                        </form>
+                    </div>
+                </div>
+            <div class="split intro">
+                <div class="centered" id="count">
+
+                    <div class="entry-count">
+                        <div class="entries">
+                            <h2>Total Entries</h2>
+                        </div>
+                        <div class="count">
+                            <h2>8</h2>
+                        </div>
+                    </div>
+
+                    <div class="reminder">
+                        <div class="settings">
+                            <h2>Reminder Settings</h2>
+                        </div>
+                        <div class="reminder-list">
+                            <p>
+                                Add Reminder  <span class="create">+</span>
+                            </p>
+
+                            <p>
+                                <span class="new-list">Reminder 1</span>  <span class="cancel">&times</span>
+                            </p><br>
+                            <p>
+                                <span class="new-list">Reminder 2</span>   <span class="cancel">&times</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="split auth">
+                <div class="centered" id="userData">
+
+                        <article class="detailed-card">
+                            <h2 style="padding-top: 1em"> User Data </h2>
+                            <picture>
+                                <img src="img/dp.jpg" alt="D.P" class="profile-pics" / >
+                            </picture>
+                            <div class="userData">
+                                <ul>
+                                    <li>
+                                        Name: Marcus Chukwuoma
+                                    </li>
+                                    <li>
+                                        Username: Marcodynamics
+                                    </li>
+                                    <li>
+                                        Email: marcus2cu@gmail.com
+                                    </li>
+                                    <li>
+                                        Password: ************
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="entry-time">
+                                <span id="time">Created: Thur 12/07/2018</span>
+                                <input id="view" type="submit" value="Edit" style="width: 50px; text-align: center">
+                            </div>
+                        </article>
+              
+                </div>
+            </div>
+        </div>
+        <script src="js/reminder.js"></script>
+    </body>
+</html>
+

@@ -1,0 +1,532 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/body-bg.jpg');
+    background-repeat: repeat;
+    font-size: 18px;
+    font-family: 'Patua One', serif;
+    max-height: 100%;
+    width: 100%;
+}
+h1, h2, h3 {
+    letter-spacing: 2px;
+    color: #fff;
+}
+.nav-bar{
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+header{
+    height: 60px;
+    background: #000;
+    color:#fff;
+}
+header .logo{
+    float: left;
+    line-height: 60px;
+    font-size: 2em;
+    letter-spacing: 5px;
+    padding: 5px;
+}
+a, nav a{
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+.logo a, #fileName{
+    color: #fff;
+}
+.logo a:hover{
+    font-weight: bold;
+}
+header nav{
+    overflow: hidden;
+    float: right;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+nav li{
+    float: left;
+}
+nav .left-nav, nav #user, #signup{
+    color: #fff;
+    margin-left: 15px;
+    display: inline-block;
+}
+nav .left-nav, #signup {
+    padding: 8px 10px
+}
+nav .left-nav:hover, #signup:hover {
+    border-radius: 3px;
+    background:  #2b2a2a;
+}
+#avatar {
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    margin-top: -7px;
+}
+.container, .container-entries, .container-entry{
+    margin: 5% auto;
+    text-align: center
+}
+.container-entries{
+    max-width: 1300px;
+}
+.container-entry{
+    max-width: 960px;
+}
+.welcome{
+    color: #fff
+}
+.split {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    overflow-x: hidden;
+}
+
+.intro {
+    left: 0;
+}
+
+.auth {
+    right: 0;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ffffff;
+    z-index: 1;
+}
+.quote-div {
+    height: 200px;
+    padding: 5%;
+}
+.auth-form{
+    border-radius: 10px;
+    background: rgba(1, 2, 4, 0.51);
+    padding: 30px;
+    width: 500px;
+    margin: 0;
+    box-sizing: border-box;
+    display: none;
+}
+form label{
+  padding:10px;
+  color: #fff;
+  float: left;
+}
+form.modal-form label{
+  padding:10px;
+  color: #fff;
+  float: none;
+}
+form input, textarea, #signin-btn, #signup-btn{
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+.imageUpload {
+    display: block;
+}
+textarea{
+    min-height: 200px;
+}
+
+form input:focus, textarea:focus {
+    border-radius: 5px;
+    border: 1px solid lime;
+    outline:none ;
+}
+form input[type="submit"], form input.later{
+    display: inline-block;
+    width: auto;
+    padding: 10px 20px;
+    background: green;
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+form input[type=file]{
+    width: 100px;
+    color: transparent;
+}
+form input[type="submit"]:hover, .entry-time input:hover{
+    color: #fff;
+    font-weight: bold;
+}
+.add-entry-form {
+    border-radius: 10px;
+    background: rgba(1, 2, 4, 0.51);
+    padding: 30px;
+    width: 80%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(1, 2, 4, 0.8);
+    padding: 6px 8px;
+    width: 90px;
+    height: 120px;
+    text-align: center;
+    border-radius: 5px;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+#profile, #signout {
+    padding: 5px
+}
+#profile:hover, #signout:hover {
+    background: #2b2a2a;
+    border-radius: 5px;
+}
+.card, .detailed-card {
+	background: rgba(1, 2, 4, 0.51);
+	margin-bottom: 2em;	
+}
+.entry-title{
+    height: 37px;
+    padding-bottom: 10px;
+}
+.entry-title::-webkit-scrollbar {
+    display: none;
+}
+.brief-content {
+    padding: .5em;
+    height: 120px;
+}
+.full-content{
+    padding: .5em;
+}
+.brief-content p, .full-content p {
+    font-size: 90%;
+    color: #fff;
+    text-align: left;
+}
+.entry-time {
+    background: #000;
+    color: #fff; 
+    font-size: 80%;
+    padding: .5em;
+}
+.entry-time span#time {
+    margin-right: 3em;
+}
+.entry-time input {
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    background: green;
+    color: #fff;
+    padding: 3px;
+    cursor: pointer;
+}
+.profile-pics {
+    border-radius: 100%;
+    height: 200px;
+    width: 200px;
+}
+div#userData {
+    width: 60%
+}
+div.userData > ul > li {
+    text-align: left;
+    margin-left: 28%;
+}
+div#count {
+    width: 60%;
+}
+.entry-count {
+    display: flex;
+    background: rgba(1, 2, 4, 0.51);
+    width: 100%;
+}
+.entries {
+    width: 80%;
+}
+.count {
+    background: rgba(1, 2, 4, 0.51);
+    height: 100%;
+    width: 95px;
+}
+.reminder {
+    height: 235px;
+    background: rgba(1, 2, 4, 0.51);
+}
+.settings > h2 {
+    background: rgba(1, 2, 4, 0.51);
+    padding: 20px
+}
+span.create {
+    background: green;
+    border-radius: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+    margin-left: 28px;
+    cursor: pointer;
+}
+span.cancel {
+    background: red;
+    border-radius: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 7px;
+    padding-right: 7px;;
+    font-weight: bolder;
+    float: right;
+    cursor: pointer;
+}
+span.new-list{
+    float: left;
+}
+div.reminder-list{
+    padding-left: 5%;
+    padding-right: 5%
+}
+#delete {
+    background: red;
+}
+
+@media screen and (min-width: 40em) {
+    .all-entries {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .card {
+        flex: 0 1 calc(50% - 1em);
+    }
+}
+@media screen and (min-width: 70em) {
+    .card {
+        flex: 0 1 calc(25% - 1em);
+    }
+}
+@media screen and (max-width: 1325px) {
+    .all-entries {
+        width: 90%;
+        padding-left: 5%;
+    }
+}
+@media screen and (max-width: 2100px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 33%;
+    }
+}
+@media screen and (max-width: 1400px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 25%;
+    }
+    .dropdown-content {
+        left: 78%;
+    }
+}
+@media screen and (max-width: 1340px) {
+    .dropdown-content {
+        left: 82%;
+    }
+}
+@media screen and (max-width: 1078px) {
+    .dropdown-content {
+        left: 88%;
+    }
+}
+@media screen and (max-width: 1250px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 20%;
+    }
+    .dropdown-content {
+        left: 87%;
+    }
+}
+@media screen and (max-width: 1024px) {
+	header .logo{
+        font-size: 1.5em;
+    }
+    .nav-bar{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+	.split{
+        width: 100%;
+        position: absolute;
+        overflow: hidden;
+        height: 1720px;
+    }
+    .centered{
+        left: auto;
+        transform: none;
+        text-align: center;
+        margin-left: 5%;
+    }
+    div#intro{
+        top: 1%;
+        width: 90%;
+    }
+    div#auth{
+        top: 25%;
+        width: 90%;
+    }
+    .auth-form{
+        width: 100%;
+    }
+    div#count{
+        top: 0%;
+        width: 90%;
+    }
+    div#userData{
+        top: 45%;
+        width: 90%;
+    }
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 38%;
+    }
+    .count{
+        width: 200px;
+    }
+    .dropdown-content {
+        left: 88%;
+    }
+}
+@media screen and (max-width: 900px) {
+    .dropdown-content {
+        left: 89%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .dropdown-content {
+        left: 84%;
+    }
+    .split{
+        height: 1300px;
+    }
+}
+@media screen and (max-width: 700px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 33%;
+    }
+}
+@media screen and (max-width: 640px) {
+    h2.entry-title {
+        padding-top: 20px;
+    }
+}
+@media screen and (max-width: 500px) {
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 28%;
+    }
+}
+@media screen and (max-width: 820px) {
+    .dropdown-content {
+        left: 88%;
+    }
+}
+@media screen and (max-width: 790px) {
+    .dropdown-content {
+        left: 85%;
+    }   
+}
+@media screen and (max-width: 570px) {
+    .dropdown-content {
+        left: 80%;
+    }
+}
+@media screen and (max-width: 490px) {
+    .dropdown-content {
+        left: 78%;
+    }
+}
+@media screen and (max-width: 414px) {
+    .dropdown-content {
+        left: 75%;
+    }
+    header .logo{
+        font-size: 1em;
+    }
+    .logo a:hover{
+        font-weight: normal;
+    }
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 24%;
+    }
+    .entry-time span#time {
+        margin-right: 1em;
+    }
+    .count{
+        width: 150px;
+    }
+    .split{
+        height: 900px;
+    }
+    div#auth{
+        top: 25%;
+    }
+}
+@media screen and (max-width: 412px) {
+    .split{
+        height: 1020px;
+    }
+}
+@media screen and (max-width: 412px) and (max-height: 732px){
+    .split{
+        height: 800px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .dropdown-content {
+        left: 72%;
+    }
+    div.userData > ul > li {
+        text-align: left;
+        margin-left: 20%;
+    }
+}
+
+@media screen and (max-width: 375px) and (max-height: 668px){
+    .split{
+        height: 900px;
+    }
+}
+@media screen and (max-width: 360px) {
+    .split{
+        height: 850px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .dropdown-content {
+        left: 67%;
+    }
+    .nav-bar{
+        padding-left: 0;
+        padding-right: 5px;
+    }
+    .count{
+        width: 70px;
+    }
+}

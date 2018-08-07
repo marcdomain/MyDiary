@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>My Diary | View Diary Entry</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/reminder.css" />
+    </head>
+    <body>
+        <header>
+            <div class="nav-bar">
+                <div class="logo">
+                    <a href="index.html">MyDiary</a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="add-entry.html" class="left-nav">Add Entry</a></li>
+                        <li class="dropdown">
+                            <a href="#" id="user" aria-haspopup="true"><img id="avatar" src="img/dp.jpg"></a>
+                            <div class="dropdown-content">
+                                <a href="profile.html"><p id="profile">Profile</p></a><hr>
+                                <a href="index.html"><p id="signout">Sign out</p></a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="container-entry">
+            <h1 class="page-label">Content of Diary Entry</h1>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form autocomplete="off" action="view-all-entries.html">
+                        <p style="color: #fff">You sure you want to delete?</p>
+                        <input type="submit" value="Delete" id="delete" style="font-weight: bold">
+                    </form>
+                </div>
+            </div>
+
+            <div class="all-entries">
+                <article class="detailed-card">
+                    <h2 class="entry-title">My Programming Journey </h2>
+                    <picture class="full-image">
+                        <img style="width: 100%; height: auto; padding-top: 10px" src="img/thought.jpg" / >
+                    </picture>
+                    <div class="full-content">
+                        <p>
+                            Lorem Ipsium Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                            Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                            Lorem Ipsium Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                            Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium<br>
+                            Lorem Ipsium Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                            Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.<br>
+                            Lorem Ipsium Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                            Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                            <p>Lorem Ipsium Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium.
+                                    Lorem IpsiumLorem IpsiumLorem IpsiumLorem IpsiumLorem Ipsium</p>
+                        </p>
+                    </div>
+                    <div class="entry-time">
+                        <span id="time">Created At: 12/07/2018 10:00</span>
+                        <a href="add-entry.html"><input id="modify" type="submit" value="Modify" style="width: 50px; text-align: center;"></a>
+                        <input type="button" class="create later" id="delete" value="Delete" style="width: 50px; text-align: center; background: red;">
+                    </div>
+                </article>
+            </div>
+        </div>
+        <script src="js/reminder.js"></script>
+    </body>
+</html>
