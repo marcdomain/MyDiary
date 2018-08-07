@@ -59,23 +59,23 @@ class UserAuthHandler {
       .then((result) => {
         if (result.rowCount !== 0) {
           const compHash = compareSync(request.body.password, result.rows[0].password);
-          if (compHash) {
-            const authUser = result.rows;
-            const token = generateToken(authUser);
-            response.status(200)
+          const authUser = result.rows;
+          const token = generateToken(authUser);
+          if (!compHash) {
+            return response.status(401)
               .json({
-                message: `Welcome back ${params[0]}`,
-                yourToken: token
+                status: 'error',
+                message: 'Incorrect password',
               });
           }
-          response.status(401)
+          return response.status(200)
             .json({
-              status: 'error',
-              message: 'Incorrect password',
+              message: `Welcome back ${params[0]}`,
+              yourToken: token
             });
         }
         if (result.rowCount === 0) {
-          response.status(404)
+          return response.status(404)
             .json({
               status: 'error',
               message: 'User not found. Please signup',
