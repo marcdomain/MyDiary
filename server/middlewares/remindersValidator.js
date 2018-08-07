@@ -18,7 +18,7 @@ class ReminderSettingsValidator {
     let { title, time, setdate } = request.body;
 
     if (title === undefined) {
-      return response.status(406)
+      return response.status(400)
         .json({
           status: 'error',
           message: 'You have made no input for Diary Entry Title',
@@ -27,13 +27,13 @@ class ReminderSettingsValidator {
 
     title = title.trim();
     if (title === '') {
-      return response.status(406)
+      return response.status(400)
         .json({
           message: 'Title field cannot be empty',
         });
     }
     if (title.length < 3 || title.length > 20) {
-      return response.status(406)
+      return response.status(400)
         .json({
           message: 'Your title should be 3 to 20 characters long',
         });
@@ -41,14 +41,14 @@ class ReminderSettingsValidator {
 
     const validTitleText = /^[a-z0-9-.!@&' ]+$/i;
     if (!validTitleText.test(title)) {
-      return response.status(406)
+      return response.status(400)
         .json({
           message: "Title should not contain special characters except for ! . - @ & '",
         });
     }
 
     if (setdate === undefined) {
-      return response.status(406)
+      return response.status(400)
         .json({
           status: 'error',
           message: 'You have made no input for reminder date',
@@ -64,7 +64,7 @@ class ReminderSettingsValidator {
     }
 
     if (time === undefined) {
-      return response.status(406)
+      return response.status(400)
         .json({
           status: 'error',
           message: 'You have made no input for reminder time',

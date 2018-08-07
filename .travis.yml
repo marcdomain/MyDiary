@@ -10,7 +10,6 @@ before_script:
 - psql -c "create user marcus with password 'macodynamics';" -U postgres
 - psql -c 'create database mydiarydb_test;' -U postgres
 - npm install
-- npm run createTables
 script:
 - npm test
 - npm run coverage

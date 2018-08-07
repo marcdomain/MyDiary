@@ -33,7 +33,6 @@ class UserAuthHandler {
         response.status(201)
           .json({
             message: `Congratulations ${params[1]}! Signup was successful`,
-            authUser,
             yourToken: token
           });
       })
