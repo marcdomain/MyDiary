@@ -168,14 +168,6 @@ class DiaryEntriesValidator {
    * @memberof DiaryEntriesValidator
    */
   static modifyEntryValidator(req, res, next) {
-    const foundEntry = entries.find(entry => entry.id === parseInt(req.params.entryId, 10));
-    if (!foundEntry) {
-      return res.status(404)
-        .json({
-          message: 'Invalid Entry Id',
-        });
-    }
-
     let {
       username, email, title, description
     } = req.body;
@@ -292,8 +284,6 @@ class DiaryEntriesValidator {
           message: "description should not contain special characters except for ! . - ' : ; , @ &",
         });
     }
-
-    req.body.foundEntry = foundEntry;
     return next();
   }
 }

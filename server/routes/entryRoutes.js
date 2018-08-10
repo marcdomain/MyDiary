@@ -12,6 +12,6 @@ const entriesRouter = express.Router();
 entriesRouter.get('/entries', getAllEntries);
 entriesRouter.get('/entries/:entryId', getADiaryEntryValidator, getADiaryEntry);
 entriesRouter.post('/entries', postEntryValidator, postEntry);
-entriesRouter.put('/entries/:entryId', modifyEntryValidator, modifyEntry);
+entriesRouter.put('/entries/:entryId', getADiaryEntryValidator, modifyEntryValidator, modifyEntry);
 
 export default entriesRouter;
