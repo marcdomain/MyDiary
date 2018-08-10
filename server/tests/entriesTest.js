@@ -366,7 +366,7 @@ describe('Modify specific diary entry API', () => {
       .put('/api/v1/entries/50')
       .end((err, res) => {
         expect(res).to.have.status(404);
-        expect(res.body.message).to.equal('Invalid Entry Id');
+        expect(res.body.message).to.equal('Entry not found');
         done();
       });
   });
