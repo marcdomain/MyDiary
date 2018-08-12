@@ -22,7 +22,7 @@ const introQuote = () =>{
     quotes.map((v, i, arr) => {
         setInterval(function(){
             document.querySelector('#quotes').innerHTML = arr[Math.floor(Math.random()*arr.length)].quote;
-        }, 3000)
+        }, 5000)
     });
 }
 
