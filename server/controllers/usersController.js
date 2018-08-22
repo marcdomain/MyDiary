@@ -62,7 +62,7 @@ class UserAuthHandler {
           if (compHash) {
             const authUser = result.rows;
             const token = generateToken(authUser);
-            response.status(200)
+            return response.status(200)
               .json({
                 message: `Welcome back ${params[0]}`,
                 yourToken: token

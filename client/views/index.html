@@ -41,7 +41,7 @@
                         <h1>Sign up</h1>
                         <form autocomplete="off" id="signupForm">
                             <label for="name">Full Name: </label> <span class="authMessage"></span>
-                            <input type="text" name="name" id="name" placeholder="Enter your Full Name">
+                            <input type="text" required name="name" id="name" placeholder="Enter your Full Name">
 
                             <label for="username">Username: </label> <span class="authMessage"></span>
                             <input type="text" required name="username" id="username" placeholder="Create username">
@@ -58,12 +58,12 @@
 
                     <div  class="auth-form">
                         <h1>Sign in</h1>
-                            <form id = "signin" action="view-all-entries.html">
+                            <form id = "signinForm">
                                 <label for="username">Username: </label> <span class="authMessage"></span>
-                                <input type="text" required name="username" id="username1" placeholder="Input your username">
+                                <input type="text" required name="username" id="user" placeholder="Input your username">
                     
                                 <label for="password">Password: </label> <span class="authMessage"></span>
-                                <input type="password" required name="password" id="password1" placeholder="Input your password">
+                                <input type="password" required name="password" id="pass" placeholder="Input your password">
                     
                                 <input id="signin-btn" type="submit" value="Submit">
                             </form>
@@ -76,6 +76,7 @@
         <script src="../js/switch-auth-form.js"></script>
         <script src="../js/fetch/utils.js"></script>
         <script src="../js/fetch/signup.js"></script>
+        <script src="../js/fetch/login.js"></script>
     </body>
 </html>
 

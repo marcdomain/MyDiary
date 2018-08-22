@@ -18,8 +18,8 @@ class Utils {
   }
 
   static clearLogin() {
-    document.querySelector('#username1').value = '';
-    document.querySelector('#password1').value = '';
+    document.querySelector('#user').value = '';
+    document.querySelector('#pass').value = '';
   }
 
   static clearAddEntry() {
