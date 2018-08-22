@@ -138,8 +138,7 @@ form input, textarea, #signin-btn, #signup-btn{
     box-sizing: border-box;
 }
 span.message{
-    /* visibility: hidden; */
-    display: none
+    display: none;
 }
 .imageUpload {
     display: block;
