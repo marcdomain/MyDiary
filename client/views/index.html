@@ -39,17 +39,17 @@
                     
                     <div class="auth-form">
                         <h1>Sign up</h1>
-                        <form autocomplete="off" action="add-entry.html">
-                            <label for="name">Full Name</label>
-                            <input required  type="text" name="name" id="name" placeholder="Enter your Full Name">
+                        <form autocomplete="off" id="signupForm">
+                            <label for="name">Full Name: </label> <span class="authMessage"></span>
+                            <input type="text" name="name" id="name" placeholder="Enter your Full Name">
 
-                            <label for="username">Username</label>
+                            <label for="username">Username: </label> <span class="authMessage"></span>
                             <input type="text" required name="username" id="username" placeholder="Create username">
                             
-                            <label for="email">Email</label>
+                            <label for="email">Email: </label> <span class="authMessage"></span>
                             <input type="email" required name="email" id="email" placeholder="example@mail.com">
             
-                            <label for="password">Password</label>
+                            <label for="password">Password: </label> <span class="authMessage"></span>
                             <input type="password" name="password" required id="password" placeholder="Create password">
                             
                             <input id="signup-btn" type="submit" value="Submit">
@@ -59,10 +59,10 @@
                     <div  class="auth-form">
                         <h1>Sign in</h1>
                             <form id = "signin" action="view-all-entries.html">
-                                <label for="username">Username</label>
+                                <label for="username">Username: </label> <span class="authMessage"></span>
                                 <input type="text" required name="username" id="username1" placeholder="Input your username">
                     
-                                <label for="password">Password</label>
+                                <label for="password">Password: </label> <span class="authMessage"></span>
                                 <input type="password" required name="password" id="password1" placeholder="Input your password">
                     
                                 <input id="signin-btn" type="submit" value="Submit">
@@ -74,6 +74,8 @@
         </div>
         <script src="../js/quotes.js"></script>
         <script src="../js/switch-auth-form.js"></script>
+        <script src="../js/fetch/utils.js"></script>
+        <script src="../js/fetch/signup.js"></script>
     </body>
 </html>
 

@@ -120,7 +120,7 @@ nav .left-nav:hover, #signup:hover {
     box-sizing: border-box;
     display: none;
 }
-form label{
+form label, span.authMessage {
   padding:10px;
   color: #fff;
   float: left;
@@ -136,6 +136,10 @@ form input, textarea, #signin-btn, #signup-btn{
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
+}
+span.message{
+    /* visibility: hidden; */
+    display: none
 }
 .imageUpload {
     display: block;
