@@ -54,6 +54,9 @@ const login = (eventBtn) => {
         return;
       }
 
+      message = '&#9989';
+      Utils.displayMessage(message, 'lime', 4);
+      Utils.displayMessage(message, 'lime', 5);
       localStorage.setItem('token', result.yourToken);
       setTimeout(() => {
         location.assign('view-all-entries.html');

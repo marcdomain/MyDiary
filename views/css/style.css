@@ -120,7 +120,7 @@ nav .left-nav:hover, #signup:hover {
     box-sizing: border-box;
     display: none;
 }
-form label, span.authMessage {
+form label, span.formFeedback {
   padding:10px;
   color: #fff;
   float: left;

@@ -21,118 +21,123 @@ const signup = (event) => {
 
       message = 'You have made no input for name';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage(data.message, 'orange', 0);
         return;
       }
 
       message = 'name field cannot be empty';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage(data.message, 'orange', 0);
         return;
       }
 
       message = 'name should be 5 to 50 characters long';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage(data.message, 'orange', 0);
         return;
       }
 
       message = 'name can only contain alphabets and whitespace';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage(data.message, 'orange', 0);
         return;
       }
 
       message = 'You have made no input for username';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage(data.message, 'orange', 1);
         return;
       }
 
       message = 'Username field cannot be empty';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage(data.message, 'orange', 1);
         return;
       }
 
       message = 'username should be 2 to 25 characters long';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage(data.message, 'orange', 1);
         return;
       }
 
       message = 'Remove whitespace from your username';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage(data.message, 'orange', 1);
         return;
       }
 
       message = 'Only Alphanumeric charaters are allowed for username';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage(data.message, 'orange', 1);
         return;
       }
 
       message = 'Username taken! Login if it is yours or signup with a new username';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage(data.message, 'orange', 1);
         return;
       }
 
       message = 'You have made no input for email';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage(data.message, 'orange', 2);
         return;
       }
 
       message = 'Email field cannot be empty';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage(data.message, 'orange', 2);
         return;
       }
 
       message = 'Your email format is invalid';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage(data.message, 'orange', 2);
         return;
       }
 
       message = 'Your email should be 10 to 50 characters long';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage(data.message, 'orange', 2);
         return;
       }
 
       message = 'Email taken! Login if it is yours or signup with a new email';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage(data.message, 'orange', 2);
         return;
       }
 
       message = 'You have made no input for password';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 3);
+        Utils.displayMessage(data.message, 'orange', 3);
         return;
       }
 
       message = 'Password field cannot be empty';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 3);
+        Utils.displayMessage(data.message, 'orange', 3);
         return;
       }
 
       message = 'Password should be 4 to 16 characters long';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 3);
+        Utils.displayMessage(data.message, 'orange', 3);
         return;
       }
 
       message = 'Remove whitespace from your password';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 3);
+        Utils.displayMessage(data.message, 'orange', 3);
         return;
       }
 
+      message = '&#9989';
+      Utils.displayMessage(message, 'lime', 0);
+      Utils.displayMessage(message, 'lime', 1);
+      Utils.displayMessage(message, 'lime', 2);
+      Utils.displayMessage(message, 'lime', 3);
       localStorage.setItem('token', data.yourToken);
       setTimeout(() => {
         location.assign('add-entry.html');

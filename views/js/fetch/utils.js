@@ -1,12 +1,12 @@
 class Utils {
   static displayMessage(message, color, fieldIndex) {
-    const authMessage = document.querySelectorAll('.authMessage')[fieldIndex];
-    authMessage.innerHTML = message;
-    authMessage.style.display = 'inline-block';
-    authMessage.style.color = color;
+    const formFeedback = document.querySelectorAll('.formFeedback')[fieldIndex];
+    formFeedback.innerHTML = message;
+    formFeedback.style.display = 'inline-block';
+    formFeedback.style.color = color;
 
     setTimeout(() => {
-      authMessage.style.display = 'none';
+      formFeedback.style.display = 'none';
     }, 5000);
   }
 
