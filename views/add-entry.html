@@ -30,7 +30,7 @@
                     <span class="close">&times;</span>
                     <form class="modal-form" autocomplete="off" action="profile.html">
                         <label for="title">Entry Title</label>
-                        <input required  type="text" name="title" id="title" placeholder="Title your entry">
+                        <input required  type="text" name="title" id="reminderTitle" placeholder="Title your entry">
 
                         <label for="calendar">Calendar</label>
                         <ul id="calendar">
@@ -48,11 +48,11 @@
             </div>
 
             <div class="add-entry-form">
-                <form autocomplete="off" action="view-all-entries.html">
-                    <label for="title">Title: </label> <span class="authMessage"></span>
+                <form autocomplete="off" id="entryForm">
+                    <label for="title">Title: </label> <span class="formFeedback"></span>
                     <input required  type="text" name="title" id="title" placeholder="Title your thoughts/feelings">
 
-                    <label for="description">Description: </label> <span class="authMessage"></span>
+                    <label for="description">Description: </label> <span class="formFeedback"></span>
                     <textarea type="textarea" required name="description" id="description" placeholder="Describe your thoughts/feelings"></textarea>
                     
                     <div id="imageUpload">

@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import {
-  defaultRouter, userRouter, entriesRouter, reminderRouter,
+  defaultRouter, userRouter, entriesRouter, reminderRouter, tokenRouter
 } from './server/routes/index';
 
 const app = express();
@@ -21,6 +21,7 @@ app.use((request, response, next) => {
 app.use('/api/v1', userRouter);
 app.use('/api/v1', entriesRouter);
 app.use('/api/v1', reminderRouter);
+app.use('api/v1', tokenRouter);
 app.use('/', defaultRouter);
 
 const port = process.env.PORT || 3310;
