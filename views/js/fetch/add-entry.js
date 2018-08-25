@@ -68,6 +68,24 @@ const addEntry = (event) => {
         return;
       }
 
+      message = 'No token supplied';
+      if (data.message === message) {
+        Utils.notification(data.message, 'white', 'red');
+        return;
+      }
+
+      message = 'JsonWebTokenError';
+      if (data.message.name === message) {
+        Utils.notification(data.message.name, 'white', 'red');
+        return;
+      }
+
+      message = 'Invalid token supplied';
+      if (data.message === message) {
+        Utils.notification(data.message, 'white', 'red');
+        return;
+      }
+
       message = 'Your entry is recorded!';
       if (data.message === message) {
         message = '&#9989';

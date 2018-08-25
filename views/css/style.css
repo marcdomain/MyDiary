@@ -309,6 +309,19 @@ div.reminder-list{
     background: red;
 }
 
+.pageAlert{
+    padding-top: 12px;
+    height: 30px;
+    text-align: center;
+    background: rgb(24, 85, 216);
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    transition-timing-function: ease-out;
+    transition: 1s;
+    background: transparent;
+}
+
 @media screen and (min-width: 40em) {
     .all-entries {
         display: flex;

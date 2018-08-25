@@ -20,17 +20,16 @@ const verifyToken = (request, response, next) => {
   jwt.verify(token, process.env.KEYCODE, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
-        response.status(403)
+        return response.status(403)
           .json({
             status: 'error',
             message: 'Invalid token supplied',
           });
-      } else {
-        response.status(403)
-          .json({
-            message: error,
-          });
       }
+      return response.status(403)
+        .json({
+          message: error,
+        });
     }
     request.authData = authData;
     return next();
