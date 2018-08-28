@@ -23,28 +23,4 @@ class Utils {
       pageAlert.style.color = 'transparent';
     }, 3000);
   }
-
-  static clearSignup() {
-    document.querySelector('#name').value = '';
-    document.querySelector('#username').value = '';
-    document.querySelector('#email').value = '';
-    document.querySelector('#password').value = '';
-  }
-
-  static clearLogin() {
-    document.querySelector('#user').value = '';
-    document.querySelector('#pass').value = '';
-  }
-
-  static clearAddEntry() {
-    document.querySelector('#title').value = '';
-    document.querySelector('#description').value = '';
-    document.querySelector('#image').value = '';
-  }
-
-  static clearCreateReminder() {
-    document.querySelector('#title').value = '';
-    document.querySelector('#date').value = '';
-    document.querySelector('#time').value = '00:00';
-  }
 }

@@ -322,6 +322,31 @@ div.reminder-list{
     background: transparent;
 }
 
+.unauthorized h1{
+    font-size: 3em;
+}
+
+.unauthorized p{
+    color: orange;
+    font-size: 1.5em;
+    font-weight: bold
+}
+
+span.dot1{
+    transition: 0.5s;
+    transition-timing-function: ease-out;
+}
+
+span.dot2{
+    transition: 1.5s;
+    transition-timing-function: ease-out;
+}
+
+span.dot3{
+    transition: 3.5s;
+    transition-timing-function: ease-out;
+}
+
 @media screen and (min-width: 40em) {
     .all-entries {
         display: flex;
